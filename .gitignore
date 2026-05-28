@@ -1,0 +1,11 @@
+*.aux
+*.log
+*.toc
+*.out
+*.idx
+*.ilg
+*.ind
+*.listing
+*.pdf
+*.synctex.gz
+chapters/*.aux
