@@ -638,16 +638,46 @@ $\Lambda' = \alpha\Lambda$ 对某 $\alpha \in \C^*$。
 
 \begin{proof}
 设 $\varphi\colon \C/\Lambda \to \C/\Lambda'$ 为全纯群同构。
-提升到万有覆盖 $\C$，得到全纯函数 $\tilde\varphi\colon \C \to \C$，
-满足 $\tilde\varphi(z + \omega) - \tilde\varphi(z) \in \Lambda'$ 对所有
-$\omega \in \Lambda$。
 
-由于 $z \mapsto \tilde\varphi(z + \omega) - \tilde\varphi(z)$ 连续且值在离散集
-$\Lambda'$ 中，它必为常数。对 $\omega$ 求导得
-$\tilde\varphi'(z + \omega) = \tilde\varphi'(z)$，即 $\tilde\varphi'$ 以 $\Lambda$
-为周期。由\cref{thm:elliptic-basic}(1)（全纯椭圆函数为常数），
-$\tilde\varphi'(z) = \alpha$（常数）。故 $\tilde\varphi(z) = \alpha z + \beta$。
-由 $\tilde\varphi(\Lambda) \subset \Lambda'$ 和满射性，$\alpha\Lambda = \Lambda'$。
+\textbf{关键思路：从"卷起来的"回到"展开的"。}
+复环面 $\C/\Lambda$ 是把复平面 $\C$ 按照格 $\Lambda$ "卷起来"得到的
+（就像把一张纸沿两个方向卷成甜甜圈）。
+反过来，$\C$ 就是 $\C/\Lambda$ "展开后"的样子——
+拓扑学中叫做\textbf{万有覆盖}（universal cover）。
+投影映射 $\pi\colon \C \to \C/\Lambda$（$z \mapsto z + \Lambda$）
+把 $\C$ 中相差一个格向量 $\omega \in \Lambda$ 的点映到同一个点。
+
+现在，$\varphi$ 是环面之间的映射。我们想知道它"展开后"是什么样的。
+覆盖空间理论保证：$\varphi$ 可以"提升"为一个全纯函数
+$\tilde\varphi\colon \C \to \C$，使得下图交换：
+\[
+  \begin{tikzcd}
+    \C \arrow[r, "\tilde\varphi"] \arrow[d, "\pi"'] & \C \arrow[d, "\pi'"] \\
+    \C/\Lambda \arrow[r, "\varphi"'] & \C/\Lambda'
+  \end{tikzcd}
+\]
+即 $\pi' \circ \tilde\varphi = \varphi \circ \pi$。
+直觉上：在展开的平面上做的事情，卷回去之后要和 $\varphi$ 一致。
+
+\textbf{推导 $\tilde\varphi$ 的形状。}
+由于 $\pi(z + \omega) = \pi(z)$（差一个格向量不影响），
+$\tilde\varphi(z + \omega)$ 和 $\tilde\varphi(z)$ 在 $\C/\Lambda'$
+中代表同一个点，即
+$\tilde\varphi(z + \omega) - \tilde\varphi(z) \in \Lambda'$。
+
+函数 $z \mapsto \tilde\varphi(z + \omega) - \tilde\varphi(z)$ 是连续的，
+但它的值只能落在离散集 $\Lambda'$ 中——
+连续函数的像如果是离散的，就必须是常数。
+所以对每个固定的 $\omega$，这个差是一个不依赖于 $z$ 的常数。
+
+对 $z$ 求导：$\tilde\varphi'(z + \omega) = \tilde\varphi'(z)$，
+即 $\tilde\varphi'$ 以 $\Lambda$ 为周期。
+一个全纯的双周期函数（椭圆函数）如果没有极点，
+由 Liouville 定理必为常数（\cref{thm:elliptic-basic}(1)）。
+所以 $\tilde\varphi'(z) = \alpha$ 是常数，积分得 $\tilde\varphi(z) = \alpha z + \beta$。
+
+最后，$\tilde\varphi$ 把 $\Lambda$ 映到 $\Lambda'$ 内（因为差值在 $\Lambda'$ 中），
+又由满射性得 $\alpha\Lambda = \Lambda'$。
 \end{proof}
 
 \begin{corollary}
