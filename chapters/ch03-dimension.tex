@@ -4,5 +4,30 @@
 % ============================================================================
 % 对应 Diamond \& Shurman Chapter 3
 
-% TODO: Riemann-Roch、M_k 和 S_k 的维数公式、
-%       同余子群的维数公式
+上一章我们已经把模曲线 $X(\Gamma)$ 做成了紧黎曼面，并且知道了
+\[
+  \dim \Sk_2(\Gamma)=g\bigl(X(\Gamma)\bigr).
+\]
+现在终于可以回答一个看似“纯计算”、其实非常几何的问题：给定权 $k$ 和同余子群 $\Gamma$，空间
+\[
+  \Mk_k(\Gamma),\qquad \Sk_k(\Gamma)
+\]
+到底有多大？
+
+对 $\SL_2(\Z)$，答案会产生那串熟悉的数字
+\[
+  1,1,1,1,2,1,2,2,2,2,3,\dots
+\]
+而对 $\Gamma_0(N)$，答案则由亏格、椭圆点和尖点的个数共同决定。本章的主线正是：
+\begin{enumerate}
+  \item 用 Riemann--Roch 解释“为什么维数本质上是线丛截面数”；
+  \item 完整证明 $\SL_2(\Z)$ 的维数公式；
+  \item 推广到一般同余子群，尤其是 $\Gamma_0(N)$；
+  \item 通过习题把维数公式同 $E_4,E_6,\Delta$ 与 Hecke 算子真正连起来。
+\end{enumerate}
+
+\input{chapters/ch03/s1-motivation}
+\input{chapters/ch03/s2-riemann-roch}
+\input{chapters/ch03/s3-dimension-sl2z}
+\input{chapters/ch03/s4-dimension-general}
+\input{chapters/ch03/s5-exercises}

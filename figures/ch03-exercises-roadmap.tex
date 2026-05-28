@@ -1,0 +1,22 @@
+% figures/ch03-exercises-roadmap.tex
+% Roadmap for the exercise section
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  >=Stealth,
+  node distance=1.7cm and 1.5cm,
+  box/.style={draw, rounded corners, thick, align=center, fill=violet!8, minimum width=3.2cm, minimum height=1cm}
+]
+  \node[box] (a) {练习 1--2\\全模群公式};
+  \node[box, right=of a] (b) {练习 3\\$\Gamma_0(N)$ 的权 $2$ 维数};
+  \node[box, below=of a] (c) {练习 4\\$E_4,E_6$ 生成小权空间};
+  \node[box, below=of b] (d) {练习 5\\用 Hecke 算子检验特征值};
+
+  \draw[->,thick] (a) -- (b);
+  \draw[->,thick] (a) -- (c);
+  \draw[->,thick] (b) -- (d);
+  \draw[->,thick] (c) -- (d);
+\end{tikzpicture}
+\caption{习题安排的主线：先把维数公式算熟，再把它同 $E_4,E_6,\Delta$ 以及 Hecke 算子连接起来。}
+\label{fig:dimension-exercise-roadmap}
+\end{figure}

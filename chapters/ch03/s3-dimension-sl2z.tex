@@ -1,0 +1,166 @@
+\section{全模群情形的维数公式}
+\label{sec:dim-sl2z}
+% ============================================================================
+
+如果只看 $\Gamma=\SL_2(\Z)$，维数公式美得几乎像谜语：大多数偶权空间的维数都只比 $\lfloor k/12\rfloor$ 多一个单位，但偏偏在 $k\equiv 2\pmod{12}$ 时又少掉这一维。我们现在要做的，就是把这条规律完整证明出来。
+
+核心思路其实只有两步。第一步，用 valence formula 控制一个模形式总共有多少零点；这会立刻告诉我们“小权时根本容不下 cusp form”。第二步，用权 $12$ 的 cusp form $\Delta$ 把高权尖点形式降到低 $12$ 个权的模形式，从而得到一个递推。
+
+\input{figures/ch03-dimMk-staircase}
+
+\begin{theorem}[全模群的维数公式]
+\label{thm:dim-sl2z}
+对 $\SL_2(\Z)$，有：
+\begin{enumerate}
+  \item 若 $k<0$ 或 $k$ 为奇数，则
+        \[
+          \dim \Mk_k(\SL_2(\Z))=0.
+        \]
+  \item $\dim \Mk_0(\SL_2(\Z))=1$，而 $\dim \Mk_2(\SL_2(\Z))=0$。
+  \item 若 $k\ge 4$ 为偶数，则
+        \[
+          \dim \Mk_k(\SL_2(\Z))=
+          \begin{cases}
+            \left\lfloor\dfrac{k}{12}\right\rfloor+1,& k\not\equiv 2 \pmod{12},\\[6pt]
+            \left\lfloor\dfrac{k}{12}\right\rfloor,& k\equiv 2 \pmod{12}.
+          \end{cases}
+        \]
+  \item 若 $k\ge 4$ 为偶数，则
+        \[
+          \dim \Sk_k(\SL_2(\Z))=\dim \Mk_k(\SL_2(\Z))-1,
+        \]
+        而 $\dim \Sk_2(\SL_2(\Z))=0$。
+\end{enumerate}
+\end{theorem}
+
+\begin{example}[先看两个最重要的数]
+\label{ex:dim-m12-s24}
+由定理立刻得到
+\[
+  \dim \Mk_{12}(\SL_2(\Z))=2,
+  \qquad
+  \dim \Sk_{24}(\SL_2(\Z))=2.
+\]
+前者意味着权 $12$ 模形式由一条 Eisenstein 方向和一条 cusp direction 组成；事实上
+\[
+  \Mk_{12}(\SL_2(\Z))=\C E_{12}\oplus \C\Delta.
+\]
+后者则说明权 $24$ 的尖点形式已经不是“自动特征形式”的一维世界了；例如
+\[
+  \Sk_{24}(\SL_2(\Z))=\Delta\Mk_{12}(\SL_2(\Z))
+  =\C(\Delta E_{12})\oplus \C\Delta^2.
+\]
+真正想找到 Hecke 特征形式时，就必须在这个二维空间里对角化算子。
+\end{example}
+
+\begin{lemma}[valence formula]
+\label{lem:valence-formula}
+设 $f\in \Mk_k(\SL_2(\Z))$ 为非零模形式，权 $k\ge 0$。则
+\[
+  \ord_\infty(f)+\frac{1}{2}\ord_i(f)+\frac{1}{3}\ord_\rho(f)
+  +\sum_{\tau\in \SL_2(\Z)\backslash\HH\setminus\{i,\rho\}} \ord_\tau(f)
+  =\frac{k}{12}.
+\]
+这里 $\rho=e^{2\pi i/3}$，而求和按轨道各取一个代表。
+\end{lemma}
+
+\begin{example}[用 valence formula 立刻看出 $\Delta$ 的特殊性]
+\label{ex:valence-delta}
+$\Delta$ 是权 $12$ 的 cusp form，在 $\infty$ 处恰有一阶零点，而且它在 $\HH$ 上无零点。于是 valence formula 左边只有一项贡献：
+\[
+  \ord_\infty(\Delta)=1=\frac{12}{12}.
+\]
+这正说明 $\Delta$ 是“最小可能”的非零 cusp form，也解释了为什么它在维数递推里会扮演基本单位的角色。
+\end{example}
+
+\begin{proof}
+\textbf{第 1 步：奇权必为零。}
+若 $k$ 为奇数，而 $f\in \Mk_k(\SL_2(\Z))$，则因为 $-I\in\SL_2(\Z)$，有
+\[
+  f(\tau)=f((-I)\tau)=(-1)^k f(\tau)=-f(\tau).
+\]
+故 $f=0$。同理，负权全纯模形式也不可能存在，因此 $k<0$ 时维数为零。
+
+\textbf{第 2 步：把 $\Mk_k$ 分成 Eisenstein 部分与 cusp 部分。}
+对每个偶数 $k\ge 4$，第二章已构造出非零 Eisenstein 级数 $E_k\in \Mk_k(\SL_2(\Z))$，其常数项为 $1$，因此不是 cusp form。于是
+\[
+  \Mk_k(\SL_2(\Z))=\Sk_k(\SL_2(\Z))\oplus \C E_k,
+\]
+从而
+\[
+  \dim \Mk_k=\dim \Sk_k+1 \qquad (k\ge 4\text{ even}).
+\]
+
+\textbf{第 3 步：小于 $12$ 时不存在非零 cusp form。}
+设 $0<k<12$ 为偶数，且 $f\in \Sk_k(\SL_2(\Z))$ 非零。因为 $f$ 是 cusp form，
+\[
+  \ord_\infty(f)\ge 1.
+\]
+另一方面，valence formula 给出
+\[
+  \ord_\infty(f)\le \frac{k}{12}<1,
+\]
+矛盾。因此
+\[
+  \Sk_k(\SL_2(\Z))=0 \qquad (0<k<12,\ k\text{ even}).
+\]
+于是
+\[
+  \dim \Mk_k(\SL_2(\Z))=1 \quad (k=4,6,8,10),
+\]
+而 $k=2$ 时既没有非零 cusp form，也没有真正的 Eisenstein 级数，所以
+\[
+  \dim \Mk_2(\SL_2(\Z))=0.
+\]
+
+\textbf{第 4 步：乘上 $\Delta$ 给出递推。}
+对任意偶数 $k\ge 12$，考虑映射
+\[
+  \Phi\colon \Mk_{k-12}(\SL_2(\Z))\longrightarrow \Sk_k(\SL_2(\Z)),
+  \qquad g\longmapsto \Delta g.
+\]
+它显然线性，且因为 $\Delta$ 是权 $12$ cusp form，故像落在 $\Sk_k$ 中。
+
+这个映射还是双射。单射显然，因为 $\Delta\neq 0$。为证满射，取任意 $f\in \Sk_k(\SL_2(\Z))$。由 \cref{prop:E4-E6-Delta}，$\Delta$ 在 $\HH$ 上无零点，并且在 $\infty$ 处恰有一阶零点；又因为 $f$ 在 $\infty$ 至少有一阶零点，所以
+\[
+  \frac{f}{\Delta}
+\]
+在 $\HH$ 和尖点处都全纯。其变换律权重为 $k-12$，故 $f/\Delta\in \Mk_{k-12}(\SL_2(\Z))$。于是
+\[
+  \Sk_k(\SL_2(\Z))\cong \Mk_{k-12}(\SL_2(\Z))
+  \qquad (k\ge 12\text{ even}).
+\]
+因此
+\[
+  \dim \Mk_k=\dim \Sk_k+1=\dim \Mk_{k-12}+1
+  \qquad (k\ge 12\text{ even}).
+\]
+
+\textbf{第 5 步：解递推。}
+写 $k=12m+r$，其中 $r\in\{0,2,4,6,8,10\}$。递推反复使用 $m$ 次后，得到
+\[
+  \dim \Mk_k=\dim \Mk_r+m.
+\]
+而基例是
+\[
+  \dim \Mk_0=1,\quad \dim \Mk_2=0,\quad
+  \dim \Mk_4=\dim \Mk_6=\dim \Mk_8=\dim \Mk_{10}=1.
+\]
+于是：若 $r=2$，就有 $\dim \Mk_k=m=\lfloor k/12\rfloor$；其余偶数余类都给出
+\[
+  \dim \Mk_k=m+1=\left\lfloor\frac{k}{12}\right\rfloor+1.
+\]
+最后再用
+\[
+  \dim \Sk_k=\dim \Mk_k-1 \qquad (k\ge 4\text{ even})
+\]
+即可得到尖点形式空间的公式。
+\end{proof}
+
+\begin{remark}[与 $E_4,E_6$ 的关系]
+从维数公式还能反过来读出一个非常重要的结论：在每个偶权下，$\Mk_k(\SL_2(\Z))$ 都由满足
+\[
+  4a+6b=k
+\]
+的单项式 $E_4^aE_6^b$ 张成，而且这些单项式的个数正好等于上面的维数。这将在习题里再次出现：对 $k<12$，每个模形式都只能是 $E_4,E_6$ 的一个多项式。
+\end{remark}

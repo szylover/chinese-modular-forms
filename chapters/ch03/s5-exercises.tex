@@ -1,0 +1,215 @@
+\section{习题}
+\label{sec:dim-exercises}
+% ============================================================================
+
+这一章最重要的，不是背下某条维数公式，而是学会在不同层次上使用它：对 $\SL_2(\Z)$，它解释为什么 $\Delta$ 会在权 $12$ 首次出现；对 $\Gamma_0(N)$，它把权 $2$ 新形式的存在性直接变成亏格计算；再往后，它还会和 Hecke 算子一起，告诉我们何时一个空间自动是一维特征空间。下面五题正是按这条主线安排的。
+
+\input{figures/ch03-exercises-roadmap}
+
+\begin{exercise}
+\label{ex:dim-formula-small-k}
+利用 \cref{thm:dim-sl2z} 验证
+\[
+  \dim \Mk_k(\SL_2(\Z))
+  \quad (k=4,6,8,10,12,14)
+\]
+的数值分别为 $1,1,1,1,2,1$。
+\end{exercise}
+
+\begin{proof}[解答]
+逐个代入公式即可：
+\begin{align*}
+  \dim \Mk_4&=\left\lfloor\frac{4}{12}\right\rfloor+1=1,\\
+  \dim \Mk_6&=\left\lfloor\frac{6}{12}\right\rfloor+1=1,\\
+  \dim \Mk_8&=\left\lfloor\frac{8}{12}\right\rfloor+1=1,\\
+  \dim \Mk_{10}&=\left\lfloor\frac{10}{12}\right\rfloor+1=1,\\
+  \dim \Mk_{12}&=\left\lfloor\frac{12}{12}\right\rfloor+1=2.
+\end{align*}
+而 $14\equiv 2\pmod{12}$，因此要用“少一维”的分支：
+\[
+  \dim \Mk_{14}=\left\lfloor\frac{14}{12}\right\rfloor=1.
+\]
+这恰好得到题目中的六个数。
+\end{proof}
+
+\begin{exercise}
+\label{ex:odd-weight-zero}
+证明：若 $k$ 为奇数，则
+\[
+  \dim \Mk_k(\SL_2(\Z))=0.
+\]
+（提示：使用 $-I\in \SL_2(\Z)$。）
+\end{exercise}
+
+\begin{proof}[解答]
+设 $f\in \Mk_k(\SL_2(\Z))$。因为 $-I\in \SL_2(\Z)$，而 $(-I)\tau=\tau$，模变换律给出
+\[
+  f(\tau)=f((-I)\tau)=(-1)^k f(\tau).
+\]
+若 $k$ 为奇数，则 $(-1)^k=-1$，故
+\[
+  f(\tau)=-f(\tau).
+\]
+因此 $f\equiv 0$。于是整个空间只有零元，也就是
+\[
+  \dim \Mk_k(\SL_2(\Z))=0.
+\]
+\end{proof}
+
+\begin{exercise}
+\label{ex:weight2-gamma0N}
+利用 \cref{thm:dim-general,prop:gamma0N-ingredients} 计算
+\[
+  \dim \Sk_2(\Gamma_0(N))
+  \qquad (N=11,14,15,17,19).
+\]
+\end{exercise}
+
+\begin{proof}[解答]
+对权 $2$，有
+\[
+  \dim \Sk_2(\Gamma_0(N))=g\bigl(X_0(N)\bigr).
+\]
+所以只需计算亏格。
+
+\begin{itemize}
+  \item $N=11$：
+        \[
+          \mu=12,\quad \nu_2=0,\quad \nu_3=0,\quad \nu_\infty=2,
+        \]
+        故
+        \[
+          g=1+\frac{12}{12}-0-0-\frac22=1.
+        \]
+
+  \item $N=14$：
+        \[
+          \mu=14\left(1+\frac12\right)\left(1+\frac17\right)=24,
+          \quad \nu_2=0,
+          \quad \nu_3=0,
+          \quad \nu_\infty=4,
+        \]
+        所以
+        \[
+          g=1+\frac{24}{12}-0-0-\frac42=1.
+        \]
+
+  \item $N=15$：
+        \[
+          \mu=15\left(1+\frac13\right)\left(1+\frac15\right)=24,
+          \quad \nu_2=0,
+          \quad \nu_3=0,
+          \quad \nu_\infty=4,
+        \]
+        故同样有 $g=1$。
+
+  \item $N=17$：
+        \[
+          \mu=17\left(1+\frac1{17}\right)=18,
+          \quad \nu_2=2,
+          \quad \nu_3=0,
+          \quad \nu_\infty=2,
+        \]
+        因而
+        \[
+          g=1+\frac{18}{12}-\frac24-0-\frac22=1.
+        \]
+
+  \item $N=19$：
+        \[
+          \mu=19\left(1+\frac1{19}\right)=20,
+          \quad \nu_2=0,
+          \quad \nu_3=2,
+          \quad \nu_\infty=2,
+        \]
+        所以
+        \[
+          g=1+\frac{20}{12}-0-\frac23-\frac22=1.
+        \]
+\end{itemize}
+
+综上，五个级别全部满足
+\[
+  \dim \Sk_2(\Gamma_0(11))=
+  \dim \Sk_2(\Gamma_0(14))=
+  \dim \Sk_2(\Gamma_0(15))=
+  \dim \Sk_2(\Gamma_0(17))=
+  \dim \Sk_2(\Gamma_0(19))=1.
+\]
+\end{proof}
+
+\begin{exercise}
+\label{ex:small-weight-polynomial}
+证明：若 $f\in \Mk_k(\SL_2(\Z))$ 且 $k<12$，则 $f$ 是 $E_4$ 与 $E_6$ 的多项式。
+\end{exercise}
+
+\begin{proof}[解答]
+先看哪些权会出现非零模形式。由 \cref{thm:dim-sl2z}，当 $k<12$ 时：
+\begin{itemize}
+  \item 若 $k<0$、$k$ 为奇数或 $k=2$，则 $\Mk_k(\SL_2(\Z))=0$；此时结论平凡成立。
+  \item 若 $k=0,4,6,8,10$，则 $\dim \Mk_k(\SL_2(\Z))=1$。
+\end{itemize}
+
+而在这些权上我们都有显然的非零多项式：
+\[
+  1\in \Mk_0,
+  \qquad
+  E_4\in \Mk_4,
+  \qquad
+  E_6\in \Mk_6,
+  \qquad
+  E_4^2\in \Mk_8,
+  \qquad
+  E_4E_6\in \Mk_{10}.
+\]
+由于相应空间都是一维，每个 $f\in \Mk_k(\SL_2(\Z))$ 都必是这些显式元素的常数倍。因此 $f$ 必可写成 $E_4,E_6$ 的多项式。
+
+更具体地说：
+\[
+  \Mk_0=\C\cdot 1,
+  \quad \Mk_4=\C\cdot E_4,
+  \quad \Mk_6=\C\cdot E_6,
+  \quad \Mk_8=\C\cdot E_4^2,
+  \quad \Mk_{10}=\C\cdot E_4E_6.
+\]
+这就证明了结论。
+\end{proof}
+
+\begin{exercise}
+\label{ex:T2-on-level11}
+设 $f=q-2q^2-q^3+2q^4+q^5+2q^6-2q^7+0q^8-2q^9-2q^{10}+\cdots$ 是 $\Sk_2(\Gamma_0(11))$ 的归一化新形式。验证
+\[
+  T_2f=-2f.
+\]
+也就是说，计算 $T_2f$ 的前几项 Fourier 系数并检验它们与 $-2f$ 相同。
+\end{exercise}
+
+\begin{proof}[解答]
+由第三章的 $q$-展开公式（\cref{thm:hecke-on-q-exp} 的同级别版本），对权 $2$ 有
+\[
+  T_2f=\sum_{n\ge 1} b_n q^n,
+  \qquad
+  b_n=a_{2n}+2a_{n/2},
+\]
+其中当 $2\nmid n$ 时约定 $a_{n/2}=0$。现在用题目给出的系数
+\[
+  a_1=1,\ a_2=-2,\ a_3=-1,\ a_4=2,\ a_5=1,\ a_6=2,\ a_8=0,\ a_{10}=-2
+\]
+逐项计算：
+\begin{align*}
+  b_1&=a_2=-2,\\
+  b_2&=a_4+2a_1=2+2=4,\\
+  b_3&=a_6=2,\\
+  b_4&=a_8+2a_2=0+2(-2)=-4,\\
+  b_5&=a_{10}=-2.
+\end{align*}
+另一方面，
+\[
+  -2f=-2q+4q^2+2q^3-4q^4-2q^5+\cdots.
+\]
+比较前五项系数，完全一致：
+\[
+  T_2f=-2q+4q^2+2q^3-4q^4-2q^5+\cdots=-2f.
+\]
+因此 $f$ 的 $T_2$ 特征值确实是 $-2$。
+\end{proof}

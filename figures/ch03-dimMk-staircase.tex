@@ -1,0 +1,26 @@
+% figures/ch03-dimMk-staircase.tex
+% Staircase for dim M_k(SL_2(Z))
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=0.55cm,y=0.8cm,font=\small]
+  \draw[->] (0,0) -- (31,0) node[right] {$k$};
+  \draw[->] (0,0) -- (0,4.3) node[above] {$\dim \Mk_k(\SL_2(\Z))$};
+
+  \foreach \x in {0,4,6,8,10,12,14,16,18,20,22,24,26,28,30}
+    \draw (\x,0) -- (\x,-0.08) node[below] {\x};
+  \foreach \y in {1,2,3,4}
+    {\draw[gray!25] (0,\y) -- (30.5,\y); \node[left] at (0,\y) {\y};}
+
+  \draw[very thick,blue!70!black]
+    (0,1) -- (2,1) -- (4,1) -- (6,1) -- (8,1) -- (10,1)
+    -- (12,2) -- (14,1) -- (16,2) -- (18,2) -- (20,2) -- (22,2)
+    -- (24,3) -- (26,2) -- (28,3) -- (30,3);
+
+  \foreach \x/\y in {0/1,4/1,6/1,8/1,10/1,12/2,14/1,16/2,18/2,20/2,22/2,24/3,26/2,28/3,30/3}
+    \fill[blue!70!black] (\x,\y) circle (2pt);
+
+  \node[align=left,fill=white] at (22,3.7) {遇到 $k\equiv 2\pmod{12}$\\会“少一格”};
+\end{tikzpicture}
+\caption{$\dim \Mk_k(\SL_2(\Z))$ 的“楼梯图”。大体规律是每增加 $12$ 个权，维数增加 $1$；但在 $k\equiv 2 \pmod{12}$ 时，维数比朴素的“$\lfloor k/12\rfloor+1$”少一。}
+\label{fig:dimMk-staircase}
+\end{figure}

@@ -1,0 +1,110 @@
+\section{Riemann--Roch 定理}
+\label{sec:riemann-roch}
+% ============================================================================
+
+到这里，读者已经知道一条非常漂亮的事实：
+\[
+  \dim \Sk_2(\Gamma)=g\bigl(X(\Gamma)\bigr).
+\]
+这说明“权 $2$ 的 cusp form 个数”其实就是“模曲线的亏格”。但一旦权 $k>2$，只盯着微分形式已经不够了；我们需要一个更普遍的语言，把各种权的模形式都统一看成\textbf{某条线丛的截面}。Riemann--Roch 的作用正是：一旦知道这条线丛（或等价地，一个除子）有多大，就能算出它有多少条独立截面。
+
+朴素地说，Riemann--Roch 是“零点和极点平衡律”的全局版本。它告诉我们：在紧黎曼面上，允许某些指定极点的亚纯函数不会太多；它们的维数由除子的次数和曲面的亏格共同决定。用在模形式上，这就把解析问题变成了几何计数问题。
+
+\input{figures/ch03-line-bundle}
+
+\begin{theorem}[Riemann--Roch]
+\label{thm:riemann-roch}
+设 $X$ 为亏格 $g$ 的紧黎曼面，$D$ 为 $X$ 上的一个除子。记
+\[
+  \ell(D)=\dim_{\C} L(D),
+\]
+其中
+\[
+  L(D)=\{f\in \C(X)^\times : \divisor(f)+D\ge 0\}\cup\{0\}
+\]
+是所有“极点不超过 $D$ 所允许范围”的亚纯函数空间；再记 $K$ 为规范除子。则
+\[
+  \ell(D)-\ell(K-D)=\deg(D)-g+1.
+\]
+\end{theorem}
+
+\begin{example}[球面上的最简单情形]
+\label{ex:rr-p1}
+取 $X=\mathbb P^1(\C)$，则 $g=0$。若 $D=m[\infty]$，那么 $L(D)$ 正是次数至多为 $m$ 的有理函数，也就是多项式
+\[
+  a_0+a_1z+\cdots+a_mz^m.
+\]
+因此
+\[
+  \ell\bigl(m[\infty]\bigr)=m+1.
+\]
+这与 Riemann--Roch 完全一致，因为此时 $g=0$，而且 $\ell(K-D)=0$。
+\end{example}
+
+\begin{corollary}[大次数时的线性公式]
+\label{cor:rr-large-degree}
+若 $\deg(D)\ge 2g-1$，则
+\[
+  \ell(D)=\deg(D)-g+1.
+\]
+\end{corollary}
+
+\begin{proof}
+因为 $\deg(K)=2g-2$，故
+\[
+  \deg(K-D)\le -1.
+\]
+负次数除子不可能支撑非零亚纯函数，所以 $\ell(K-D)=0$。代入 \cref{thm:riemann-roch} 即得。
+\end{proof}
+
+\begin{example}[为什么这条推论适合计维数]
+\label{ex:rr-count-sections}
+若某条线丛对应的除子次数已经足够大，那么维数不再需要额外修正项，直接就是“次数减亏格加一”。这正是模形式空间在大权时呈线性增长的根源：权越高，对应线丛次数越大，维数也就越接近一条严格的线性函数。
+\end{example}
+
+\begin{proposition}[模形式是线丛截面]
+\label{prop:modforms-line-bundle}
+设 $\Gamma$ 为有限指数子群并且 $-I\in\Gamma$。对偶数权 $k$，一个模形式
+\[
+  f\in \Mk_k(\Gamma)
+\]
+可以看成紧模曲线 $X(\Gamma)$ 上某条线丛 $\mathcal L^{k/2}$ 的一个全纯截面；若 $f\in\Sk_k(\Gamma)$，则对应截面在每个尖点都再多消失一次。
+\end{proposition}
+
+\begin{proof}[证明思路]
+权 $2$ 的情形已经在上一章证明：$f(\tau)d\tau$ 给出 $X(\Gamma)$ 上的全纯 $1$-形式。对一般偶数权，只要把
+\[
+  f(\tau)(d\tau)^{k/2}
+\]
+看成规范丛 $\Omega^1$ 的 $k/2$ 次张量幂的局部截面即可。困难在于：椭圆点和尖点的局部参数并不是简单的 $\tau-\tau_0$，而是带有分歧的坐标。这会把“局部全纯”翻译成某个带修正的除子条件。完整证明见 Diamond--Shurman, §3.5。
+\end{proof}
+
+对 $\Gamma=\SL_2(\Z)$，这种“修正”在特殊点 $i$ 和 $\rho=e^{2\pi i/3}$ 处最清楚。因为它们分别有稳定子阶 $2$ 与 $3$，局部参数不是 $\tau-i$、$\tau-\rho$，而是
+\[
+  u=\left(\frac{\tau-i}{\tau+i}\right)^2,
+  \qquad
+  v=\left(\frac{\tau-\rho}{\tau-\bar\rho}\right)^3.
+\]
+因此，权 $k$ 的模形式在 $X(1)$ 上自然对应一个带分数系数的“轨道除子”
+\[
+  D_k^{\mathrm{orb}}=\frac{k}{4}[i]+\frac{k}{3}[\rho]+\frac{k}{2}[\infty].
+\]
+把它换成真正的整系数除子时，就会出现
+\[
+  \left\lfloor\frac{k}{4}\right\rfloor,
+  \qquad
+  \left\lfloor\frac{k}{3}\right\rfloor,
+  \qquad
+  \frac{k}{2}
+\]
+这样的整数部分；这正是后面一般维数公式里椭圆点修正项的来源。
+
+\begin{remark}[本节真正得到的东西]
+Riemann--Roch 并不是单独用来证明某一个具体维数，而是给出一台“计数机器”：
+\begin{enumerate}
+  \item 先把模形式翻译为某条线丛的截面；
+  \item 再把这条线丛翻译成一个除子 $D$；
+  \item 最后用 \cref{thm:riemann-roch} 计算 $\ell(D)$。
+\end{enumerate}
+对 $X(1)$，我们还可以用 valence formula 和 $\Delta$ 的性质给出更直接的证明；但对一般 $\Gamma_0(N)$，Riemann--Roch 才是系统性的来源。
+\end{remark}
