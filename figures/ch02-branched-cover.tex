@@ -1,0 +1,42 @@
+% figures/ch02-branched-cover.tex
+% 模曲线到 X(1)\cong P^1 的分歧覆盖示意图
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small, scale=1.0]
+  % top surface
+  \draw[thick, fill=blue!8] (-1.8,2.2) .. controls (-0.8,3.2) and (1.2,3.3) .. (2.1,2.5)
+    .. controls (3.0,1.8) and (2.6,0.7) .. (1.5,0.3)
+    .. controls (0.2,-0.2) and (-1.3,0.2) .. (-1.8,1.2) -- cycle;
+  \node at (0.25,1.8) {$X(\Gamma)$};
+  \fill[red!80!black] (-0.7,2.15) circle (2pt);
+  \fill[red!80!black] (1.35,2.45) circle (2pt);
+  \fill[green!60!black] (0.1,0.75) circle (2pt);
+  \node[above left, red!80!black] at (-0.7,2.15) {上方的 $i$};
+  \node[above right, red!80!black] at (1.35,2.45) {上方的 $\rho$};
+  \node[below, green!60!black] at (0.1,0.75) {上方的尖点};
+
+  % arrows
+  \draw[->, very thick] (-0.3,0.15) -- (-0.3,-1.0);
+  \draw[->, very thick] (0.7,0.15) -- (0.7,-1.0);
+  \node[right] at (0.7,-0.45) {$f\colon X(\Gamma)\to X(1)$};
+
+  % sphere / projective line
+  \draw[thick, fill=orange!10] (-2.0,-2.7) .. controls (-0.9,-3.5) and (1.4,-3.5) .. (2.2,-2.6)
+    .. controls (3.0,-1.7) and (2.2,-0.8) .. (0.4,-0.7)
+    .. controls (-1.2,-0.7) and (-2.4,-1.5) .. (-2.0,-2.7) -- cycle;
+  \node at (0.2,-1.95) {$X(1)\cong \mathbb{P}^1$};
+  \fill[red!80!black] (-0.95,-1.25) circle (2.2pt);
+  \fill[red!80!black] (1.2,-1.2) circle (2.2pt);
+  \fill[green!60!black] (0.15,-2.7) circle (2.2pt);
+  \node[above, red!80!black] at (-0.95,-1.25) {$i$};
+  \node[above, red!80!black] at (1.2,-1.2) {$\rho$};
+  \node[below, green!60!black] at (0.15,-2.7) {$\infty$};
+
+  \node[align=center] at (4.4,-1.9)
+    {Riemann--Hurwitz 要做的事：\\
+     度数 $\mu$ 给出主项，\\
+     分歧点 $i,\rho,\infty$ 给出修正项。};
+\end{tikzpicture}
+\caption{紧化模曲线到 $X(1)\cong\mathbb{P}^1$ 的覆盖示意图。分歧现象集中在椭圆点和尖点，它们正是亏格公式中的修正项来源。}
+\label{fig:branched-cover-modular-curve}
+\end{figure}

@@ -1,0 +1,140 @@
+% ============================================================================
+\section{紧化：$X(\Gamma)$ 与尖点}
+\label{sec:compactification}
+\label{sec:compactification-X}
+% ============================================================================
+
+\textbf{上一节留下了什么缺口？}
+
+我们已经把 $Y(\Gamma)=\Gamma\backslash\HH$ 变成了黎曼面，
+但它还不是紧的。
+几何上说，你总可以沿着某个尖点方向越走越高；
+解析上说，这意味着许多漂亮的紧曲面工具——尤其是 Riemann--Roch——还不能直接上场。
+所以我们接下来的目标非常明确：把这些"漏掉的无穷远点"补回来。
+
+\textbf{核心想法是把尖点当作真正的复点加入进去。}
+在尖点附近，$\tau$ 本身不是好坐标，
+因为平移 $\tau\mapsto\tau+h$ 会把不同的 $\tau$ 识别为同一点。
+但指数坐标
+\[
+  q_h=e^{2\pi i\tau/h}
+\]
+会把这种平移变成同一个值；
+于是尖点附近的条带就会变成一个穿孔圆盘。
+把穿孔中心补上，尖点就成了普通的复点。
+
+\textbf{这样做的收益是什么？}
+我们得到紧黎曼面
+\[
+  X(\Gamma)=\Gamma\backslash\HH^*=\Gamma\backslash\bigl(\HH\cup\mathbb{P}^1(\Q)\bigr),
+\]
+其中新加进去的点就是尖点。
+以后谈亏格、微分形式和模形式的几何解释时，真正起作用的对象都是这个紧化后的 $X(\Gamma)$。
+
+\begin{definition}[尖点宽度与局部参数]
+\label{def:cusp-width}
+设 $s\in\mathbb{P}^1(\Q)$ 是 $\Gamma$ 的一个尖点，取
+$\sigma\in\SL_2(\Z)$ 满足 $\sigma\infty=s$。
+则
+\[
+  \sigma^{-1}\Gamma\sigma
+\]
+是 $\infty$ 的一个稳定子群，其中存在唯一正整数 $h$，使得
+\[
+  \pm\begin{pmatrix}1&h\\0&1\end{pmatrix}\in \sigma^{-1}\Gamma\sigma,
+  \qquad
+  \pm\begin{pmatrix}1&m\\0&1\end{pmatrix}\notin \sigma^{-1}\Gamma\sigma
+  \quad (0<m<h).
+\]
+这个 $h$ 称为尖点 $s$ 的\textbf{宽度}（width）。
+在该尖点附近的局部参数取为
+\[
+  q_s=q_h=e^{2\pi i\sigma^{-1}\tau/h}.
+\]
+当 $s=\infty$ 时，这就是 $q_h=e^{2\pi i\tau/h}$。
+\end{definition}
+
+\textbf{为什么这个坐标自然？}
+若 $\tau\sim \tau+h$，则
+\[
+  e^{2\pi i(\tau+h)/h}=e^{2\pi i\tau/h}e^{2\pi i}=e^{2\pi i\tau/h}.
+\]
+也就是说，尖点方向上的平移对 $q_h$ 来说完全看不见。
+因此 $q_h$ 恰好是商空间在尖点附近真正能"看见"的坐标。
+
+\input{figures/ch02-cusp-q-coordinate}
+
+\begin{theorem}
+\label{thm:x-gamma-compact-riemann}
+把每个尖点 $s$ 对应的穿孔圆盘用坐标 $q_s$ 填上中心点 $q_s=0$，
+便得到一个紧黎曼面
+\[
+  X(\Gamma)=\Gamma\backslash\HH^*.
+\]
+换言之，$X(\Gamma)$ 是 $Y(\Gamma)$ 的紧化，而每个新加进去的点正对应一个尖点。
+\end{theorem}
+
+\begin{proof}[思路]
+先看尖点 $\infty$。
+取足够大的 $T$，考虑条带
+\[
+  S_{h,T}=\{\tau\in\HH:\ |\Re\tau|\le h/2,\ \Im\tau>T\}.
+\]
+由于 $\tau\mapsto\tau+h$ 属于稳定子，$S_{h,T}$ 在商空间里描述了尖点附近全部点。
+映射 $q_h=e^{2\pi i\tau/h}$ 把它送到穿孔圆盘
+$0<|q_h|<e^{-2\pi T/h}$，并且是双全纯的。
+于是只要把 $q_h=0$ 补进去，就得到一个真正的坐标盘。
+
+对一般尖点 $s$，先用某个 $\sigma\in\SL_2(\Z)$ 把它搬到 $\infty$，
+再做同样的构造即可。
+因为有限指数子群只有有限多个尖点，
+所以我们只补有限多个点；
+而去掉这些尖点邻域后，剩下部分来自截断基本域的商，是紧的。
+故整体得到一个紧黎曼面。
+\end{proof}
+
+\begin{proposition}[$\Gamma_0(N)$ 的尖点个数]
+\label{prop:number-of-cusps-gamma0N}
+$\Gamma_0(N)$ 的尖点个数为
+\[
+  \nu_\infty(N)=\sum_{d\mid N}\varphi\bigl(\gcd(d,N/d)\bigr).
+\]
+特别地，$\SL_2(\Z)$ 只有一个尖点，即 $\infty$。
+\end{proposition}
+
+\begin{proof}[说明]
+在\cref{sec:congruence-subgroups} 里我们已经见过：
+尖点就是 $\Gamma$ 在 $\mathbb{P}^1(\Q)$ 上的轨道。
+对 $\Gamma_0(N)$，这些轨道可由分母数据分类，
+最终恰好得到上式。
+我们这里把它当作一个已知而非常有用的计数公式；
+在亏格计算中，$\nu_\infty(N)$ 会直接进入 Riemann--Hurwitz 公式。
+\end{proof}
+
+\begin{example}[$X(1)$、$X_0(2)$ 与 $X_0(3)$ 的尖点]
+\label{ex:cusps-small-levels}
+\begin{enumerate}
+  \item 对 $\SL_2(\Z)$，矩阵
+    $S=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ 把 $\infty$ 送到 $0$，
+    因而所有有理边界点都与 $\infty$ 等价，所以只有一个尖点。
+  \item 对 $\Gamma_0(2)$，$\infty$ 与 $0$ 不再等价，故尖点恰有
+    \[
+      \{\infty,0\}.
+    \]
+    计数公式也给出
+    $\varphi(1)+\varphi(1)=2$。
+  \item 对 $\Gamma_0(3)$ 同样有两个尖点：
+    \[
+      \{\infty,0\}.
+    \]
+    因为 $3$ 是素数，公式仍给出 $2$。
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+把尖点补进去以后，模形式在尖点处的 $q$-展开就有了几何含义：
+"在尖点处全纯"，就是在新加进来的那个复点处全纯；
+"是 cusp form"，就是在那个点处取值为 $0$。
+下一节计算亏格时，尖点不仅是补上的点，
+还是覆盖映射分歧的来源之一。
+\end{remark}

@@ -1,0 +1,189 @@
+% ============================================================================
+\section{习题}
+\label{sec:ch02-exercises}
+% ============================================================================
+
+这一节的习题有一个非常明确的目标：
+把本章看起来分散的三条线——复结构、尖点紧化、亏格与微分形式——真正缝成一个整体。
+如果只读正文，很容易觉得"局部坐标"、"Riemann--Hurwitz"、"$q$-展开"是三种互不相干的技巧；
+做完这些题以后，你会更清楚地看到：它们其实都在回答同一个问题——
+模曲线作为一个黎曼面，到底如何承载模形式的几何。
+
+特别是最后两题，请不要把它们只当成计算练习。
+第 4 题会让你亲手看到权 $2$ 变换律为何与微分形式完全等价；
+第 5 题则把 genus formula 真正变成一台可操作的机器。
+当你能熟练在这两种语言之间切换时，
+本章最核心的思想就已经内化了。
+
+\begin{exercise}
+\label{ex:ch02-x01-genus0}
+用 Riemann--Hurwitz 公式验证 $X_0(1)=X(1)$ 的亏格为 $0$。
+（把映射 $X(1)\to X(1)$ 看成恒等映射即可。）
+\end{exercise}
+
+\begin{proof}[解答]
+取恒等映射
+\[
+  f\colon X(1)\longrightarrow X(1).
+\]
+它的度数是 $1$，并且没有分歧点，所以
+\[
+  2g\bigl(X(1)\bigr)-2=1\cdot\bigl(2g\bigl(X(1)\bigr)-2\bigr)+0.
+\]
+这当然恒成立；为了得到具体亏格，只需记住
+$X(1)\cong\mathbb{P}^1(\C)$，而黎曼球面的亏格就是 $0$。
+因此
+\[
+  g\bigl(X_0(1)\bigr)=g\bigl(X(1)\bigr)=0.
+\]
+
+若你愿意，也可以把它看成\cref{thm:genus-formula-modular-curves} 的特例：
+$\mu=1$，$\nu_2=1$，$\nu_3=1$，$\nu_\infty=1$，于是
+\[
+  g=1+\frac1{12}-\frac14-\frac13-\frac12=0.
+\]
+两种做法完全一致。
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch02-x011-genus1}
+计算 $X_0(11)$ 的亏格：
+\[
+  \mu=12,\qquad \nu_2=0,\qquad \nu_3=0,\qquad \nu_\infty=2.
+\]
+证明它等于 $1$。
+\end{exercise}
+
+\begin{proof}[解答]
+直接代入 genus formula：
+\[
+  g\bigl(X_0(11)\bigr)
+  =1+\frac{12}{12}-\frac{0}{4}-\frac{0}{3}-\frac{2}{2}
+  =1+1-1=1.
+\]
+所以 $X_0(11)$ 是亏格 $1$ 的紧黎曼面。
+这也是为什么它后来会以一条椭圆曲线的身份再次出现。
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch02-eta-11}
+设
+\[
+  f(\tau)=\eta(\tau)^2\eta(11\tau)^2,
+\]
+其中 Dedekind $\eta$ 函数为
+\[
+  \eta(\tau)=q^{1/24}\prod_{n=1}^{\infty}(1-q^n),
+  \qquad q=e^{2\pi i\tau}.
+\]
+证明 $f\in \Sk_2\bigl(\Gamma_0(11)\bigr)$。
+\end{exercise}
+
+\begin{proof}[解答]
+先看权。
+标准的 Dedekind $\eta$ 变换公式告诉我们，$\eta$ 具有权 $1/2$ 的变换性质，
+因此 $\eta(\tau)^2\eta(11\tau)^2$ 的总权为
+\[
+  \frac12\cdot 2+\frac12\cdot 2=2.
+\]
+再用标准的 $\eta$-积判别法（Ligozat 判别法）可知，
+这个 $\eta$-积在 $\Gamma_0(11)$ 下具有平凡角色，因而确实满足权 $2$ 的模变换律。
+
+接着看尖点处的消失性。
+在 $\infty$ 处，由乘积定义直接得到
+\[
+  f(\tau)=q^{1/12}\,q^{11/12}\prod_{n\ge 1}(1-q^n)^2(1-q^{11n})^2
+  =q\prod_{n\ge 1}(1-q^n)^2(1-q^{11n})^2.
+\]
+所以它的 $q$-展开从 $q^1$ 开始，常数项为 $0$，故在 $\infty$ 处消失。
+
+对另一尖点 $0$，可用 $\eta$-积在尖点处的阶数公式：
+对
+$f(\tau)=\prod_{\delta\mid 11}\eta(\delta\tau)^{r_\delta}$，
+其中 $r_1=r_{11}=2$，有
+\[
+  \ord_{0}(f)=\frac1{24}\sum_{\delta\mid 11} r_\delta\frac{11/\delta}{\gcd(1,11/\delta)}
+  =\frac1{24}(2\cdot 11+2\cdot 1)=1.
+\]
+因此在尖点 $0$ 处也消失。
+综上，$f$ 在所有尖点处都为零，故
+\[
+  f\in \Sk_2\bigl(\Gamma_0(11)\bigr).
+\]
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch02-weight2-invariance}
+设 $\omega=f(\tau)d\tau$，其中 $f\in \Sk_2(\Gamma)$。
+证明：$\omega$ 在 $\Gamma$ 作用下不变，当且仅当 $f$ 满足权 $2$ 变换律。
+\end{exercise}
+
+\begin{proof}[解答]
+对任意
+$\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\Gamma$，
+有
+\[
+  d(\gamma\tau)=\frac{d\tau}{(c\tau+d)^2}.
+\]
+所以
+\[
+  \gamma^*\omega=f(\gamma\tau)d(\gamma\tau)
+  =f(\gamma\tau)\frac{d\tau}{(c\tau+d)^2}.
+\]
+于是
+\[
+  \gamma^*\omega=\omega
+  \iff f(\gamma\tau)\frac{1}{(c\tau+d)^2}=f(\tau)
+  \iff f(\gamma\tau)=(c\tau+d)^2f(\tau).
+\]
+这正是权 $2$ 变换律。
+因此 $\omega$ 的 $\Gamma$-不变性与 $f$ 是权 $2$ 模形式完全等价。
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch02-genus-zero-list}
+用 Riemann--Hurwitz 公式证明：
+\[
+  X_0(N) \text{ 在 } N\in\{1,2,3,4,5,6,7,8,9,10,12,13,16,18,25\}
+\]
+时亏格都等于 $0$。
+\end{exercise}
+
+\begin{proof}[解答]
+对 $\Gamma_0(N)$，我们使用公式
+\[
+  g\bigl(X_0(N)\bigr)=1+\frac{\mu}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}-\frac{\nu_\infty}{2},
+\]
+其中
+\[
+  \mu=N\prod_{p\mid N}\left(1+\frac1p\right),
+  \qquad
+  \nu_\infty=\sum_{d\mid N}\varphi\bigl(\gcd(d,N/d)\bigr).
+\]
+对小 $N$，$\nu_2,\nu_3$ 可由椭圆点计数公式直接算出。
+把结果列表如下：
+
+\begin{center}
+\begin{tabular}{c|ccccccccccccccc}
+$N$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 12 & 13 & 16 & 18 & 25 \\
+\midrule
+$\mu$ & 1 & 3 & 4 & 6 & 6 & 12 & 8 & 12 & 12 & 18 & 24 & 14 & 24 & 36 & 30 \\
+$\nu_2$ & 1 & 1 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 2 & 0 & 2 & 0 & 0 & 2 \\
+$\nu_3$ & 1 & 0 & 1 & 0 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 2 & 0 & 0 & 0 \\
+$\nu_\infty$ & 1 & 2 & 2 & 3 & 2 & 4 & 2 & 4 & 4 & 4 & 6 & 2 & 6 & 8 & 6
+\end{tabular}
+\end{center}
+
+现在逐项代入即可。例如：
+\[
+  g\bigl(X_0(5)\bigr)=1+\frac{6}{12}-\frac24-0-\frac22=0,
+\]
+\[
+  g\bigl(X_0(13)\bigr)=1+\frac{14}{12}-\frac24-\frac23-\frac22=0,
+\]
+\[
+  g\bigl(X_0(25)\bigr)=1+\frac{30}{12}-\frac24-0-\frac62=0.
+\]
+其余各个 $N$ 的代入结果也都恰好等于 $0$，
+故题中列出的所有 $X_0(N)$ 都是亏格 $0$ 的模曲线。
+\end{proof}

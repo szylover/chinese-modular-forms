@@ -1,0 +1,178 @@
+% ============================================================================
+\section{微分形式与模形式}
+\label{sec:differentials-and-modforms}
+\label{sec:modular-forms-differentials}
+% ============================================================================
+
+\textbf{为什么模形式会和微分形式扯上关系？}
+
+到目前为止，模形式看起来像是一类满足特殊变换律的函数。
+但这种定义虽然能算，几何味道却还不够强。
+如果我们想真正理解模形式为什么和亏格、除子、Riemann--Roch 连在一起，
+最自然的办法就是把它们改写成黎曼面上的几何对象。
+
+\textbf{最关键的观察发生在权 $2$。}
+一个形如
+\[
+  \omega=f(\tau)\,d\tau
+\]
+的 $1$-形式在变量替换下会多出一个 Jacobian 因子。
+而这个 Jacobian 因子恰好是 $(c\tau+d)^{-2}$；
+所以要让 $\omega$ 对 $\Gamma$ 不变，
+$f$ 就必须满足权 $2$ 的模变换律。
+换句话说：\emph{权 $2$ 根本不是偶然冒出来的数字，它正是微分 $d\tau$ 的几何权重。}
+
+\textbf{这一点一旦看懂，就立刻得到一个极其漂亮的结论。}
+权 $2$ cusp form 与 $X(\Gamma)$ 上的全纯 $1$-形式完全等价。
+因此
+\[
+  \dim \Sk_2(\Gamma)=g\bigl(X(\Gamma)\bigr).
+\]
+这就是解析空间维数和曲面亏格之间最直接、最优雅的桥梁。
+
+\begin{definition}[上半平面上的 $1$-形式]
+\label{def:one-form-on-h}
+在 $\HH$ 上，一个全纯 $1$-形式写作
+\[
+  \omega=f(\tau)\,d\tau,
+\]
+其中 $f$ 是 $\HH$ 上的全纯函数。
+若 $\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\SL_2(\R)$，则
+\[
+  \gamma\tau=\frac{a\tau+b}{c\tau+d},
+  \qquad
+  d(\gamma\tau)=\frac{d\tau}{(c\tau+d)^2}.
+\]
+\end{definition}
+
+\begin{proposition}[下降到商空间的条件]
+\label{prop:descent-weight-2}
+设 $\omega=f(\tau)\,d\tau$ 是 $\HH$ 上的全纯 $1$-形式。
+则 $\omega$ 对 $\Gamma$ 不变，也就是
+\[
+  \gamma^*\omega=\omega \qquad (\gamma\in\Gamma),
+\]
+当且仅当
+\[
+  f(\gamma\tau)=(c\tau+d)^2f(\tau)
+\]
+对所有 $\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\Gamma$ 成立。
+也就是说，$f$ 恰好是权 $2$ 的模形式。
+\end{proposition}
+
+\begin{proof}
+由拉回公式，
+\[
+  \gamma^*\omega=f(\gamma\tau)\,d(\gamma\tau)
+  =f(\gamma\tau)\frac{d\tau}{(c\tau+d)^2}.
+\]
+要让它等于 $f(\tau)\,d\tau$，
+恰好等价于
+\[
+  f(\gamma\tau)=(c\tau+d)^2f(\tau).
+\qedhere
+\]
+\end{proof}
+
+\begin{theorem}
+\label{thm:s2-holomorphic-differentials}
+设 $\Gamma$ 为有限指数子群并且 $-I\in\Gamma$。
+则赋值
+\[
+  f \longmapsto \omega_f=f(\tau)\,d\tau
+\]
+给出线性同构
+\[
+  \Sk_2(\Gamma)\cong H^0\bigl(X(\Gamma),\Omega^1\bigr),
+\]
+其中右边是紧模曲线 $X(\Gamma)$ 上全纯 $1$-形式的空间。
+\end{theorem}
+
+\begin{proof}
+由\cref{prop:descent-weight-2}，权 $2$ 条件保证 $f(\tau)d\tau$ 能从 $\HH$ 下降到
+$Y(\Gamma)$ 上。
+还差最后一步：说明它在每个尖点处也能全纯延拓到紧化后的 $X(\Gamma)$。
+
+先看尖点 $\infty$，设其宽度为 $h$，局部坐标为
+\[
+  q_h=e^{2\pi i\tau/h}.
+\]
+则
+\[
+  d\tau=\frac{h}{2\pi i}\frac{dq_h}{q_h}.
+\]
+于是
+\[
+  \omega_f=f(\tau)\,d\tau
+  =\frac{h}{2\pi i}f(\tau(q_h))\frac{dq_h}{q_h}.
+\]
+若 $f$ 是 cusp form，则其 $q_h$-展开没有常数项，即
+$f(\tau(q_h))=a_1q_h+a_2q_h^2+\cdots$。
+因此上式变成
+\[
+  \omega_f=\frac{h}{2\pi i}(a_1+a_2q_h+\cdots)dq_h,
+\]
+在 $q_h=0$ 处全纯。
+对一般尖点 $s=\sigma\infty$，把 $f$ 换成 $f|_2\sigma$ 完全同理。
+所以 $f\mapsto \omega_f$ 的像确实落在
+$H^0\bigl(X(\Gamma),\Omega^1\bigr)$ 中。
+
+反过来，若 $\omega$ 是 $X(\Gamma)$ 上的全纯 $1$-形式，
+把它拉回到 $\HH$，便可写成 $f(\tau)d\tau$。
+拉回后的 $\Gamma$-不变性迫使 $f$ 满足权 $2$ 变换律；
+而 $\omega$ 在尖点处全纯，又迫使 $f$ 在每个尖点的常数项为 $0$。
+故 $f\in\Sk_2(\Gamma)$。
+线性性显然，于是得到同构。
+\end{proof}
+
+\begin{corollary}
+\label{cor:dim-s2-genus}
+\[
+  \dim \Sk_2(\Gamma)=g\bigl(X(\Gamma)\bigr).
+\]
+\end{corollary}
+
+\begin{proof}
+紧黎曼面上全纯 $1$-形式空间的维数等于其亏格。
+结合\cref{thm:s2-holomorphic-differentials} 即得。
+\end{proof}
+
+\begin{example}[$X_0(11)$ 上唯一的权 $2$ cusp form]
+\label{ex:x011-weight2}
+由\cref{ex:genus-small-levels,cor:dim-s2-genus}，
+$g\bigl(X_0(11)\bigr)=1$，故
+\[
+  \dim \Sk_2\bigl(\Gamma_0(11)\bigr)=1.
+\]
+因此 $\Sk_2\bigl(\Gamma_0(11)\bigr)$ 由一条非零形式张成；
+它的归一化生成元可以写成
+\[
+  f(\tau)=q-2q^2-q^3+2q^4+q^5+\cdots.
+\]
+对应的微分形式 $f(\tau)d\tau$ 就是 $X_0(11)$ 上的全纯 $1$-形式，
+这也解释了为什么 $X_0(11)$ 本身是一条椭圆曲线。
+\end{example}
+
+对于更高偶权 $k$，同样的变换计算告诉我们：
+若 $f\in\Mk_k(\Gamma)$，则
+\[
+  f(\tau)(d\tau)^{k/2}
+\]
+会下降成 $X(\Gamma)$ 上规范丛 $\Omega$ 的 $k/2$ 次张量幂
+$\Omega^{\otimes k/2}$ 的一个局部截面。
+若 $f$ 在各尖点也全纯，则它就是一个全纯截面；
+若还在尖点消失，则对应的零阶数更高。
+
+\input{figures/ch02-modforms-differentials}
+
+因此，Riemann--Roch 可以把模形式空间的维数写成几何维数公式。
+对含 $-I$ 的群，一个典型的前瞻性公式是
+\[
+  \dim \Mk_k(\Gamma)
+  =(k-1)(g-1)+\left\lfloor\frac{k}{4}\right\rfloor\nu_2
+   +\left\lfloor\frac{k}{3}\right\rfloor\nu_3
+   +\left(\frac{k}{2}-1\right)\nu_\infty,
+\]
+再配上常数项修正，就会得到\cref{ch:dimension} 中真正的维数公式。
+这里我们先记住它传达的核心信息：
+\emph{模形式的维数，本质上是一条紧黎曼面上线丛截面空间的维数。}

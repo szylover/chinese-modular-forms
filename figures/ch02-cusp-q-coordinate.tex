@@ -1,0 +1,42 @@
+% figures/ch02-cusp-q-coordinate.tex
+% 尖点附近的条带通过 q_h=e^{2\pi i\tau/h} 映到小穿孔圆盘
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small, scale=1.0]
+  % strip
+  \draw[thick] (-4.5,-1.7) rectangle (-1.5,1.7);
+  \fill[blue!6] (-4.5,-1.7) rectangle (-1.5,1.7);
+  \draw[dashed] (-4.5,0) -- (-1.5,0);
+  \node[left] at (-4.55,0) {$T$};
+  \node[above] at (-3.0,1.8) {$\{\,|\Re\tau|\le h/2,\ \Im\tau>T\,\}$};
+  \draw[<->] (-4.3,-1.95) -- (-1.7,-1.95);
+  \node[below] at (-3.0,-1.95) {宽度 $h$};
+  \draw[->, thick, green!50!black] (-3.0,1.2) -- (-3.0,2.0);
+  \node[green!50!black, right] at (-2.95,1.8) {$\Im\tau\to\infty$};
+  \node[below] at (-3.0,-2.35) {在条带中，$\tau\sim \tau+h$};
+
+  % arrow
+  \draw[->, very thick] (-0.9,0) -- (0.7,0);
+  \node[above, align=center] at (-0.1,0.1)
+    {$q_h=e^{2\pi i\tau/h}$\\把平移变成同一个点};
+
+  % punctured disk
+  \draw[thick] (3.2,0) circle (1.7);
+  \fill[orange!12] (3.2,0) circle (1.65);
+  \fill[white] (3.2,0) circle (0.18);
+  \draw[red!80!black, thick, ->] (4.35,0.65) arc[start angle=35,end angle=310,radius=1.32];
+  \node at (3.2,0) {$\circ$};
+  \node[below] at (3.2,-1.95) {小穿孔圆盘 $0<|q_h|<\varepsilon$};
+  \node[right] at (3.35,0.05) {$q_h=0$};
+
+  % filling point
+  \draw[->, very thick] (5.2,0) -- (6.6,0);
+  \node[above] at (5.9,0.15) {补上穿孔};
+  \draw[thick, rounded corners=10pt] (7.0,-1.35) rectangle (9.0,1.35);
+  \fill[red!80!black] (8.0,0) circle (2.4pt);
+  \node[below] at (8.0,-1.65) {加入尖点后的坐标盘};
+  \node[above, align=center] at (8.0,1.8) {把 $q_h=0$ 也纳入后\\尖点就像普通复点};
+\end{tikzpicture}
+\caption{尖点附近的局部模型。宽度为 $h$ 的条带在 $q_h=e^{2\pi i\tau/h}$ 下变成小穿孔圆盘；把穿孔点 $q_h=0$ 补上，就得到紧化后的尖点。}
+\label{fig:cusp-q-coordinate}
+\end{figure}

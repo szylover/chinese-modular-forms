@@ -1,0 +1,30 @@
+% figures/ch02-modforms-differentials.tex
+% 模形式与微分形式 / 线丛截面的对应
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  >=Stealth,
+  font=\small,
+  box/.style={draw, rounded corners=4pt, minimum width=3.5cm, minimum height=1.15cm, align=center},
+  arrow/.style={->, thick}
+]
+  \node[box, fill=blue!10] (mk) at (0,2.2)
+    {$f\in \Mk_k(\Gamma)$\\满足 $f(\gamma\tau)=(c\tau+d)^k f(\tau)$};
+  \node[box, fill=green!10] (tensor) at (5.3,2.2)
+    {$f(\tau)(d\tau)^{k/2}$\\看作 $\Omega^{\otimes k/2}$ 的局部截面};
+  \node[box, fill=orange!12] (forms) at (5.3,0)
+    {$H^0\bigl(X(\Gamma),\Omega^{\otimes k/2}\bigr)$\\全纯截面空间};
+  \node[box, fill=red!10] (k2) at (0,0)
+    {$f\in \Sk_2(\Gamma)$\\在每个尖点都消失};
+
+  \draw[arrow] (mk) -- node[above] {几何化} (tensor);
+  \draw[arrow] (tensor) -- node[right] {下降到 $X(\Gamma)$} (forms);
+  \draw[arrow] (k2) -- node[below] {$\omega=f(\tau)d\tau$} (forms);
+
+  \node[align=center] at (2.65,-1.65)
+    {特别地，当 $k=2$ 时，尖点形式就是全纯 $1$-形式；\\
+     因而 $\dim \Sk_2(\Gamma)=g\bigl(X(\Gamma)\bigr)$.};
+\end{tikzpicture}
+\caption{模形式的几何解释。权 $2$ 时得到真正的微分形式；更高偶权时得到规范丛张量幂的全纯截面。}
+\label{fig:modforms-differentials}
+\end{figure}

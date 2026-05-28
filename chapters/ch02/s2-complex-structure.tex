@@ -1,0 +1,140 @@
+% ============================================================================
+\section{模曲线 $Y(\Gamma)$ 的复结构}
+\label{sec:modular-curve-complex-structure}
+\label{sec:y-gamma-complex-structure}
+% ============================================================================
+
+\textbf{我们到底想解决什么问题？}
+
+在\cref{sec:modular-curves-moduli,sec:congruence-subgroups} 中，我们已经把
+$Y(\Gamma)=\Gamma\backslash\HH$ 视为一个分类空间：它的点代表带有某种级结构的椭圆曲线。
+但如果它只是一个"点的集合"，那我们几乎什么都做不了：
+不能自然地谈全纯函数，不能谈亚纯函数，也不能谈微分形式与线丛。
+
+\textbf{核心想法非常朴素。}
+上半平面 $\HH$ 本身已经是黎曼面，
+所以我们希望把商映射
+\[
+  \pi\colon \HH \longrightarrow Y(\Gamma)=\Gamma\backslash\HH
+\]
+附近的局部形状读出来：
+在绝大多数点，取商不会造成任何扭曲；
+只有在稳定子非平凡的点——也就是椭圆点——附近，商空间会像
+"把几个扇形粘在一起"，这时就必须换一个更合适的局部坐标。
+
+\textbf{一旦这件事做成，会得到什么？}
+答案是：$Y(\Gamma)$ 成为一个非紧黎曼面。
+于是模形式可以被理解为这个黎曼面上的几何对象；
+再往前走，紧化后的 $X(\Gamma)$ 有亏格，
+而亏格将直接出现在\cref{ch:dimension} 的维数公式里。
+
+\begin{proposition}[普通点与椭圆点的局部模型]
+\label{prop:y-gamma-local-model}
+设 $\Gamma\subset \SL_2(\Z)$ 为有限指数子群，$\tau_0\in\HH$。
+记 $\Gamma_{\tau_0}=\operatorname{Stab}_\Gamma(\tau_0)$。
+则有两种情形：
+\begin{enumerate}
+  \item 若 $\Gamma_{\tau_0}=\{\pm I\}$（在 $\HH$ 上即平凡稳定子），
+    则存在 $\tau_0$ 的小邻域 $U$，使得 $\pi|_U\colon U\to \pi(U)$ 是同胚。
+    因而 $\tau-\tau_0$ 给出 $Y(\Gamma)$ 在 $[\tau_0]$ 附近的局部坐标。
+  \item 若 $\Gamma_{\tau_0}$ 的像在 $\PSL_2(\R)$ 中阶为 $e>1$，
+    则 $[\tau_0]$ 是一个阶 $e$ 的椭圆点。
+    在某个以 $\tau_0$ 为中心的局部坐标 $u$ 下，稳定子作用可写成
+    $u\mapsto \zeta_e u$，其中 $\zeta_e=e^{2\pi i/e}$。
+    因而商空间上的自然局部坐标是
+    \[
+      w=u^e.
+    \]
+    直观上，这可以理解为 $w=(\tau-\tau_0)^e$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[思路]
+$\Gamma$ 在 $\HH$ 上作用不连续，因此若稳定子平凡，就可以取一个足够小的圆盘 $U$，
+使得除恒等元外没有任何 $\gamma\in\Gamma$ 把 $U$ 与自身相交。
+这时商映射在 $U$ 上没有折叠，局部坐标当然仍可直接用 $\tau$。
+
+真正的新现象出现在椭圆点。
+由有限阶 Möbius 变换的局部线性化，
+可取坐标
+\[
+  u=\frac{\tau-\tau_0}{\tau-\overline{\tau_0}},
+\]
+把 $\tau_0$ 送到 $0$，并把附近小邻域送到单位圆盘中的小圆盘；
+此时稳定子生成元在该坐标下就是旋转 $u\mapsto \zeta_e u$。
+商掉这个旋转后，唯一不变而又能区分轨道的坐标正是 $w=u^e$。
+所以在椭圆点处，$u$ 不是商空间坐标，但 $u^e$ 是。
+\end{proof}
+
+\input{figures/ch02-elliptic-local-coordinate}
+
+\textbf{为什么要在椭圆点处改坐标？}
+如果还硬把 $\tau-\tau_0$ 当作商空间的坐标，
+那么 $u$ 与 $\zeta_eu$ 会代表同一个商点，
+这就破坏了"一个坐标值对应一个点"这件事。
+换成 $w=u^e$ 之后，旋转的 $e$ 个方向都被压成同一个方向，
+商空间又重新看起来像一块普通的复平面。
+
+\begin{definition}[$Y(\Gamma)$ 的复图册]
+\label{def:y-gamma-atlas}
+$Y(\Gamma)=\Gamma\backslash\HH$ 上的\textbf{复图册}定义如下：
+\begin{itemize}
+  \item 在普通点 $[\tau_0]$ 附近，取上面命题中的小邻域 $U$，
+    用 $\tau-\tau_0$ 作为局部坐标；
+  \item 在阶 $e$ 的椭圆点 $[\tau_0]$ 附近，取线性化坐标 $u$，
+    用 $w=u^e$ 作为局部坐标。
+\end{itemize}
+由这些坐标卡生成的极大图册，称为 $Y(\Gamma)$ 的\textbf{复结构}。
+\end{definition}
+
+\begin{proposition}
+\label{prop:y-gamma-riemann-surface}
+对任意有限指数子群 $\Gamma\subset\SL_2(\Z)$，商空间 $Y(\Gamma)$ 在上述图册下是一个非紧黎曼面。
+\end{proposition}
+
+\begin{proof}
+覆盖性来自于每个点都属于普通点或椭圆点两类之一。
+坐标变换之所以全纯，是因为它们都来自 $\HH$ 上的全纯坐标变换：
+普通点之间如此，普通点与椭圆点之间也是如此，
+只是椭圆点处先经过 $u\mapsto u^e$ 再取逆。
+因此得到一个合法的复图册。
+
+它是非紧的，因为有限指数子群都有尖点；
+换句话说，总可以沿着某个尖点方向让 $\im\tau\to\infty$ 而逃出任何紧集。
+这些"缺失的无穷远点"将在下一节补上。
+\end{proof}
+
+\begin{theorem}
+\label{thm:y1-is-C-riemann}
+$j$-不变量诱导一个双全纯同构
+\[
+  j\colon Y(1)=\SL_2(\Z)\backslash\HH \xrightarrow{\ \sim\ } \C.
+\]
+因此 $Y(1)$ 作为黎曼面就是复平面本身。
+\end{theorem}
+
+\begin{proof}[解释]
+在集合层面，这件事在\cref{cor:torus-tau,sec:modular-curves-moduli} 中已经出现过：
+$j(\tau)$ 恰好分类复椭圆曲线的同构类。
+现在要补上的，是"它为什么与复结构相容"。
+
+$j(\tau)$ 在 $\HH$ 上是全纯的，并且对 $\SL_2(\Z)$ 不变，
+所以它下降为 $Y(1)$ 上的全纯函数。
+在普通点处，这没有任何问题；
+在椭圆点 $i$ 与 $\rho=e^{2\pi i/3}$ 附近，
+$j$ 恰好具有与稳定子相匹配的分歧：
+局部上 $j-1728$ 像二次函数，$j$ 在 $\rho$ 附近像三次函数。
+也就是说，$j$ 正好把我们刚才引入的局部坐标
+$u^2$、$u^3$ 吸收掉，因此在商空间上仍然是良好的坐标。
+
+最后，$j$ 在 $Y(1)$ 上是双射，逆映射由复分析中的开映射原理自动是全纯的，
+所以这是一个双全纯同构。
+\end{proof}
+
+\begin{remark}
+这一节的结论可以浓缩成一句话：
+\emph{模曲线不是一个粗糙的商拓扑空间，而是一个真正的复几何对象。}
+从这一刻起，模形式不再只是满足变换律的函数，
+而是可以被重新解释成模曲线上的截面、微分形式和除子。
+这正是后面几节的主线。
+\end{remark}

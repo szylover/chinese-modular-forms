@@ -1,0 +1,47 @@
+% figures/ch02-elliptic-local-coordinate.tex
+% 椭圆点附近的局部坐标：u-map on the disk, quotient by rotation, w=u^e
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small, scale=1.05]
+  % left disk
+  \draw[thick] (-4,0) circle (1.7);
+  \fill[red!80!black] (-4,0) circle (2pt);
+  \node[below] at (-4,-1.9) {上半平面中的小邻域 $U$};
+  \node[left, red!80!black] at (-4.05,0.05) {$\tau_0$};
+
+  % spokes / fan
+  \foreach \ang in {15,87,159,231,303} {
+    \draw[blue!70!black, thick, ->] (-4,0) -- ++({1.35*cos(\ang)},{1.35*sin(\ang)});
+  }
+  \node[blue!70!black, align=center] at (-4,2.35)
+    {$e$ 个方向在商空间中\\会被识别在一起};
+  \node[align=center] at (-4,-2.55)
+    {$u$ 是以 $\tau_0$ 为中心的局部坐标\\直观上可把 $u$ 想成 $\tau-\tau_0$};
+
+  % middle arrow
+  \draw[->, very thick] (-2.1,0) -- (-0.6,0);
+  \node[above] at (-1.35,0.15) {按稳定子取商};
+
+  % middle disk with identified rays
+  \draw[thick] (1.2,0) circle (1.7);
+  \fill[red!80!black] (1.2,0) circle (2pt);
+  \draw[orange!80!black, line width=1.1pt, ->] (1.2,0) -- ++(1.35,0);
+  \node[below] at (1.2,-1.9) {$U/\operatorname{Stab}_\Gamma(\tau_0)$};
+  \node[orange!80!black, align=center] at (1.2,2.3)
+    {$u \sim \zeta_e u$\\（旋转 $2\pi/e$ 后是同一点）};
+
+  % right arrow
+  \draw[->, very thick] (3.25,0) -- (4.75,0);
+  \node[above] at (4.0,0.15) {$w=u^e$};
+
+  % right plane patch
+  \draw[thick, rounded corners=10pt] (5.4,-1.35) rectangle (8.6,1.35);
+  \fill[red!80!black] (7.0,0) circle (2pt);
+  \draw[green!60!black, thick, ->] (7.0,0) -- ++(1.1,0.55);
+  \node[below] at (7.0,-1.65) {真正的局部坐标盘};
+  \node[green!60!black, align=center] at (7.0,2.2)
+    {$w$ 把 $e$ 个方向压成一个方向\\所以商空间重新变得像 $\C$};
+\end{tikzpicture}
+\caption{椭圆点附近的局部模型。若 $\tau_0$ 的稳定子阶为 $e$，则在适当坐标 $u$ 下稳定子作用是 $u \mapsto \zeta_e u$，因此商空间的自然坐标是 $w=u^e$。直观上可以把它理解为 $w=(\tau-\tau_0)^e$。}
+\label{fig:elliptic-local-coordinate}
+\end{figure}

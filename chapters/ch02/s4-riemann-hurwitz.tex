@@ -1,0 +1,170 @@
+% ============================================================================
+\section{Riemann--Hurwitz 公式与亏格}
+\label{sec:riemann-hurwitz}
+% ============================================================================
+
+\textbf{为什么现在要问亏格？}
+
+上一节我们把 $Y(\Gamma)$ 紧化成了紧黎曼面 $X(\Gamma)$。
+对紧黎曼面来说，最重要的全局不变量之一就是亏格 $g$：
+它衡量曲面有多少个"洞"，也控制全纯微分形式空间的维数。
+换句话说，亏格不是一个可有可无的拓扑数字，
+而是之后维数公式的几何心脏。
+
+\textbf{核心想法是拿 $X(\Gamma)$ 去和最熟悉的曲面比较。}
+最熟悉的紧黎曼面是
+$X(1)\cong\mathbb{P}^1(\C)$，它的亏格是 $0$。
+而包含关系 $\Gamma\subset \SL_2(\Z)$ 给出自然映射
+\[
+  f\colon X(\Gamma)\longrightarrow X(1).
+\]
+这个映射在绝大多数点看起来像普通覆盖，
+只有在椭圆点和尖点上会发生分歧。
+Riemann--Hurwitz 公式正是把"覆盖的度数"和"分歧有多严重"翻译成亏格的公式。
+
+\textbf{得到的回报非常大。}
+一旦把分歧项数清楚，
+$g\bigl(X(\Gamma)\bigr)$ 就能显式写出来；
+特别对 $\Gamma_0(N)$，这给出一条可以真正计算的 genus formula，
+而这正是后面讨论 $\dim \Mk_k(\Gamma)$ 与 $\dim \Sk_k(\Gamma)$ 的起点。
+
+\begin{theorem}[Riemann--Hurwitz 公式，回顾]
+\label{thm:riemann-hurwitz-recall}
+设 $f\colon X\to Y$ 是紧黎曼面之间度为 $d$ 的非常值全纯映射。
+记 $e_P$ 为 $f$ 在 $P\in X$ 处的分歧指数，则
+\[
+  2g(X)-2=d\bigl(2g(Y)-2\bigr)+\sum_{P\in X}(e_P-1).
+\]
+\end{theorem}
+
+\begin{remark}
+严格证明已在\cref{thm:riemann-hurwitz} 给出。
+本节的重点不是再证明一次，而是把它真正用到模曲线上。
+\end{remark}
+
+\input{figures/ch02-branched-cover}
+
+\begin{definition}[模曲线亏格公式中的记号]
+\label{def:genus-formula-notation}
+设 $\Gamma$ 为有限指数子群，记 $\bar\Gamma$ 为它在 $\PSL_2(\Z)$ 中的像，并设
+\[
+  \mu=[\PSL_2(\Z):\bar\Gamma].
+\]
+若 $-I\in\Gamma$（例如 $\Gamma=\Gamma_0(N)$），则 $\mu=[\SL_2(\Z):\Gamma]$。
+再记
+\begin{itemize}
+  \item $\nu_2$：$Y(\Gamma)$ 上阶 $2$ 椭圆点的个数；
+  \item $\nu_3$：$Y(\Gamma)$ 上阶 $3$ 椭圆点的个数；
+  \item $\nu_\infty$：尖点个数。
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[模曲线的 genus formula]
+\label{thm:genus-formula-modular-curves}
+设 $\Gamma$ 为有限指数子群并且 $-I\in\Gamma$。
+则紧化模曲线 $X(\Gamma)$ 的亏格满足
+\[
+  g\bigl(X(\Gamma)\bigr)
+  =1+\frac{\mu}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}-\frac{\nu_\infty}{2}.
+\]
+特别地，对 $\Gamma_0(N)$，这里的 $\mu$ 就是
+\[
+  \mu=[\SL_2(\Z):\Gamma_0(N)]=N\prod_{p\mid N}\left(1+\frac1p\right).
+\]
+\end{theorem}
+
+\begin{proof}
+把 Riemann--Hurwitz 应用于
+\[
+  f\colon X(\Gamma)\longrightarrow X(1)\cong\mathbb{P}^1.
+\]
+由于 $g\bigl(X(1)\bigr)=0$，公式变成
+\[
+  2g\bigl(X(\Gamma)\bigr)-2=-2\mu+\sum_{P\in X(\Gamma)}(e_P-1).
+\]
+所以关键是计算总分歧贡献。
+
+\textbf{(1) 在 $i$ 上方的贡献。}
+$X(1)$ 在 $i$ 处的局部稳定子阶为 $2$。
+因此 $f^{-1}(i)$ 中的点分两类：
+若该点在 $X(\Gamma)$ 上是阶 $2$ 椭圆点，则局部度数为 $1$；
+否则局部度数为 $2$，贡献 $e_P-1=1$。
+故 $i$ 上方共有
+\[
+  \nu_2+\frac{\mu-\nu_2}{2}=\frac{\mu+\nu_2}{2}
+\]
+个点，总分歧贡献为
+\[
+  \frac{\mu-\nu_2}{2}.
+\]
+
+\textbf{(2) 在 $\rho=e^{2\pi i/3}$ 上方的贡献。}
+同理，$\rho$ 的稳定子阶为 $3$。
+阶 $3$ 椭圆点的局部度数为 $1$；其余点局部度数为 $3$，每点贡献 $2$。
+所以总贡献为
+\[
+  2\cdot\frac{\mu-\nu_3}{3}=\frac{2(\mu-\nu_3)}{3}.
+\]
+
+\textbf{(3) 在尖点上方的贡献。}
+设各尖点宽度为 $h_1,\dots,h_{\nu_\infty}$。
+由于 $f$ 在尖点的局部坐标中形如 $q\mapsto q^{h_j}$，
+第 $j$ 个尖点的分歧指数就是 $h_j$，贡献 $h_j-1$。
+而所有宽度之和等于覆盖度数：
+\[
+  h_1+\cdots+h_{\nu_\infty}=\mu.
+\]
+因此尖点总贡献为
+\[
+  \sum_{j=1}^{\nu_\infty}(h_j-1)=\mu-\nu_\infty.
+\]
+
+把三部分相加：
+\[
+  \sum_P(e_P-1)=\frac{\mu-\nu_2}{2}+\frac{2(\mu-\nu_3)}{3}+\mu-\nu_\infty.
+\]
+代回 Riemann--Hurwitz 并整理，得到
+\[
+  g\bigl(X(\Gamma)\bigr)
+  =1+\frac{\mu}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}-\frac{\nu_\infty}{2}.
+\qedhere
+\]
+\end{proof}
+
+\begin{example}[三个最重要的例子]
+\label{ex:genus-small-levels}
+\begin{enumerate}
+  \item $X_0(1)=X(1)$ 的亏格是 $0$，因为它就是 $\mathbb{P}^1$。
+  \item $X_0(11)$：
+    \[
+      \mu=11\left(1+\frac1{11}\right)=12,
+      \qquad \nu_2=0,
+      \qquad \nu_3=0,
+      \qquad \nu_\infty=2.
+    \]
+    所以
+    \[
+      g\bigl(X_0(11)\bigr)=1+\frac{12}{12}-0-0-\frac22=1.
+    \]
+    这意味着 $X_0(11)$ 是一条亏格 $1$ 的曲线——也就是一条椭圆曲线。
+  \item $X_0(23)$：
+    \[
+      \mu=23\left(1+\frac1{23}\right)=24,
+      \qquad \nu_2=0,
+      \qquad \nu_3=0,
+      \qquad \nu_\infty=2.
+    \]
+    因而
+    \[
+      g\bigl(X_0(23)\bigr)=1+\frac{24}{12}-1=2.
+    \]
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+请特别留意这个公式里每一项的几何来源：
+$\mu/12$ 来自覆盖的主项，
+$\nu_2/4$ 与 $\nu_3/3$ 来自椭圆点的对称性修正，
+$\nu_\infty/2$ 来自尖点。
+这正是模曲线把群作用、复分析和拓扑缝在一起的地方。
+\end{remark}
