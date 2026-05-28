@@ -1,0 +1,41 @@
+% TikZ figure: oldforms vs newforms
+% Shows the inclusion/projection between levels N and M|N
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=4pt, minimum width=2.8cm, minimum height=1cm, font=\small, align=center},
+  arrow/.style={->, thick, >=stealth}
+]
+
+% Level M box
+\node[box, fill=green!15] (SM) at (0, 3) {$\Sk_k(M)$\\(低级别)};
+
+% Map down to level N
+\node[box, fill=blue!10] (SN) at (4, 3) {$\Sk_k(N)$\\(高级别 $M \mid N$)};
+
+% Oldforms inside SN
+\node[box, fill=orange!15, dashed, draw=orange] (old) at (4, 1) {旧形式 $\Sk_k^{\mathrm{old}}(N)$};
+
+% Newforms inside SN
+\node[box, fill=red!10, dashed, draw=red] (new) at (7.5, 3) {新形式 $\Sk_k^{\mathrm{new}}(N)$};
+
+% Arrows
+\draw[arrow] (SM) -- node[above, font=\small] {$f(\tau) \mapsto f(d\tau)$, $d = N/M$} (SN);
+\draw[arrow, dashed] (SN.south) -- (old.north) node[midway, right, font=\small] {投影};
+
+% Decomposition
+\draw[arrow, double] (SN.east) -- node[above, font=\small] {正交分解} (new.west);
+
+% Horizontal brace for decomposition
+\node[font=\small] at (5.5, 4.0) {$\Sk_k(N) = \Sk_k^{\mathrm{old}}(N) \oplus \Sk_k^{\mathrm{new}}(N)$};
+
+% Annotations
+\node[font=\scriptsize, text=orange!80!black, align=center] at (4, 0.1)
+  {由低级别 $M \mid N, M < N$ 的形式\\经 $f \mapsto f(d\tau)$ 生成};
+\node[font=\scriptsize, text=red!80!black, align=center] at (7.5, 2)
+  {与所有旧形式正交\\满足强重数一定理};
+
+\end{tikzpicture}
+\caption{$\Sk_k(N)$ 的旧形式—新形式正交分解。旧形式由低级别升上来，新形式是"真正属于级别 $N$"的部分。}
+\label{fig:oldforms-newforms}
+\end{figure}
