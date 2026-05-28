@@ -210,6 +210,27 @@ $e \cdot x = x$ 和 $(g_1 g_2) \cdot x = g_1 \cdot (g_2 \cdot x)$。
     这些代表元组成的区域就是基本域——上半平面的一个"最小切片"。
 \end{itemize}
 
+\begin{example}[轨道是什么样的]
+\label{ex:orbit-of-2i}
+取 $\tau = 2i$。它的轨道 $\SL_2(\Z) \cdot (2i)$ 包含哪些点？
+\begin{itemize}
+  \item $T^n(2i) = 2i + n$，$n \in \Z$
+    ——整条水平线 $\{\ldots, -1+2i, \; 2i, \; 1+2i, \; 2+2i, \ldots\}$。
+  \item $S(2i) = -1/(2i) = i/2$
+    ——跳到了更低的位置。
+  \item $T(S(2i)) = i/2 + 1 = 1 + i/2$，$T^{-1}(S(2i)) = -1 + i/2$，……
+  \item $S(T(2i)) = S(1+2i) = \frac{-1}{1+2i} = \frac{-(1-2i)}{5}
+    = -\frac{1}{5} + \frac{2}{5}i$
+    ——又跳到了别的地方。
+\end{itemize}
+继续组合 $S$ 和 $T$，轨道中有无穷多个点，密密麻麻地分布在上半平面中。
+这些点在 $\SL_2(\Z)$ 的视角下全是"同一个点"。
+
+基本域的作用就是：从这一大堆等价的点里，选出一个"标准代表"。
+对 $2i$ 来说，它自己就在基本域中（$|\Re(2i)| = 0 < 1/2$，$|2i| = 2 > 1$），
+所以 $2i$ 就是这个轨道的标准代表。
+\end{example}
+
 \begin{definition}[基本域]
 \label{def:fundamental-domain}
 群 $G$ 作用在空间 $X$ 上时，一个\textbf{基本域}（fundamental domain）是
