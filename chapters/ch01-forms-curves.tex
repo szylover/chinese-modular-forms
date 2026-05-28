@@ -105,6 +105,30 @@ $\PSL_2(\Z) = \SL_2(\Z)/\{\pm I\}$ 在 $\HH$ 上\emph{忠实}地作用。
 后续的模曲线 $\SL_2(\Z) \backslash \HH$ 就是这里的商空间。
 \end{remark}
 
+\begin{example}[稳定子的具体例子]
+\label{ex:stabilizer-example}
+$\SL_2(\Z)$ 作用在 $\HH$ 上。
+
+\textbf{一般的点}：对大多数 $\tau \in \HH$，稳定子是最小的，即
+$(\SL_2(\Z))_\tau = \{\pm I\}$（只有 $\pm I$ 固定所有点）。
+
+\textbf{椭圆不动点}：有两个特殊点的稳定子更大：
+\begin{enumerate}
+  \item $\tau = i$：$S(i) = -1/i = i$，故 $S$ 固定 $i$。
+    完整稳定子为 $(\SL_2(\Z))_i = \{I, S, S^2, S^3\} = \{I, S, -I, -S\}$，
+    同构于 $\Z/4\Z$。在 $\PSL_2(\Z)$ 中为 $\Z/2\Z$。
+  \item $\tau = \rho = e^{2\pi i/3} = \frac{-1+i\sqrt{3}}{2}$：
+    $(ST)(\rho) = S(\rho + 1) = S\!\left(\frac{1+i\sqrt{3}}{2}\right)
+    = \frac{-1}{(1+i\sqrt{3})/2} = \frac{-2}{1+i\sqrt{3}}
+    = \frac{-2(1-i\sqrt{3})}{4} = \frac{-1+i\sqrt{3}}{2} = \rho$。
+    完整稳定子为 $(\SL_2(\Z))_\rho = \langle ST \rangle
+    = \{I, ST, (ST)^2, -I, -ST, -(ST)^2\}$，同构于 $\Z/6\Z$。
+    在 $\PSL_2(\Z)$ 中为 $\Z/3\Z$。
+\end{enumerate}
+这两个椭圆不动点导致基本域边界上的"粘合"出现特殊行为，
+也会在\cref{ch:dimension}的维数公式中产生修正项。
+\end{example}
+
 \begin{theorem}[$\SL_2(\Z)$ 的生成元]
 \label{thm:sl2z-generators}
 $\SL_2(\Z)$ 由以下两个矩阵生成：
