@@ -150,6 +150,82 @@ $\nu_\infty$ & 1 & 2 & 2 & 3 & 2 & 4 & 2 & 4 & 4 & 4 & 2 & 6 \\
 \end{tabular}
 \end{center}
 
+\begin{proposition}[权 $2$ 的完整小级别表]
+\label{prop:dim-s2-table-50}
+对 $\Gamma_0(N)$，有
+\[
+  \dim \Sk_2(\GammaO(N))=g\bigl(X_0(N)\bigr).
+\]
+因此利用上一章的 genus formula，可以把 $N=1$ 到 $50$ 的数值完全列出如下。
+\end{proposition}
+
+\begin{center}
+\small
+\begin{longtable}{@{}cccc@{}}
+\toprule
+$N$ & $\dim \Sk_2(\GammaO(N))$ & $N$ & $\dim \Sk_2(\GammaO(N))$ \\
+\midrule
+\endfirsthead
+\toprule
+$N$ & $\dim \Sk_2(\GammaO(N))$ & $N$ & $\dim \Sk_2(\GammaO(N))$ \\
+\midrule
+\endhead
+1 & 0 & 26 & 2 \\
+2 & 0 & 27 & 1 \\
+3 & 0 & 28 & 2 \\
+4 & 0 & 29 & 2 \\
+5 & 0 & 30 & 3 \\
+6 & 0 & 31 & 2 \\
+7 & 0 & 32 & 1 \\
+8 & 0 & 33 & 3 \\
+9 & 0 & 34 & 3 \\
+10 & 0 & 35 & 3 \\
+11 & 1 & 36 & 1 \\
+12 & 0 & 37 & 2 \\
+13 & 0 & 38 & 4 \\
+14 & 1 & 39 & 3 \\
+15 & 1 & 40 & 3 \\
+16 & 0 & 41 & 3 \\
+17 & 1 & 42 & 5 \\
+18 & 0 & 43 & 3 \\
+19 & 1 & 44 & 4 \\
+20 & 1 & 45 & 3 \\
+21 & 1 & 46 & 5 \\
+22 & 2 & 47 & 4 \\
+23 & 2 & 48 & 3 \\
+24 & 1 & 49 & 1 \\
+25 & 0 & 50 & 2 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\end{center}
+
+从这张表里立刻可以读出两条最常用的信息：
+\begin{align*}
+  \dim \Sk_2(\GammaO(N))=0
+  &\Longleftrightarrow
+  N\in\{1,2,3,4,5,6,7,8,9,10,12,13,16,18,25\},\\
+  \dim \Sk_2(\GammaO(N))=1
+  &\Longleftrightarrow
+  N\in\{11,14,15,17,19,20,21,24,27,32,36,49\}.
+\end{align*}
+第一行恰好是小级别里 $X_0(N)\cong \mathbb P^1$ 的列表；
+第二行说明这些级别上最小的非平凡模 Abel 簇已经是一条椭圆曲线。
+特别地，$N=11$ 是第一条真正出现模椭圆曲线的级别。
+
+\textbf{与 FLT 的直接联系。}
+在 Wiles--Ribet 的证明链条里，
+Frey 曲线的 residual 表示经过水平下降会被逼到级别 $2$。
+而表中第 $N=2$ 行明确告诉我们
+\[
+  \dim \Sk_2(\GammaO(2))=0.
+\]
+这意味着级别 $2$ 根本不存在权 $2$ 新形式，
+也就不存在能够承载那份 residual 特征值系统的模 Jacobian 因子。
+因此“降到 $X_0(2)$”并不是一句口号，
+而是把矛盾压缩成一条具体的维数等式：
+$X_0(2)$ 是亏格 $0$ 曲线，所以没有权 $2$ cusp form。
+
 \begin{remark}[关于 $\Gamma_1(N)$]
 当 $N>2$ 时，$\Gamma_1(N)$ 往往不含 $-I$，于是奇偶权与尖点局部行为会带来额外修正项。其完整公式仍然来自同样的 Riemann--Roch 机制，只是记号更繁。就本书后续讨论 Hecke 新形式与模性问题而言，最核心、最常用的版本正是上面的 $\Gamma_0(N)$ 公式。
 \end{remark}

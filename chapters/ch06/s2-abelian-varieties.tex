@@ -219,3 +219,53 @@ $L(\Lambda_1)\subset \Lambda_2$ 的复线性映射 $L:V_1\to V_2$。
 \textbf{预告。}
 下一节的 Jacobian $J(X)$ 将由某条曲线 $X$ 的全纯微分空间和周期格构造出来。
 因此它天然先是一个复环面；而 Riemann 双线性关系进一步说明它实际上带有主极化，所以真的是 Abel 簇。
+
+\begin{definition}[N\'eron 模型]
+\label{def:neron-model-abelian}
+设 $A/\Q$ 是 Abel 簇。
+它的\textbf{N\'eron 模型}是一个定义在 $\Z$ 上的光滑分离群概形 $\mathcal A$，
+其 generic fiber 为 $A$，并满足如下泛性质：
+对任意光滑 $\Z$-概形 $S$，每个态射
+\[
+  S_{\Q}\longrightarrow A
+\]
+都唯一延拓为
+\[
+  S\longrightarrow \mathcal A.
+\]
+这称为 N\'eron 映射性质。
+\end{definition}
+
+\begin{theorem}[N\'eron 模型的存在]
+\label{thm:existence-neron-model}
+每个定义在数域上的 Abel 簇都存在 N\'eron 模型。
+特别地，对 $A/\Q$，可以谈它在每个素数 $p$ 处的特殊纤维 $\mathcal A_{\F_p}$，
+从而系统地讨论约化类型。
+\end{theorem}
+
+\textbf{坏约化类型。}
+对素数 $p$，Abel 簇 $A/\Q$ 的 N\'eron 模型在 $p$ 处有三种基本行为：
+\begin{itemize}
+  \item \textbf{good reduction}：特殊纤维本身就是一条光滑的 Abel 簇；
+  \item \textbf{multiplicative reduction}：单位元连通分量含有一个非平凡环面部分；
+  \item \textbf{additive reduction}：特殊纤维出现更坏的加性部分，
+        不再只由 Abel 部分和环面部分组成。
+\end{itemize}
+对椭圆曲线，这正对应 Kodaira 符号里“好、乘法、加性”三类最基本的分法；
+对高维 Abel 簇，语言虽然更抽象，但思想完全相同。
+
+\begin{proposition}[$J_0(N)$ 在 $p\nmid N$ 处有好约化]
+\label{prop:j0n-good-reduction-away-from-level}
+若 $p\nmid N$，则 $J_0(N)/\Q$ 在 $p$ 处有好约化。
+更准确地说，第7章将要讨论的 Igusa 定理表明：
+$X_0(N)$ 的整模型在 $p$ 处光滑，
+从而其 Jacobian 的 N\'eron 模型在该素数处是 Abel 概形。
+\end{proposition}
+
+\begin{proof}[说明]
+当模曲线 $X_0(N)$ 在 $p$ 处有光滑整模型时，
+它的相对 Picard 概形就是一个 Abel 概形；
+而对光滑射影曲线，这个 Abel 概形正是 Jacobian 的 N\'eron 模型。
+因此曲线的好约化会直接传给 Jacobian。
+对 $X_0(N)$，当 $p\nmid N$ 时正是 Igusa 理论保证了这一步。
+\end{proof}

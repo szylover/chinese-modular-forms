@@ -220,3 +220,69 @@ $\alpha=\pi_1$ 先把一个点 $(E,C_N)$ 拉回到所有可能的三元组 $(E,C
 特别是在 $p\nmid N$ 时，
 第\ref{ch:eichler-shimura-l}章会看到：
 约化到 $\F_p$ 后，Hecke 对应与 Frobenius 之间会出现惊人的精确关系。
+
+\textbf{模 $p$ 约化视角。}
+当 $p\nmid N$ 时，$X_0(N)$ 在 $\F_p$ 上仍然是光滑曲线，
+因此 Hecke 对应可以逐项约化到特殊纤维上。
+在特征 $p$ 中，阶 $p$ 子群不再只是 $p+1$ 个离散点的集合，
+而会出现 Frobenius 与 Verschiebung 这两条最基本的次数 $p$ 同源。
+
+\begin{proposition}[特殊纤维上的 $T_p$]
+\label{prop:hecke-correspondence-mod-p}
+设 $p\nmid N$。
+则 Hecke 对应 $T_p$ 在 $X_0(N)_{\F_p}$ 上仍有代数意义：
+对一个几何点 $(E,C_N)$，它枚举 $E$ 上所有阶 $p$ 子群概形 $D$，
+并把 $(E,C_N)$ 送到各个商对象
+\[
+  \bigl(E/D,(C_N+D)/D\bigr).
+\]
+在普通 locus 上，这个对应分裂为两条最重要的分支：
+一条是相对 Frobenius 的图像，另一条是 Verschiebung 的图像。
+\end{proposition}
+
+\begin{proof}[说明]
+由第7章整模型的存在性，当 $p\nmid N$ 时模曲线与对应都能约化到 $\F_p$ 上。
+于是 $T_p$ 的定义仍然是“枚举阶 $p$ 子群再取商”。
+在特征 $p$ 中，这些子群里有两个最几何的方向：
+一个是 $\ker(\Frob_p)$，商出去得到相对 Frobenius；
+另一个对应于 Verschiebung 的对偶核。
+因此在特殊纤维上，Hecke 对应恰好显现为 Frobenius 与 Verschiebung 的叠加。
+\end{proof}
+
+\begin{corollary}[代数版 Eichler--Shimura 关系]
+\label{cor:algebraic-eichler-shimura-correspondence}
+在 $X_0(N)_{\F_p}$ 的对应代数里，
+有
+\[
+  T_p=\Frob_p+V_p,
+\]
+其中 $V_p$ 表示 Verschiebung 对应。
+把 $V_p$ 写成 $\langle p\rangle\Frob_p^{-1}$ 的记号后，
+这就是常写的代数关系
+\[
+  T_p\equiv \Frob_p+\langle p\rangle\Frob_p^{-1}.
+\]
+它正是第8章 Eichler--Shimura 关系的代数几何起点。
+\end{corollary}
+
+\begin{proof}[说明]
+上一命题已经指出：在特征 $p$ 的模解释里，
+$T_p$ 的两条基本分支就是 Frobenius 与 Verschiebung。
+而在对应代数中，Verschiebung 与 Frobenius 互为“反向”的次数 $p$ 对应；
+在带级别结构的情形，需要再记住菱形算子 $\langle p\rangle$ 对循环子群的作用，
+于是常把第二支写成 $\langle p\rangle\Frob_p^{-1}$。
+在 Jacobian 或 $\ell$-进上同调上，这进一步转化为
+\[
+  X^2-T_pX+p\langle p\rangle=0,
+\]
+也就是下一章将真正使用的 Eichler--Shimura 关系。
+\end{proof}
+
+\textbf{注。}
+这里的 $\Frob_p^{-1}$ 是对应代数中的逆向记号，
+不应理解为曲线态射意义下的真反函数。
+对 $\Gamma_0(N)$ 的平凡 Nebentypus 部分，$\langle p\rangle$ 最终按标量 $1$ 作用，
+所以在权 $2$ 的经典表述里，常把这条关系简写成
+\[
+  T_p=\Frob_p+p\Frob_p^{-1}.
+\]

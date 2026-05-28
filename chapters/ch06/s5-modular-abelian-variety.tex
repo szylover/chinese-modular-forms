@@ -210,3 +210,46 @@ Abel 簇的维数等于其全纯微分空间维数，因此
 \]
 特别地，当 $K_f=\Q$ 时，$L(A_f,s)=L(f,s)$。
 这就是“特征形式 $\leftrightarrow$ 椭圆曲线”最精确的解析表达。
+
+\begin{definition}[$p$-可除群]
+\label{def:p-divisible-group}
+设 $A$ 是特征 $p$ 域上的 Abel 簇。
+它的\textbf{$p$-可除群}定义为直极限
+\[
+  A[p^\infty]=\varinjlim_n A[p^n].
+\]
+这是一族有限平坦群概形的兼容系统，
+把 $A$ 在特征 $p$ 中最敏感的局部信息全部组织在一起。
+\end{definition}
+
+\begin{theorem}[Serre--Tate]
+\label{thm:serre-tate}
+设 $A_0/\F_p$ 是 Abel 簇，$R$ 是一个完备局部 Noether 环，剩余域为 $\F_p$。
+则 $A_0$ 在 $R$ 上的形变范畴，与其 $p$-可除群 $A_0[p^\infty]$ 在 $R$ 上的形变范畴等价。
+换言之，研究 Abel 簇的 $p$-进形变，等价于研究其 $p$-可除群的形变。
+\end{theorem}
+
+\textbf{这一定理为什么重要？}
+它说明“好约化以后还剩下哪些 $p$-进信息”并不分散在整条 Abel 簇上，
+而是集中编码在 $A[p^\infty]$ 中。
+更准确地说，$\ell\neq p$ 的 Tate 模控制惯性是否平凡、也就是无分歧性；
+而 $p$-可除群控制真正的特征 $p$ 形变方向。
+两者合在一起，便解释了为什么 Tate 模与 $p$-可除群几乎携带了 Abel 簇约化类型的全部算术信息。
+
+\begin{corollary}[模 Abel 簇在好素数处的无分歧性]
+\label{cor:Af-good-reduction-unramified}
+设 $f\in \Sk_2(\GammaO(N))$，令 $A_f$ 为对应的模 Abel 簇。
+若 $p\nmid N$，则对任意 $\ell\neq p$，
+表示 $T_\ell A_f$ 在 $p$ 处无分歧；
+等价地，$A_f$ 在 $p$ 处有好约化。
+\end{corollary}
+
+\begin{proof}[说明]
+第7章将说明 $J_0(N)$ 在 $p\nmid N$ 时有好约化，
+而 $A_f$ 作为其 Hecke 稳定商，也继承好约化。
+于是由 N\'eron--Ogg--Shafarevich 判别准则，
+对每个 $\ell\neq p$，$T_\ell A_f$ 的 Galois 作用在分解群的惯性子群上平凡，
+也就是在 $p$ 处无分歧。
+反过来，任取一个 $\ell\neq p$，
+若 $T_\ell A_f$ 在 $p$ 处无分歧，则同一判别准则告诉我们 $A_f$ 在该素数处必有好约化。
+\end{proof}

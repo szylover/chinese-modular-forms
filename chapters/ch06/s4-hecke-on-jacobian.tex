@@ -209,3 +209,59 @@ Hecke 算子已经不再只是模形式空间上的矩阵，
 而是 Jacobian 上的几何自同态。
 因此特征值系统也不再只是数字，而会决定一个真正的 Abel 簇商。
 下一节的 $A_f$ 正是按这个思路定义出来的。
+
+\begin{definition}[Rosati 对合]
+\label{def:rosati-involution}
+设 $A$ 是带极化 $\lambda:A\to A^{\vee}$ 的 Abel 簇。
+对任意 $u\in \End(A)$，定义
+\[
+  u^{\dagger}=\lambda^{-1}\circ \widehat{u}\circ \lambda,
+\]
+其中 $\widehat{u}:A^{\vee}\to A^{\vee}$ 是对偶同态。
+这给出 $\End(A)$ 上一个正定对合，称为\textbf{Rosati 对合}。
+\end{definition}
+
+\begin{proposition}[Hecke 算子对 Rosati 对合自伴]
+\label{prop:hecke-selfadjoint-rosati}
+对 $J_0(N)$ 的自然主极化，
+每个 Hecke 算子都满足
+\[
+  T_n^{\dagger}=T_n.
+\]
+\end{proposition}
+
+\begin{proof}
+把 $T_n$ 看成对应
+\[
+  X_0(N) \xleftarrow{\ \alpha_n\ } X_0(N;n) \xrightarrow{\ \beta_n\ } X_0(N)
+\]
+诱导的自同态 $(\beta_n)_*\alpha_n^*$。
+对 Jacobian 的主极化而言，Rosati 对合正是把一个对应换成它的转置对应，
+所以
+\[
+  T_n^{\dagger}=(\alpha_n)_*(\beta_n)^*.
+\]
+而对 Hecke 对应，交换两边箭头只不过是把次数 $n$ 的循环同源换成其对偶同源；
+这并不会改变对应本身。
+因此转置对应与原对应自然同构，于是 $T_n^{\dagger}=T_n$。
+\end{proof}
+
+\begin{corollary}[实特征值与 Petersson 内积]
+\label{cor:hecke-real-eigenvalues}
+在识别
+\[
+  H^0\bigl(J_0(N),\Omega^1\bigr)\cong \Sk_2\bigl(\GammaO(N)\bigr)
+\]
+下，Rosati 对合诱导的 Hermite 型与第3章的 Petersson 内积只差一个正实常数。
+因此 $T_n$ 在 $\Sk_2(\GammaO(N))$ 上是自伴 Hermitian 算子，
+从而其特征值都是实数。
+\end{corollary}
+
+\begin{proof}[说明]
+对 Jacobian 的自然主极化，Riemann 双线性关系给出的 Hermite 型与曲线上的积分配对一致；
+在模曲线的情形，这个积分配对正是 Petersson 内积的几何化版本。
+既然 \cref{prop:hecke-selfadjoint-rosati} 已说明 $T_n$ 关于 Rosati 对合自伴，
+那么它关于 Petersson 内积也自伴。
+有限维 Hermitian 空间上线性代数的谱定理立刻推出：
+$T_n$ 的全部特征值都属于 $\R$。
+\end{proof}

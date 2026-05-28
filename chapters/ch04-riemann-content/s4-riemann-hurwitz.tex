@@ -168,3 +168,83 @@ $\nu_2/4$ 与 $\nu_3/3$ 来自椭圆点的对称性修正，
 $\nu_\infty/2$ 来自尖点。
 这正是模曲线把群作用、复分析和拓扑缝在一起的地方。
 \end{remark}
+
+\textbf{覆盖理论视角。}
+把模曲线之间的自然态射看成“忘掉一部分级别结构”，
+Riemann--Hurwitz 的分歧项就有了非常直观的模解释。
+
+\begin{proposition}[遗忘级别结构的分歧]
+\label{prop:forget-level-ramification}
+若 $M\mid N$，则忘掉多余级别结构给出有限态射
+\[
+  \pi_{N,M}:X_0(N)\longrightarrow X_0(M),
+\]
+其度数为 $[\Gamma_0(M):\Gamma_0(N)]$。
+在非椭圆点、非尖点处，$\pi_{N,M}$ 局部上是双全纯的；
+全部分歧都来自两类点：
+\begin{enumerate}
+  \item 椭圆点：源点对应的椭圆曲线带有额外自同构，
+        所以不同的级别结构在遗忘后会被识别；
+  \item 尖点：源尖点与目标尖点的宽度不同。
+        若该点在 $X_0(N)$、$X_0(M)$ 上的宽度分别为 $h_N,h_M$，
+        则局部参数满足
+        \[
+          q_M=q_N^{h_N/h_M},
+        \]
+        因而分歧指数恰为 $h_N/h_M$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[说明]
+忘掉一部分循环子群显然给出一个有限覆盖：
+对一般点而言，纤维只是同一条椭圆曲线上若干种补充级别结构的有限集合。
+当椭圆曲线没有额外自同构时，这些选择彼此分开，故局部上没有分歧。
+若底点恰是 $j=1728$ 或 $j=0$ 那样的椭圆点，则自同构群更大，
+若干个级别结构会在遗忘后合并，于是出现椭圆点分歧。
+对尖点则使用上一节的 $q$-坐标：
+遗忘级别结构只会改变尖点宽度，故局部模型必为幂映射 $q\mapsto q^e$，
+其指数正是宽度之比。
+\end{proof}
+
+\begin{corollary}[映到 $X(1)$ 时的三类分歧]
+\label{cor:ramification-to-x1}
+对自然映射
+\[
+  f:X_0(N)\longrightarrow X(1),
+\]
+全部分歧都落在 $j=1728,0,\infty$ 这三个特殊值上。
+若把三处的总分歧贡献分别记为
+\[
+  e_2=\frac{\mu-\nu_2}{2},
+  \qquad
+  e_3=\frac{2(\mu-\nu_3)}{3},
+  \qquad
+  e_\infty=\mu-\nu_\infty,
+\]
+则 Riemann--Hurwitz 正好写成
+\[
+  2g\bigl(X_0(N)\bigr)-2=-2\mu+e_2+e_3+e_\infty.
+\]
+换言之，genus formula 里的三项修正分别来自阶 $2$ 椭圆点、阶 $3$ 椭圆点和尖点。
+\end{corollary}
+
+\begin{proof}[说明]
+$X(1)$ 上除了 $i$、$\rho$ 与尖点 $\infty$ 之外，稳定子群都是平凡的，
+所以映射在其余点上不可能分歧。
+前面证明 genus formula 时已经逐项算过三类点的总贡献：
+$i$ 上方给出 $(\mu-\nu_2)/2$，
+$\rho$ 上方给出 $2(\mu-\nu_3)/3$，
+尖点上方给出 $\mu-\nu_\infty$。
+把它们重新记作 $e_2,e_3,e_\infty$，就得到上式。
+\end{proof}
+
+\textbf{各项的几何意义。}
+从 CSS 中 Stevens 的视角看，
+\begin{itemize}
+  \item $\mu/12$ 是把 $X_0(N)$ 当成次数 $\mu$ 的覆盖后得到的主项；
+  \item $\nu_2/4$ 与 $\nu_3/3$ 是对椭圆点对称性的“返还项”：
+        稳定子越大，真正需要计入的分歧就越少；
+  \item $\nu_\infty/2$ 来自无穷远处的退化纤维，也就是尖点的宽度分布。
+\end{itemize}
+因此亏格公式并不是孤立的代数恒等式，
+而是把覆盖次数、局部对称性和尖点退化三种几何现象压缩成一行数字。

@@ -164,3 +164,100 @@ $\Delta$ 是权 $12$ 的 cusp form，在 $\infty$ 处恰有一阶零点，而且
 \]
 的单项式 $E_4^aE_6^b$ 张成，而且这些单项式的个数正好等于上面的维数。这将在习题里再次出现：对 $k<12$，每个模形式都只能是 $E_4,E_6$ 的一个多项式。
 \end{remark}
+
+\begin{theorem}[全模群模形式的分次环]
+\label{thm:graded-ring-sl2z}
+把所有偶权模形式放在一起，得到分次环
+\[
+  \Mk_*(\SL_2(\Z))=\bigoplus_{k\ge 0}\Mk_k(\SL_2(\Z)).
+\]
+则自然映射
+\[
+  \C[X,Y]\longrightarrow \Mk_*(\SL_2(\Z)),
+  \qquad X\longmapsto E_4,
+  \quad Y\longmapsto E_6
+\]
+给出分次环同构。
+换言之，
+\[
+  \Mk_*(\SL_2(\Z))=\C[E_4,E_6],
+\]
+并且 $E_4,E_6$ 代数无关。
+\end{theorem}
+
+\begin{proof}
+记上面的分次环同态为 $\phi$。
+先证它满射。
+对权 $k$ 作归纳。
+当 $k=0,4,6,8,10$ 时，维数公式表明 $\Mk_k(\SL_2(\Z))$ 都是一维，
+相应生成元可取为 $1,E_4,E_6,E_4^2,E_4E_6$；
+而 $\Mk_2(\SL_2(\Z))=0$。
+
+现设 $k\ge 12$ 且结论对更低偶权成立，取任意
+$f\in \Mk_k(\SL_2(\Z))$。
+因为总能找到某个满足 $4a+6b=k$ 的单项式 $P_k(E_4,E_6)$，
+且它的常数项为 $1$，
+故
+\[
+  f-a_0(f)P_k(E_4,E_6)
+\]
+在 $\infty$ 处常数项为零，所以是一个 cusp form。
+由前面的递推，尖点形式都可唯一写成 $\Delta g$，其中
+$g\in \Mk_{k-12}(\SL_2(\Z))$。
+按归纳假设，$g$ 已是 $E_4,E_6$ 的多项式，
+而 $\Delta=(E_4^3-E_6^2)/1728$ 也是 $E_4,E_6$ 的多项式，
+故 $f$ 也是如此。
+于是 $\phi$ 满射。
+
+再证 $E_4,E_6$ 代数无关。
+固定权 $k$，考察所有满足 $4a+6b=k$ 的单项式 $E_4^aE_6^b$。
+这样的 $(a,b)$ 个数恰好等于 \cref{thm:dim-sl2z} 给出的 $\dim \Mk_k(\SL_2(\Z))$。
+而上一步已经说明这些单项式张成整个 $\Mk_k(\SL_2(\Z))$，
+故它们实际上构成一组基。
+因此同一权里不存在非平凡线性关系，
+更不可能存在非零多项式关系 $P(E_4,E_6)=0$。
+于是 $\phi$ 既满又无核，从而是同构。
+\end{proof}
+
+\begin{corollary}[尖点形式理想由 $\Delta$ 生成]
+\label{cor:cusp-ideal-generated-by-delta}
+在分次环 $\Mk_*(\SL_2(\Z))$ 中，尖点形式组成的分次理想满足
+\[
+  \Sk_*(\SL_2(\Z))=\Delta\cdot \Mk_{*-12}(\SL_2(\Z)).
+\]
+也就是说，每个 cusp form 都唯一地写成 $\Delta g$，其中 $g$ 是较低权的模形式。
+\end{corollary}
+
+\begin{proof}
+若 $g\in \Mk_{k-12}(\SL_2(\Z))$，则 $\Delta g$ 显然是权 $k$ 的 cusp form。
+反过来，若 $f\in \Sk_k(\SL_2(\Z))$，则 $f$ 在 $\infty$ 至少有一阶零点，
+而 $\Delta$ 在 $\infty$ 恰有一阶零点、在 $\HH$ 上无零点，
+故 $f/\Delta$ 在整条模曲线上全纯，属于 $\Mk_{k-12}(\SL_2(\Z))$。
+唯一性来自 $\Delta\neq 0$。
+\end{proof}
+
+\begin{corollary}[维数差一的简洁证明]
+\label{cor:dimMk-dimSk-plus-one-short}
+对偶数权 $k\ge 4$，有
+\[
+  \dim \Mk_k(\SL_2(\Z))=\dim \Sk_k(\SL_2(\Z))+1.
+\]
+而在 $k=2$ 时，两边都等于 $0$。
+\end{corollary}
+
+\begin{proof}
+取任意满足 $4a+6b=k$ 的单项式 $P_k(E_4,E_6)$。
+因为它的常数项为 $1$，所以它不在 $\Sk_k$ 中。
+另一方面，\cref{cor:cusp-ideal-generated-by-delta} 表明每个模形式都可唯一写成
+\[
+  f=c\,P_k(E_4,E_6)+\Delta g,
+  \qquad c\in \C,
+  \quad g\in \Mk_{k-12}(\SL_2(\Z)).
+\]
+于是
+\[
+  \Mk_k(\SL_2(\Z))=\C\,P_k(E_4,E_6)\oplus \Sk_k(\SL_2(\Z)),
+\]
+立得维数差一。
+$k=2$ 时没有非零模形式，所以是唯一例外。
+\end{proof}
