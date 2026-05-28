@@ -1,0 +1,42 @@
+\section{几何直觉：同源的计数}
+\label{sec:hecke-motivation}
+% ============================================================================
+
+在\cref{sec:tori-and-ec}中，我们看到复环面 $\C/\Lambda$ 对应一条椭圆曲线，
+而 $\SL_2(\Z) \backslash \HH$ 参数化所有椭圆曲线的同构类。
+
+现在问：给定一个点 $\tau \in \HH$（对应椭圆曲线 $E_\tau = \C/\Lambda_\tau$），
+有多少条椭圆曲线 $E'$ 使得存在一个次数为 $n$ 的同源 $E_\tau \to E'$？
+
+\textbf{次数 $n$ 的同源 $\C/\Lambda \to \C/\Lambda'$}
+对应 $\alpha \in \C^*$ 使得 $\alpha\Lambda \subset \Lambda'$，
+$[\Lambda' : \alpha\Lambda] = n$。
+用格语言，这等价于：找所有满足 $[\Lambda_\tau : \Lambda'] = n$ 的子格 $\Lambda' \subset \Lambda_\tau$。
+
+\begin{example}[$n=p$（素数）时的子格]
+\label{ex:sublattices-prime}
+取 $\Lambda_\tau = \Z\tau + \Z$，$n = p$（素数）。
+指标为 $p$ 的子格有 $p + 1$ 个：
+\begin{itemize}
+  \item $\Lambda_j = \Z\tau + \Z(j\tau + p)^{-1}\cdot p\Z = \Z\tau + \frac{1}{p}\Z$？
+
+    \textbf{直接描述}：$p+1$ 个指标 $p$ 的子群 $\Lambda' \subset \Lambda_\tau$ 为
+    \begin{align*}
+      \Lambda_j &= \Z(\tau + j) + \Z(p), \quad j = 0, 1, \ldots, p-1, \\
+      \Lambda_p &= \Z(p\tau) + \Z(1).
+    \end{align*}
+    （验证：$[\Lambda_\tau : \Lambda_j] = p$。）
+  \item 对应的 $\tau$ 值（$\Lambda_j = \Lambda_{(τ+j)/p}$ 的第一生成元归一化后）：
+    $\tau_j = (\tau + j)/p$（$j = 0, \ldots, p-1$）和 $\tau_p = p\tau$。
+\end{itemize}
+\end{example}
+
+Hecke 算子 $T_p$ 就是把模形式"在所有这 $p+1$ 个点取平均"：
+\[
+  (T_p f)(\tau) \sim \sum_{\text{子格 } \Lambda'} f(\tau_{\Lambda'}),
+\]
+其中 $\tau_{\Lambda'}$ 是 $\Lambda'$ 对应的 $\tau$ 值（适当归一化）。
+这是一个非常具体的几何操作，把一条椭圆曲线的性质"扩散"到所有 $p$-同源像。
+
+
+% ============================================================================

@@ -1,0 +1,126 @@
+\section{Bernoulli 数与 $\zeta$ 函数}
+\label{sec:bernoulli}
+% ============================================================================
+
+\textbf{为什么要学 Bernoulli 数？}
+我们即将推导 Eisenstein 级数 $E_k$ 的 $q$-展开，结果会是
+\[
+  E_k(\tau) = 1 - \frac{2k}{B_k} \sum_{n=1}^{\infty} \sigma_{k-1}(n)\, q^n.
+\]
+分子 $-2k$ 是无聊的常数，有趣的是分母 $B_k$——这是 \textbf{Bernoulli 数}，
+一个看似随机的有理数序列：
+\[
+  B_2 = \tfrac{1}{6},\quad B_4 = -\tfrac{1}{30},\quad B_6 = \tfrac{1}{42},\quad
+  B_8 = -\tfrac{1}{30},\quad B_{12} = -\tfrac{691}{2730}, \quad \ldots
+\]
+乍看一下，为什么这些奇怪的分数会出现在 Fourier 系数里？
+
+答案在于 Bernoulli 数与 Riemann $\zeta$ 函数的联系：
+$\zeta(k) = -\frac{(2\pi i)^k B_k}{2 \cdot k!}$（$k$ 为正偶数）。
+而 Eisenstein 级数的常数项恰好是 $2\zeta(k)$，
+所以 $B_k$ 出现是因为我们在"归一化"$G_k$ 的常数项。
+
+\textbf{但 Bernoulli 数的影响远不止如此：}
+\begin{itemize}
+  \item \textbf{同余性质}：$B_{12}$ 的分子 $691$ 是个素数，
+    它出现在著名的同余式 $\tau(n) \equiv \sigma_{11}(n) \pmod{691}$（Ramanujan 猜想）。
+    这不是巧合——$691 \mid B_{12}$ 的分子恰好意味着 $E_{12}$ 和 $\Delta$ 在模 $691$ 意义下"混在一起"。
+  \item \textbf{正则素数}：Kummer 用 Bernoulli 数刻画了正则素数（即满足 $p \nmid B_2 B_4 \cdots B_{p-3}$ 的素数），
+    并证明费马大定理对正则素数成立——这是 Wiles 证明之前的主要进展。
+  \item \textbf{$p$-进 $L$-函数}：Bernoulli 数是 $\zeta(1-k)$（$k$ 为正整数）的有理值，
+    而 Kubota-Leopoldt 的 $p$-进 $\zeta$ 函数正是通过插值这些值构造的。
+\end{itemize}
+所以学 Bernoulli 数不只是为了算一个常数——它是连接模形式、同余性质和 $p$-进数论的一根主线。
+
+\textbf{Bernoulli 数是什么？}
+把函数 $\frac{t}{e^t - 1}$ 展开成 $t$ 的幂级数：
+\[
+  \frac{t}{e^t - 1} = \sum_{m=0}^{\infty} \frac{B_m}{m!} t^m.
+\]
+这样定义的系数 $B_m$ 就叫\textbf{Bernoulli 数}\index{Bernoulli 数 (Bernoulli numbers)}。
+
+\begin{example}[计算前几个 Bernoulli 数]
+\label{ex:bernoulli-numbers}
+用 $\frac{t}{e^t - 1} \cdot (e^t - 1) = t$ 可以逐步算出 $B_m$。
+展开 $e^t - 1 = t + t^2/2! + t^3/3! + \cdots$，则
+\[
+  \left(\sum_{m=0}^{\infty} \frac{B_m}{m!} t^m\right)
+  \left(\sum_{n=1}^{\infty} \frac{t^n}{n!}\right) = t.
+\]
+比较两边 $t^n$ 的系数（$n \geq 2$）：
+\[
+  \sum_{j=0}^{n-1} \frac{B_j}{j!} \cdot \frac{1}{(n-j)!} = 0,
+  \qquad \text{即} \quad
+  \sum_{j=0}^{n-1} \binom{n}{j} B_j = 0.
+\]
+从 $B_0 = 1$ 出发逐步计算：
+\begin{align*}
+  B_0 &= 1, \\
+  B_1 &= -\frac{1}{2}, \\
+  B_2 &= \frac{1}{6}, \quad B_4 = -\frac{1}{30}, \quad
+  B_6 = \frac{1}{42}, \quad B_8 = -\frac{1}{30}, \quad
+  B_{10} = \frac{5}{66}, \quad B_{12} = -\frac{691}{2730}.
+\end{align*}
+奇数阶（$m \geq 3$）：$B_m = 0$，因为
+$\frac{t}{e^t-1} + \frac{t}{2} = \frac{t}{2} \cdot \coth\frac{t}{2}$
+是偶函数。
+\end{example}
+
+注意 $B_{12} = -691/2730$——分子 $691$ 是个素数，
+将在 Ramanujan $\tau$ 函数的同余式 $\tau(n) \equiv \sigma_{11}(n) \pmod{691}$
+中再次出现。这不是巧合，背后有深刻的数论原因（Serre-Swinnerton-Dyer 理论）。
+
+\begin{proposition}[Bernoulli 数与 $\zeta$ 函数]
+\label{prop:bernoulli-zeta}
+\index{Riemann zeta 函数 (Riemann zeta function)}\index{zeta@$\zeta(s)$}
+对偶数 $k \geq 2$，
+\[
+  \zeta(k) = \sum_{n=1}^{\infty} \frac{1}{n^k}
+  = -\frac{(2\pi i)^k B_k}{2 \cdot k!}.
+\]
+特别地，
+\[
+  \zeta(2) = \frac{\pi^2}{6}, \quad
+  \zeta(4) = \frac{\pi^4}{90}, \quad
+  \zeta(6) = \frac{\pi^6}{945}, \quad
+  \zeta(8) = \frac{\pi^8}{9450}.
+\]
+\end{proposition}
+
+\begin{proof}
+利用 $\pi \cot(\pi z)$ 的部分分式展开。
+由复分析，$\pi \cot(\pi z)$ 在所有整数处有单极点，留数均为 $1$，故
+\[
+  \pi \cot(\pi z) = \frac{1}{z} + \sum_{n=1}^{\infty}
+  \left(\frac{1}{z-n} + \frac{1}{z+n}\right)
+  = \frac{1}{z} + \sum_{n=1}^{\infty} \frac{2z}{z^2 - n^2}.
+\]
+另一方面，令 $q = e^{2\pi i z}$（$\im z > 0$），则
+\[
+  \pi\cot(\pi z)
+  = \pi i \cdot \frac{e^{i\pi z} + e^{-i\pi z}}{e^{i\pi z} - e^{-i\pi z}}
+  = \pi i \cdot \frac{q + 1}{q - 1}
+  = -\pi i \left(1 + \frac{2q}{1-q}\right)
+  = -\pi i - 2\pi i \sum_{n=1}^{\infty} q^n.
+\]
+比较两个展开在 $z = 0$ 附近的 $z^{2k-1}$（$k \geq 1$）系数，注意
+\[
+  \frac{2z}{z^2 - n^2} = -\frac{2}{n^2} \cdot \frac{1}{1 - (z/n)^2}
+  = -\frac{2}{n^2} \sum_{j=0}^{\infty} \left(\frac{z}{n}\right)^{2j},
+\]
+故 $z^{2k-1}$ 系数贡献为 $-2\sum_{n=1}^\infty n^{-2k}$；
+另一方面，$-2\pi i \sum_{n=1}^{\infty} e^{2\pi inz}$ 在 $z = 0$ 附近展开，
+$z^{2k-1}$ 系数为 $-2\pi i \sum_{n=1}^\infty \frac{(2\pi i n)^{2k-1}}{(2k-1)!}$。
+整理后即得 $\zeta(2k) = -\frac{(2\pi i)^{2k} B_{2k}}{2(2k)!}$。
+\end{proof}
+
+\textbf{系数的化简。}
+由\cref{prop:bernoulli-zeta}，
+\[
+  \frac{2}{2\zeta(k)} = \frac{2}{-\frac{(2\pi i)^k B_k}{k!}}
+  = \frac{-2k!}{(2\pi i)^k B_k}.
+\]
+这在后面计算 $E_k$ 的 $q$-展开系数时会用到。
+
+
+% ============================================================================

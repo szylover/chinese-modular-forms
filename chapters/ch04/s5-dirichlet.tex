@@ -1,0 +1,146 @@
+\section{Dirichlet 特征与同余子群的 Eisenstein 级数}
+\label{sec:eisenstein-congruence}
+% ============================================================================
+
+对全模群 $\SL_2(\Z)$，我们已经完全理解了 Eisenstein 级数 $E_k$。
+但本书的最终目标（费马大定理）需要考虑同余子群，
+特别是 $\GammaO(N)$、$\GammaI(N)$。
+这些子群上的 Eisenstein 级数由 \textbf{Dirichlet 特征}（Dirichlet character）参数化。
+
+\begin{definition}[Dirichlet 特征]
+\label{def:dirichlet-character}
+\index{Dirichlet 特征 (Dirichlet character)}\index{chi@$\chi$}
+设 $N$ 为正整数。\textbf{模 $N$ 的 Dirichlet 特征}是函数 $\chi\colon \Z \to \C$，满足：
+\begin{enumerate}
+  \item \textbf{周期性}：$\chi(n + N) = \chi(n)$ 对所有 $n$；
+  \item \textbf{完全乘性}：$\chi(mn) = \chi(m)\chi(n)$ 对所有 $m, n$；
+  \item \textbf{与 $N$ 互素时非零}：$\chi(n) \neq 0 \iff \gcd(n, N) = 1$；
+    当 $\gcd(n, N) > 1$ 时 $\chi(n) = 0$。
+\end{enumerate}
+特征 $\chi$ 本质上是群同态 $(\Z/N\Z)^\times \to \C^\times$，
+延拓到 $\Z$ 上（不与 $N$ 互素的地方补零）。
+
+模 $N$ 的特征共有 $\varphi(N) = |(\Z/N\Z)^\times|$ 个。
+其中 $\chi_0$（满足 $\chi_0(n) = 1$ 对所有 $\gcd(n,N)=1$）称为\textbf{主特征}。
+\end{definition}
+
+\input{figures/ch04-dirichlet-character}
+
+\begin{example}[模 $4$ 的特征]
+\label{ex:chi-mod4}
+$(\Z/4\Z)^\times = \{1, 3\}$，是二阶群。恰好有两个特征：
+\begin{itemize}
+  \item 主特征 $\chi_0$：$\chi_0(1) = \chi_0(3) = 1$，$\chi_0(2) = \chi_0(0) = 0$。
+  \item 非主特征 $\chi_{-1}$（奇特征）：$\chi_{-1}(1) = 1$，$\chi_{-1}(3) = -1$，
+    $\chi_{-1}(2) = 0$。
+\end{itemize}
+对整数 $n$：$\chi_{-1}(n) = \left(\frac{-4}{n}\right)$（Kronecker 符号），
+即奇数时为 $\pm 1$（$n \equiv 1 \pmod 4$ 时为 $+1$，$n \equiv 3$ 时为 $-1$），偶数时为 $0$。
+\end{example}
+
+\begin{example}[特征的正交性]
+\label{ex:character-orthogonality}
+\index{正交关系 (orthogonality relations)}
+模 $N$ 的特征满足\textbf{正交关系}：
+\[
+  \frac{1}{\varphi(N)} \sum_{a \in (\Z/N\Z)^\times} \chi(a) \overline{\psi(a)}
+  = \begin{cases} 1 & \text{若 } \chi = \psi, \\ 0 & \text{若 } \chi \neq \psi. \end{cases}
+\]
+以及对固定 $a \in (\Z/N\Z)^\times$，
+\[
+  \frac{1}{\varphi(N)} \sum_{\chi \bmod N} \chi(a) \overline{\chi(b)}
+  = \begin{cases} 1 & \text{若 } a \equiv b \pmod N, \\ 0 & \text{否则}. \end{cases}
+\]
+这是有限 Abel 群上 Fourier 分析的特例，是 Dirichlet $L$-函数理论的基础。
+\end{example}
+
+\begin{definition}[Dirichlet $L$-函数]
+\label{def:dirichlet-L-function}
+\index{Dirichlet L-函数 (Dirichlet L-function)}\index{Ls@$L(s,\chi)$}
+设 $\chi$ 是模 $N$ 的 Dirichlet 特征。对 $\mathrm{Re}(s) > 1$，定义
+\[
+  L(s, \chi) = \sum_{n=1}^{\infty} \frac{\chi(n)}{n^s}
+  = \prod_{p \nmid N} \frac{1}{1 - \chi(p)p^{-s}} \cdot \prod_{p \mid N} \frac{1}{1 - \chi(p)p^{-s}}.
+\]
+（后者是 \textbf{Euler 乘积}，来自 $\chi$ 的完全乘性。）
+
+主特征时：$L(s, \chi_0) = \zeta(s) \prod_{p \mid N}(1 - p^{-s})$（从 $\zeta(s)$ 去掉有限个因子）。
+
+$L(s, \chi)$ 可以亚纯延拓到全复平面，当 $\chi \neq \chi_0$ 时是整函数，
+满足函数方程（类比 $\zeta(s)$ 的函数方程）。
+\end{definition}
+
+\begin{example}[$L(1, \chi_{-1})$ 与 $\pi$]
+\label{ex:L-function-value}
+取 $\chi = \chi_{-1}$（模 $4$ 的奇特征）：
+\[
+  L(1, \chi_{-1}) = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots = \frac{\pi}{4}.
+\]
+这是 Leibniz 公式！Dirichlet $L$-函数在 $s = 1$ 处的值与算术有深刻联系：
+\[
+  L(1, \chi) \neq 0 \quad \text{对所有非主特征 } \chi.
+\]
+这正是 \textbf{Dirichlet 素数定理}（$\gcd(a,N)=1$ 的等差数列 $a, a+N, a+2N, \ldots$
+中有无穷多个素数）的关键引理。
+\end{example}
+
+\textbf{同余子群上的 Eisenstein 级数。}
+现在用 Dirichlet 特征构造 $\GammaO(N)$ 和 $\GammaI(N)$ 的 Eisenstein 级数。
+
+设 $\chi_1, \chi_2$ 分别是模 $M_1, M_2$ 的原始特征
+（即不被更小模的特征"诱导"得到），$N = M_1 M_2$。
+当 $\chi_1(-1)\chi_2(-1) = (-1)^k$ 时（奇偶相容条件），定义
+
+\begin{definition}[扭曲 Eisenstein 级数]
+\label{def:twisted-eisenstein}
+\index{扭曲 Eisenstein 级数 (twisted Eisenstein series)}
+\[
+  E_{k,\chi_1,\chi_2}(\tau)
+  = c_0 + \sum_{n=1}^{\infty} \left(\sum_{d \mid n} \chi_1(n/d)\chi_2(d)\, d^{k-1}\right) q^n,
+\]
+其中 $c_0 = 0$（若 $M_1 > 1$）或 $c_0 = L(1-k, \chi_2)$（若 $M_1 = 1$）。
+这里 $L(1-k, \chi_2)$ 是 Dirichlet $L$-函数在非正整数处的特殊值（由解析延拓定义）。
+\end{definition}
+
+\begin{example}[最简单的扭曲——$\chi_1 = \chi_0, \chi_2 = \chi_0$（全模群）]
+当 $M_1 = M_2 = 1$（两个平凡特征），
+$\sum_{d \mid n} \chi_0(n/d)\chi_0(d) d^{k-1} = \sigma_{k-1}(n)$，
+$c_0 = L(1-k, \chi_0) = \zeta(1-k) = -B_k/k$，
+这就回到了 $G_k/(2\zeta(k)) = E_k$。
+\end{example}
+
+\begin{proposition}[扭曲 Eisenstein 级数是模形式]
+\label{prop:twisted-eisenstein-modular}
+设 $\chi_1(-1)\chi_2(-1) = (-1)^k$，$N = M_1 M_2$。则
+$E_{k,\chi_1,\chi_2} \in \Mk_k(\GammaI(N), \chi_1\chi_2)$，
+即满足
+\[
+  E_{k,\chi_1,\chi_2}(\gamma(\tau)) = \chi_1\chi_2(d)\,(c\tau+d)^k\, E_{k,\chi_1,\chi_2}(\tau)
+  \quad \text{对} \quad \gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \GammaI(N).
+\]
+\end{proposition}
+
+\begin{proof}[证明思路]
+仿照 $G_k$ 的证明，把 $E_{k,\chi_1,\chi_2}$ 写成格求和：
+\[
+  G_{k,\chi_1,\chi_2}(\tau)
+  = \sum_{\substack{c,d \in \Z \\ (c,d) \neq (0,0)}}
+    \frac{\chi_1(c)\chi_2(d)}{(c\tau + d)^k}.
+\]
+当 $\gamma_0 = \begin{pmatrix} a & b \\ c_0 & d_0 \end{pmatrix} \in \GammaI(N)$（$d_0 \equiv 1 \pmod N$）时，
+变量替换 $(c,d) \to (ca + dc_0, cb + dd_0)$ 把 $\chi_1(c)\chi_2(d)$ 变成
+$\chi_1(c)\chi_2(d) \cdot \chi_2(d_0)$（因为 $dd_0 \equiv d \pmod{M_2}$），
+给出 $\chi_2(d_0) = \chi_1\chi_2(d_0)$（由 $d_0 \equiv 1 \pmod{M_1}$）。
+\end{proof}
+
+\textbf{Eisenstein 级数的完备性。}
+$\Mk_k(\Gamma)$ 有一个重要分解：
+\[
+  \Mk_k(\Gamma) = \mathcal{E}_k(\Gamma) \oplus \Sk_k(\Gamma),
+\]
+其中 $\mathcal{E}_k(\Gamma)$（\textbf{Eisenstein 子空间}）由上述扭曲 Eisenstein 级数张成，
+$\Sk_k(\Gamma)$（\textbf{尖点形式子空间}）是它的正交补（在 Petersson 内积下，见第三章）。
+这个分解说明 Eisenstein 级数"捕获"了模形式空间的"非尖点"部分。
+
+
+% ============================================================================

@@ -1,0 +1,120 @@
+\section{格求和与 Eisenstein 级数的定义}
+\label{sec:lattice-sum-eisenstein}
+% ============================================================================
+
+在\cref{sec:modular-forms-def}中我们预告了 Eisenstein 级数。
+现在我们从头构造它，并直接验证模变换律。
+
+\textbf{动机：用格求和构造自动满足变换律的函数。}
+模形式的变换律是 $f(\gamma(\tau)) = (c\tau + d)^k f(\tau)$。
+如果我们对某个函数 $h$ 做"平均"：
+\[
+  f(\tau) = \sum_{\gamma \in \SL_2(\Z)} h(\gamma(\tau)) \cdot j(\gamma, \tau)^{-k},
+  \qquad j(\gamma, \tau) = c\tau + d,
+\]
+那么 $f(\gamma_0(\tau)) = j(\gamma_0, \tau)^k f(\tau)$ 自动成立——
+因为 $\gamma \mapsto \gamma\gamma_0$ 只是对求和指标做了置换。
+Eisenstein 级数就是取最简单的 $h(\tau) = 1$ 时得到的结果。
+
+\begin{definition}[Eisenstein 级数 $G_k$]
+\label{def:eisenstein-Gk}
+\index{Eisenstein 级数 (Eisenstein series)}\index{Gk@$G_k(\tau)$}
+对偶整数 $k \geq 4$，定义
+\[
+  G_k(\tau) = \sum_{\substack{(c,d) \in \Z^2 \\ (c,d) \neq (0,0)}}
+  \frac{1}{(c\tau + d)^k}.
+\]
+\end{definition}
+
+\begin{example}[前几项展开]
+\label{ex:Gk-first-terms}
+把 $G_k(\tau)$ 的求和按 $c$ 的值分组：
+\begin{itemize}
+  \item $c = 0$：贡献 $\sum_{d \neq 0} d^{-k} = 2\zeta(k)$。
+  \item $c \neq 0$：对固定 $c$，$d$ 跑遍所有整数，
+    贡献 $\sum_{d \in \Z} (c\tau + d)^{-k}$。
+\end{itemize}
+故
+\[
+  G_k(\tau) = 2\zeta(k) + 2 \sum_{c=1}^{\infty} \sum_{d \in \Z} \frac{1}{(c\tau + d)^k}.
+\]
+\end{example}
+
+\begin{proposition}[绝对收敛性]
+\label{prop:Gk-convergence}
+对 $k \geq 3$，$G_k(\tau)$ 在 $\HH$ 上绝对收敛，
+且在每个紧子集上一致收敛。
+\end{proposition}
+
+\begin{proof}
+设 $\tau = x + iy$，$y > 0$。对 $(c, d) \neq (0, 0)$，
+\[
+  |c\tau + d|^2 = (cx + d)^2 + c^2 y^2 \geq \min(1, y^2)(c^2 + d^2).
+\]
+（若 $c = 0$：$|d|^2 = d^2 \geq c^2+d^2$；若 $c \neq 0$：
+$|c\tau+d|^2 \geq c^2y^2 \geq y^2(c^2+d^2)/2$ 当 $|c| \leq |d|$，
+直接估计另一情形。）
+
+故
+\[
+  |G_k(\tau)| \leq C(y) \sum_{(c,d) \neq 0} (c^2 + d^2)^{-k/2}.
+\]
+对二维格求和，当 $k > 2$ 时级数收敛（在极坐标下估计）。
+在紧子集 $\{y \geq \delta\}$ 上 $C(y)$ 有上界，故一致收敛。
+\end{proof}
+
+\begin{theorem}[$G_k$ 是模形式]
+\label{thm:Gk-modular}
+对偶整数 $k \geq 4$，$G_k(\tau)$ 是 $\SL_2(\Z)$ 的权 $k$ 模形式，
+且 $G_k(\infty) = 2\zeta(k) \neq 0$。
+\end{theorem}
+
+\begin{proof}
+\textbf{全纯性}：由\cref{prop:Gk-convergence}，一致收敛的全纯函数之极限是全纯的。
+
+\textbf{变换律}：设 $\gamma_0 = \begin{pmatrix} a & b \\ c_0 & d_0 \end{pmatrix}
+\in \SL_2(\Z)$，$\gamma_0(\tau) = (a\tau + b)/(c_0\tau + d_0)$。
+\begin{align}
+  G_k(\gamma_0(\tau))
+  &= \sum_{(c,d) \neq 0} \frac{1}{\!\left(c \cdot \frac{a\tau+b}{c_0\tau+d_0} + d\right)^{\!k}} \\
+  &= (c_0\tau + d_0)^k
+     \sum_{(c,d) \neq 0} \frac{1}{((ca + dc_0)\tau + (cb + dd_0))^k}.
+\end{align}
+映射 $(c, d) \mapsto (ca+dc_0,\; cb+dd_0)$ 是 $\Z^2 \setminus \{0\}$ 上的双射
+（由 $\det\gamma_0 = 1$），故
+\[
+  G_k(\gamma_0(\tau)) = (c_0\tau + d_0)^k G_k(\tau).
+\]
+
+\textbf{在尖点处}：$\im(\tau) \to +\infty$ 时非常数项趋于 $0$
+（将在\cref{sec:eisenstein-q-expansion}中用 Poisson 求和证明），
+故 $G_k(\tau) \to 2\zeta(k)$，在尖点处全纯。
+\end{proof}
+
+\begin{definition}[规范化 Eisenstein 级数 $E_k$]
+\label{def:normalized-eisenstein}
+\index{Ek@$E_k(\tau)$}
+\[
+  E_k(\tau) = \frac{G_k(\tau)}{2\zeta(k)},
+\]
+使得 $E_k(\infty) = 1$。
+\end{definition}
+
+\begin{example}[$E_4, E_6$ 的展开（预告）]
+\label{ex:E4-E6-expansion}
+用 Poisson 求和（\cref{sec:eisenstein-q-expansion}）可以证明：
+\begin{align*}
+  E_4(\tau) &= 1 + 240\sum_{n=1}^{\infty} \sigma_3(n) q^n
+  = 1 + 240q + 2160q^2 + 6720q^3 + \cdots \\
+  E_6(\tau) &= 1 - 504\sum_{n=1}^{\infty} \sigma_5(n) q^n
+  = 1 - 504q - 16632q^2 - 122976q^3 - \cdots
+\end{align*}
+其中 $\sigma_{k-1}(n) = \sum_{d \mid n} d^{k-1}$。
+系数 $240 = -2k/B_k|_{k=4} = -8/(-1/30) = 240$ ($\checkmark$)，
+$-504 = -2 \cdot 6 / B_6 = -12 / (1/42) = -504$ ($\checkmark$)。
+\end{example}
+
+\input{figures/ch04-eisenstein-coefficients}
+
+
+% ============================================================================

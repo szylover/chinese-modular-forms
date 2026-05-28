@@ -1,0 +1,120 @@
+\section{复环面与椭圆曲线}
+\label{sec:tori-and-ec}
+% ============================================================================
+
+复环面 $\C/\Lambda$ 是一个"分析对象"——用复平面和格定义的。
+\textbf{椭圆曲线}是一个"代数对象"——用多项式方程定义的。
+本节的核心结论是：这两种看似不同的东西其实是同一回事。
+
+\textbf{什么是椭圆曲线？}
+最简单地说，椭圆曲线就是形如
+\[
+  E\colon y^2 = x^3 + ax + b \qquad (\text{其中 } 4a^3 + 27b^2 \neq 0)
+\]
+的代数曲线，加上一个"无穷远点" $O$。
+条件 $4a^3 + 27b^2 \neq 0$ 保证曲线没有尖点或自交
+（即它是"光滑"的）。
+椭圆曲线上的点可以定义一个加法群结构——
+这是代数几何中最神奇的事情之一，但这里我们不展开。
+
+\textbf{连接的桥梁：Weierstrass $\wp$ 函数。}
+给定格 $\Lambda$，\textbf{Weierstrass $\wp$ 函数}定义为
+\[
+  \wp(z;\Lambda) = \frac{1}{z^2} + \sum_{\omega \in \Lambda \setminus \{0\}}
+  \left(\frac{1}{(z-\omega)^2} - \frac{1}{\omega^2}\right).
+\]
+它是一个以 $\Lambda$ 为周期的亚纯函数（椭圆函数），
+在每个格点 $\omega \in \Lambda$ 处有二阶极点，其他地方全纯。
+关键性质是 $\wp$ 满足微分方程：
+\[
+  (\wp')^2 = 4\wp^3 - g_2\wp - g_3,
+\]
+其中 $g_2 = 60\sum_{\omega \neq 0} \omega^{-4}$，
+$g_3 = 140\sum_{\omega \neq 0} \omega^{-6}$。
+这个微分方程正好是一条椭圆曲线！
+
+\begin{theorem}[均匀化定理]
+\label{thm:uniformization}
+\leavevmode
+\begin{enumerate}
+  \item \textbf{从环面到曲线}：映射
+    \[
+      \C/\Lambda \to E_\Lambda(\C), \quad
+      z \mapsto (\wp(z), \wp'(z))
+    \]
+    （$z = 0$ 映到无穷远点 $O$）是一个群同构。
+    这里 $E_\Lambda\colon y^2 = 4x^3 - g_2 x - g_3$。
+    
+    直觉：$\wp$ 和 $\wp'$ 把环面上的每个点
+    "坐标化"为椭圆曲线上的一个点 $(x,y)$。
+
+  \item \textbf{从曲线到环面}：给定 $\C$ 上任意一条椭圆曲线 $E$，
+    存在格 $\Lambda$（在相似变换下唯一）使得
+    $E(\C) \cong \C/\Lambda$。
+\end{enumerate}
+\end{theorem}
+
+\begin{example}[正方形格对应的椭圆曲线]
+\label{ex:square-lattice-curve}
+取 $\Lambda = \Z + \Z i$（正方形格）。
+由对称性 $\Lambda = i\Lambda$（乘以 $i$ 就是旋转 $90°$，
+正方形格不变），可以证明 $g_3 = 0$。
+对应的椭圆曲线是 $y^2 = 4x^3 - g_2 x$（没有常数项）。
+这条曲线有一个额外的自同构 $(x,y) \mapsto (-x, iy)$，
+对应于环面上的 $z \mapsto iz$。
+\end{example}
+
+\begin{proof}[Theorem~\ref{thm:uniformization} 的证明思路]
+方向 (1) 的关键是利用 $\wp$ 的微分方程
+$(\wp')^2 = 4\wp^3 - g_2\wp - g_3$，
+说明 $(z \bmod \Lambda) \mapsto (\wp(z), \wp'(z))$
+确实落在椭圆曲线上，并且是双射。
+详细证明见\cref{thm:weierstrass-properties}。
+
+方向 (2) 用到 $j$-不变量 $j(\tau)$ 给出双射
+$\SL_2(\Z) \backslash \HH \to \C$，
+所以给定任何椭圆曲线，总能找到对应的 $\tau$（从而找到格）。
+\end{proof}
+
+\textbf{同源：椭圆曲线之间的"好"映射。}
+椭圆曲线之间最重要的映射叫做\textbf{同源}（isogeny）。
+在费马大定理的证明中，Ribet 的关键步骤就涉及到一条椭圆曲线的"$3$-同源"——
+他证明了如果 Frey 曲线存在，就能构造一个 $3$-同源导致矛盾。
+
+\textbf{为什么同源比一般的映射更重要？}
+因为同源\emph{保持群结构}（$\varphi(P+Q) = \varphi(P)+\varphi(Q)$），
+所以它是"椭圆曲线的范畴"中的态射。
+两条椭圆曲线之间如果存在同源，它们的 $L$-函数和 Galois 表示就密切相关——
+实际上，同源的椭圆曲线在所有大素数处有相同的迹，
+这是谷山-志村猜想中"$L$-函数相等"的核心。
+
+\textbf{在复环面语言中，同源就是倍乘。}
+$\C/\Lambda_1 \to \C/\Lambda_2$ 的同源对应 $\alpha \in \C^*$ 使得 $\alpha\Lambda_1 \subset \Lambda_2$，
+映射是 $z \mapsto \alpha z$。最简单的情形是整数倍乘 $z \mapsto nz$，
+核是 $E[n] = \{P \in E \mid nP = O\} \cong (\Z/n\Z)^2$（$n^2$ 个点）。
+
+\begin{definition}[同源]
+\label{def:isogeny}
+\index{同源 (isogeny)}
+设 $E_1, E_2$ 为椭圆曲线。一个\textbf{同源}（isogeny）
+$\varphi\colon E_1 \to E_2$ 是保持群结构的非常数代数映射
+（即 $\varphi(P + Q) = \varphi(P) + \varphi(Q)$）。
+
+在复环面语言中，$\C/\Lambda_1$ 到 $\C/\Lambda_2$ 的同源对应于
+$\alpha \in \C^*$ 使得 $\alpha\Lambda_1 \subset \Lambda_2$
+（注意不要求相等，只要求包含），映射为 $z \mapsto \alpha z$。
+\end{definition}
+
+\begin{example}[乘法同源]
+\label{ex:multiplication-isogeny}
+取 $\Lambda = \Z + \Z i$，$\alpha = 2$。
+则 $2\Lambda = 2\Z + 2\Z i \subset \Lambda$，
+所以 $z \mapsto 2z$ 是 $\C/\Lambda$ 到自身的同源。
+它的\textbf{度}是 $[\Lambda : 2\Lambda] = 4$
+（因为 $\Lambda/2\Lambda \cong (\Z/2\Z)^2$ 有 $4$ 个元素），
+意味着每个像有 $4$ 个原像（即核 $\Lambda/2\Lambda$ 有 $4$ 个元素：
+$0, \; 1/2, \; i/2, \; (1+i)/2$）。
+\end{example}
+
+
+% ============================================================================

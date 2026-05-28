@@ -1,0 +1,141 @@
+\section{特征形式与乘性：Euler 乘积}
+\label{sec:hecke-eigenforms}
+% ============================================================================
+
+\textbf{我们遇到了什么问题？}
+前一节已经知道 $T_n\colon \Sk_k \to \Sk_k$ 是线性算子，$\{T_n\}$ 彼此交换。
+但 $\Sk_k$ 的维数可以很大——以 $\SL_2(\Z)$ 为例，$\dim \Sk_{24} = 2$，
+$\dim \Sk_{36} = 3$，以后级别升高维数会很快增大。
+面对一个 $d$ 维空间和一族线性算子，我们能问的最自然的问题是：
+\emph{有没有一组基，使得每个 $T_n$ 在这组基下都变成对角矩阵？}
+
+线性代数的答案是：\textbf{如果一族算子彼此交换且都可对角化，
+则它们有公共特征向量基}。每个公共特征向量 $f$ 满足
+$T_n f = \lambda_n f$（$f$ 是 $T_n$ 的特征向量，特征值为 $\lambda_n$）。
+在这样的基下，计算变得极其简单：
+$T_n$ 的矩阵就是对角矩阵，对角元是各特征值 $\lambda_n$。
+
+\textbf{真正的惊喜在哪里？}
+假设 $f = \sum a_n q^n$ 是这样的特征向量，且 $a_1 = 1$（首项归一化）。
+由 \cref{thm:hecke-on-q-exp} 的公式，比较 $T_n f$ 的第 1 个 Fourier 系数：
+\[
+  (T_n f)_1 = a_n.
+\]
+而 $T_n f = \lambda_n f$ 意味着 $(T_n f)_1 = \lambda_n \cdot a_1 = \lambda_n$。
+所以 $\lambda_n = a_n$——\textbf{特征值 $\lambda_n$ 就等于 Fourier 系数 $a_n$！}
+
+这个发现有深刻的算术推论：
+由于 $T_m T_n = T_{mn}$（当 $\gcd(m,n)=1$），特征值的乘法 $\lambda_{mn} = \lambda_m \lambda_n$
+等价于 Fourier 系数的乘法 $a_{mn} = a_m a_n$。
+这就是 Ramanujan 的 $\tau(mn) = \tau(m)\tau(n)$（$\gcd(m,n)=1$）的\emph{概念上的}证明：
+$\Delta$ 恰好是 $\Sk_{12}(\SL_2(\Z))$ 唯一的（归一化）特征形式，所以它的 Fourier 系数必须是乘性的。
+
+更进一步，乘性的 Dirichlet 级数 $\sum a_n n^{-s}$ 天然分解成素数处局部因子之积（Euler 乘积），
+这把 $f$ 与数论中最核心的对象——$L$-函数——联系起来了。
+这正是整条费马大定理证明链的起点：模形式的 $L$-函数与椭圆曲线的 $L$-函数"相等"。
+
+\begin{definition}[特征形式]
+\label{def:eigenform}
+设 $f \in \Sk_k$ 满足 $T_n f = \lambda_n f$ 对所有 $n \geq 1$。称 $f$ 为 \textbf{特征形式}
+（eigenform 或 Hecke eigenform）。若进一步 $a_1(f) = 1$（首项归一化），
+称 $f$ 为\textbf{归一化特征形式}（normalized eigenform）。
+\end{definition}
+
+\begin{theorem}[乘性定理]
+\label{thm:multiplicativity}
+设 $f = \sum a_n q^n$ 是归一化特征形式。则
+\begin{enumerate}
+  \item[(i)] \textbf{乘性}：若 $\gcd(m,n)=1$，则 $a_{mn} = a_m a_n$。
+  \item[(ii)] \textbf{素数幂递推}：对素数 $p$ 和 $r \geq 1$，
+        \[
+          a_{p^{r+1}} = a_p \cdot a_{p^r} - p^{k-1} a_{p^{r-1}}.
+        \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) 利用 Hecke 算子的代数关系：
+\[
+  T_m \circ T_n = T_{mn} \quad (\gcd(m,n)=1), \qquad
+  T_{p^r} \circ T_p = T_{p^{r+1}} + p^{k-1} T_{p^{r-1}}.
+\]
+对归一化特征形式，$T_n f = a_n f$，故
+\[
+  a_{mn} f = T_{mn} f = T_m(T_n f) = T_m(a_n f) = a_n T_m f = a_n a_m f.
+\]
+两边除以 $f$（非零）得 $a_{mn} = a_m a_n$。
+
+(ii) 由递推关系 $T_{p^{r+1}} = T_p T_{p^r} - p^{k-1} T_{p^{r-1}}$，作用在 $f$ 上：
+\[
+  a_{p^{r+1}} f = T_{p^{r+1}} f
+  = T_p(a_{p^r} f) - p^{k-1}(a_{p^{r-1}} f)
+  = (a_p a_{p^r} - p^{k-1} a_{p^{r-1}}) f.
+\]
+\end{proof}
+
+\begin{example}[Ramanujan $\tau$ 函数的乘性]
+\label{ex:tau-multiplicativity}
+$\Delta(\tau) = q\prod_{n=1}^\infty(1-q^n)^{24} = \sum_{n=1}^\infty \tau(n)q^n$
+是重量 12 的尖点形式，且 $\dim \Sk_{12}(\SL_2(\Z)) = 1$，
+故 $\Delta$ 自动是（唯一的）归一化特征形式，从而：
+\begin{itemize}
+  \item $\tau(mn) = \tau(m)\tau(n)$，当 $\gcd(m,n)=1$；
+  \item $\tau(p^{r+1}) = \tau(p)\tau(p^r) - p^{11}\tau(p^{r-1})$。
+\end{itemize}
+例如 $\tau(2)\tau(3) = (-24)(252) = -6048 = \tau(6)$ \checkmark。
+
+Ramanujan 于 1916 年猜测 $\tau$ 是乘性函数；1937 年 Mordell 证明了这一点——
+正是用 Hecke 算子（当时 Hecke 刚发展完该理论）。
+\end{example}
+
+\begin{theorem}[$L$-函数的 Euler 乘积]
+\label{thm:L-function-euler-product}
+设 $f = \sum_{n=1}^\infty a_n q^n$ 是重量 $k$、级别 $N$ 的归一化新特征形式。
+定义
+\[
+  L(s, f) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}, \quad \mathrm{Re}(s) \gg 0.
+\]
+则 $L(s,f)$ 有 Euler 乘积分解：
+\[
+  L(s, f)
+  = \prod_{p \nmid N} \frac{1}{1 - a_p p^{-s} + p^{k-1-2s}}
+    \prod_{p \mid N} \frac{1}{1 - a_p p^{-s}}.
+\]
+\end{theorem}
+
+\input{figures/ch05-eigenform-euler}
+
+\begin{proof}[证明思路]
+\textbf{好素数处（$p \nmid N$）：}由乘性，把 Dirichlet 级数写成素数幂的乘积：
+\[
+  L(s,f) = \prod_p \sum_{r=0}^\infty \frac{a_{p^r}}{p^{rs}}.
+\]
+利用递推 $a_{p^{r+1}} = a_p a_{p^r} - p^{k-1}a_{p^{r-1}}$，
+令 $X = p^{-s}$，对级数 $F_p(X) = \sum_{r=0}^\infty a_{p^r} X^r$ 做分析：
+\begin{align}
+  F_p(X) - a_p X F_p(X) + p^{k-1} X^2 F_p(X)
+  &= a_0 + (a_1 - a_p a_0) X + \sum_{r=2}^\infty (a_{p^r} - a_p a_{p^{r-1}} + p^{k-1}a_{p^{r-2}}) X^r \\
+  &= 1 + 0 \cdot X + 0 = 1.
+\end{align}
+故 $F_p(X) = 1/(1 - a_p X + p^{k-1} X^2)$。
+
+\textbf{坏素数处（$p \mid N$）：}$a_{p^r} = a_p^r$（几何级数），故
+$F_p(X) = 1/(1 - a_p X)$。
+\end{proof}
+
+\begin{remark}
+Euler 乘积把 $L(s,f)$ 拆成无穷多个"\textbf{局部因子}"之积，
+每个素数 $p$ 对应一个因子，编码了 $f$（或对应椭圆曲线）在 $p$ 处的局部算术信息。
+这是现代数论的核心范式之一。在费马大定理的证明中，
+谷山-志村猜想断言每条有理椭圆曲线的 $L$-函数等于某个模形式的 $L(s,f)$——
+正是因为两者有相同的 Euler 乘积！
+\end{remark}
+
+\begin{example}[$\zeta$ 函数与重量 1]
+当把上面的 Euler 乘积推广到更一般的 $L$-函数族时，
+类比 Riemann $\zeta(s) = \prod_p (1-p^{-s})^{-1}$（"重量 0 的模形式"情形），
+可以看到局部因子分母的次数刚好给出 $L$-函数的"\textbf{欧拉特征}"。
+\end{example}
+
+
+% ============================================================================

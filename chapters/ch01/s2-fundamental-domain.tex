@@ -1,0 +1,201 @@
+\section{基本域}
+\label{sec:fundamental-domain}
+% ============================================================================
+
+$\SL_2(\Z)$ 包含无穷多个矩阵，每一个都把上半平面映到自身。
+自然的问题是：上半平面中哪些点在 $\SL_2(\Z)$ 看来是"本质上相同的"？
+
+\textbf{先想想我们想得到什么。}
+如果 $\tau$ 和 $\tau'$ 满足 $\tau' = \gamma(\tau)$ 对某个 $\gamma \in \SL_2(\Z)$，
+那么任何模形式 $f$ 在这两个点的值满足
+$f(\tau') = (c\tau+d)^k f(\tau)$——它们"本质上一样"。
+这意味着 $\HH$ 中有大量"冗余"：无穷多个点实际上代表同一条椭圆曲线。
+
+\textbf{基本域的作用}就是消除这种冗余：
+从每个轨道 $\SL_2(\Z) \cdot \tau$ 中恰好挑一个"标准代表元"，
+所有代表元合在一起构成的区域就是基本域。
+有了基本域，我们就可以把"$\HH$ 上的问题"化简成"基本域这个小区域上的问题"，
+从而把无限复杂的空间变成有限大小的对象来分析。
+
+\textbf{实际用途：}
+基本域在后面的维数公式（\cref{ch:dimension}）中至关重要。
+计算 $\dim \Mk_k(\Gamma)$ 时，需要在商空间 $\Gamma \backslash \HH^*$ 上用 Riemann-Hurwitz 公式，
+而基本域就是这个商空间的一个具体几何实现。
+
+这需要\textbf{群作用}\index{群作用 (group action)}（group action）的语言。群 $G$ \textbf{作用在}集合 $X$ 上，
+是指一个映射 $G \times X \to X$（记 $(g, x) \mapsto g \cdot x$），满足
+$e \cdot x = x$ 和 $(g_1 g_2) \cdot x = g_1 \cdot (g_2 \cdot x)$。
+在我们的情况下，$G = \SL_2(\Z)$，$X = \HH$，作用就是莫比乌斯变换。
+
+两个关键概念：
+\begin{itemize}
+  \item \textbf{轨道}\index{轨道 (orbit)}（orbit）：$G \cdot \tau = \{\gamma(\tau) \mid \gamma \in G\}$，
+    即 $\tau$ 能被 $G$ 映到的所有点。同一轨道中的点视为"等价"的。
+  \item \textbf{基本域}：从每个轨道中恰好选一个代表元，
+    这些代表元组成的区域就是基本域——上半平面的一个"最小切片"。
+\end{itemize}
+
+\begin{example}[轨道是什么样的]
+\label{ex:orbit-of-2i}
+取 $\tau = 2i$。它的轨道 $\SL_2(\Z) \cdot (2i)$ 包含哪些点？
+\begin{itemize}
+  \item $T^n(2i) = 2i + n$，$n \in \Z$
+    ——整条水平线 $\{\ldots, -1+2i, \; 2i, \; 1+2i, \; 2+2i, \ldots\}$。
+  \item $S(2i) = -1/(2i) = i/2$
+    ——跳到了更低的位置。
+  \item $T(S(2i)) = i/2 + 1 = 1 + i/2$，$T^{-1}(S(2i)) = -1 + i/2$，……
+  \item $S(T(2i)) = S(1+2i) = \frac{-1}{1+2i} = \frac{-(1-2i)}{5}
+    = -\frac{1}{5} + \frac{2}{5}i$
+    ——又跳到了别的地方。
+\end{itemize}
+继续组合 $S$ 和 $T$，轨道中有无穷多个点，密密麻麻地分布在上半平面中。
+这些点在 $\SL_2(\Z)$ 的视角下全是"同一个点"。
+
+基本域的作用就是：从这一大堆等价的点里，选出一个"标准代表"。
+对 $2i$ 来说，它自己就在基本域中（$|\Re(2i)| = 0 < 1/2$，$|2i| = 2 > 1$），
+所以 $2i$ 就是这个轨道的标准代表。
+\end{example}
+
+\begin{definition}[基本域]
+\label{def:fundamental-domain}
+\index{基本域 (fundamental domain)}
+群 $G$ 作用在空间 $X$ 上时，一个\textbf{基本域}（fundamental domain）是
+$X$ 的子集 $\mathcal{F}$，使得：
+\begin{enumerate}
+  \item $X = \bigcup_{\gamma \in G} \gamma(\overline{\mathcal{F}})$
+    （覆盖性）；
+  \item $\gamma(\mathcal{F}) \cap \mathcal{F} = \emptyset$ 对所有
+    $\gamma \neq \Id$（内部不重叠）。
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[$\SL_2(\Z)$ 的标准基本域]
+\label{thm:fundamental-domain}
+\[
+  \mathcal{F} = \left\{\tau \in \HH \;\middle|\;
+    |\tau| > 1,\; -\frac{1}{2} < \Re(\tau) < \frac{1}{2}
+  \right\}
+\]
+（即开域，边界按约定选取一半）是 $\SL_2(\Z)$ 作用在 $\HH$ 上的基本域。
+更精确地：$\overline{\mathcal{F}}$ 的闭包为
+\[
+  \overline{\mathcal{F}} = \left\{\tau \in \HH \;\middle|\;
+    |\tau| \geq 1,\; -\frac{1}{2} \leq \Re(\tau) \leq \frac{1}{2}
+  \right\},
+\]
+且 $\HH = \bigcup_{\gamma \in \SL_2(\Z)} \gamma(\overline{\mathcal{F}})$。
+\end{theorem}
+
+\begin{proof}
+\textbf{覆盖性}：给定 $\tau \in \HH$，我们找 $\gamma \in \SL_2(\Z)$
+使得 $\gamma(\tau) \in \overline{\mathcal{F}}$。
+
+由\cref{prop:mobius-preserves-H}，$\im(\gamma(\tau)) = \im(\tau)/|c\tau + d|^2$。
+对固定的 $\tau$，$|c\tau + d|^2 = (cx + d)^2 + c^2 y^2 \geq c^2 y^2$，
+只有有限多对 $(c,d)$ 使得 $|c\tau + d| \leq 1/y$（即使虚部增大）。
+因此 $\{\im(\gamma(\tau)) \mid \gamma \in \SL_2(\Z)\}$ 有最大值，
+设在 $\gamma_0$ 处取到。
+
+先用 $T^n$（$n$ 适当）使得 $\Re(\gamma_0(\tau)) \in [-1/2, 1/2]$。
+设结果为 $\tau' = T^n \gamma_0(\tau)$。
+
+若 $|\tau'| < 1$，则 $S(\tau') = -1/\tau'$ 满足
+$\im(S(\tau')) = \im(\tau')/|\tau'|^2 > \im(\tau')$，
+矛盾于 $\im(\tau')$ 已是最大值。故 $|\tau'| \geq 1$，
+即 $\tau' \in \overline{\mathcal{F}}$。
+
+\textbf{内部不重叠}：设 $\tau, \tau' \in \mathcal{F}$（开域内部），
+$\gamma(\tau) = \tau'$，$\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+\neq \pm I$。不妨设 $\im(\tau') \geq \im(\tau)$，即
+$|c\tau + d|^2 \leq 1$。
+
+由 $\tau \in \mathcal{F}$，$\im(\tau) > \sqrt{3}/2$。
+若 $|c| \geq 2$，则 $|c\tau + d| \geq |c|\im(\tau) > \sqrt{3} > 1$，矛盾。
+若 $|c| = 1$，则 $|c\tau + d|^2 = |\tau + d|^2 \leq 1$（当 $c = 1$），
+但 $|\tau + d|^2 = (x + d)^2 + y^2$。由 $|x| < 1/2$ 和 $y > \sqrt{3}/2$，
+\[
+  |\tau + d|^2 \geq y^2 > 3/4.
+\]
+若 $d = 0$，则 $|\tau|^2 \leq 1$，但 $\tau \in \mathcal{F}$ 要求
+$|\tau| > 1$，矛盾。
+类似分析 $d = \pm 1$ 的情形均导致 $\tau$ 在 $\mathcal{F}$ 的边界上而非内部。
+若 $c = 0$，则 $\gamma = \pm T^b$，$\tau' = \tau \pm b$，
+由 $|\Re(\tau)|, |\Re(\tau')| < 1/2$ 得 $b = 0$，$\gamma = \pm I$。
+\end{proof}
+
+\textbf{基本域的形状。}
+$\overline{\mathcal{F}}$ 形如一个无限高的"拱门"：底部弧线是单位圆
+$|\tau| = 1$ 的一段，两侧是 $\Re(\tau) = \pm 1/2$ 的垂线。
+这个形状正好对应 $S$ 和 $T$ 的分界线：$T$ 把竖直带平移，
+所以左右边界由 $T$ 粘合；$S$ 关于单位圆反演，所以底部弧线由 $S$ 粘合。
+
+\begin{example}[判断一个点是否在基本域中]
+\label{ex:point-in-F}
+\leavevmode
+\begin{enumerate}
+  \item $\tau_1 = \frac{1}{5} + 2i$：
+    $|\Re(\tau_1)| = 1/5 < 1/2$，$|\tau_1|^2 = 1/25 + 4 > 1$。
+    两个条件都满足，所以 $\tau_1 \in \overline{\mathcal{F}}$。
+
+  \item $\tau_2 = 3 + i$：
+    $|\Re(\tau_2)| = 3 > 1/2$，不在基本域中。
+    但 $T^{-3}(\tau_2) = \tau_2 - 3 = i$，而 $i$ 在 $\overline{\mathcal{F}}$
+    的边界上（$|i| = 1$）。所以 $\tau_2$ 和 $i$ 属于同一个轨道。
+
+  \item $\tau_3 = i/3$：
+    $|\tau_3| = 1/3 < 1$，不在基本域中。
+    用 $S$：$S(\tau_3) = -1/(i/3) = -3/i = 3i$。
+    而 $3i$ 满足 $|\Re(3i)| = 0 < 1/2$，$|3i| = 3 > 1$，
+    所以 $3i \in \mathcal{F}$。
+\end{enumerate}
+\end{example}
+
+\begin{example}[把一个点"折回"基本域]
+\label{ex:reduce-to-F}
+取 $\tau = \frac{7}{3} + \frac{i}{2}$。怎样找到它在基本域中的代表元？
+
+\textbf{第一步}：用 $T$ 调整实部。$\Re(\tau) = 7/3 \approx 2.33$，
+取 $T^{-2}$：$\tau' = \tau - 2 = \frac{1}{3} + \frac{i}{2}$。
+现在 $|\Re(\tau')| = 1/3 < 1/2$，实部条件满足了。
+
+\textbf{第二步}：检查模长。$|\tau'|^2 = 1/9 + 1/4 = 13/36 < 1$，
+不满足 $|\tau| \geq 1$。用 $S$：
+\[
+  S(\tau') = \frac{-1}{\frac{1}{3} + \frac{i}{2}}
+  = \frac{-1}{\frac{2 + 3i}{6}} = \frac{-6}{2 + 3i}
+  = \frac{-6(2 - 3i)}{4 + 9} = \frac{-12 + 18i}{13}.
+\]
+所以 $S(\tau') = -\frac{12}{13} + \frac{18}{13}i$。
+
+\textbf{第三步}：再用 $T$ 调整实部。$\Re(S(\tau')) = -12/13 \approx -0.92$，
+取 $T^1$：$\tau'' = S(\tau') + 1 = \frac{1}{13} + \frac{18}{13}i$。
+现在 $|\Re(\tau'')| = 1/13 < 1/2$，
+$|\tau''|^2 = 1/169 + 324/169 = 325/169 = 25/13 > 1$。两个条件都满足！
+
+结论：$\tau'' = \frac{1}{13} + \frac{18}{13}i \in \mathcal{F}$，
+由 $\tau'' = TS T^{-2}(\tau)$ 得到。
+\end{example}
+
+\textbf{椭圆不动点与稳定子。}
+\label{rem:elliptic-fixed-points}
+大多数 $\tau \in \HH$ 只有"平凡"的对称性——只有 $\pm I$
+把它映回自身。但基本域边界上有两个特殊点，它们有额外的对称性。
+
+给定 $\tau$，所有把 $\tau$ 固定不动的矩阵构成一个子群，
+叫做 $\tau$ 的\textbf{稳定子}\index{稳定子 (stabilizer)}（stabilizer）：
+$(\SL_2(\Z))_\tau = \{\gamma \in \SL_2(\Z) \mid \gamma(\tau) = \tau\}$。
+
+\begin{enumerate}
+  \item $\tau = i$：$S(i) = -1/i = i$，所以 $S$ 固定 $i$。
+    稳定子为 $\{I, S, -I, -S\}$，同构于 $\Z/4\Z$
+    （在 $\PSL_2(\Z)$ 中为 $\Z/2\Z$）。
+  \item $\tau = \rho = e^{2\pi i/3} = \frac{-1+i\sqrt{3}}{2}$：
+    直接计算 $(ST)(\rho) = S(\rho + 1) = \rho$。
+    稳定子为 $\langle ST \rangle \cong \Z/6\Z$
+    （在 $\PSL_2(\Z)$ 中为 $\Z/3\Z$）。
+\end{enumerate}
+这两个\textbf{椭圆不动点}导致基本域边界上的粘合出现特殊行为，
+在\cref{ch:dimension}的维数公式中会产生修正项。
+
+
+% ============================================================================

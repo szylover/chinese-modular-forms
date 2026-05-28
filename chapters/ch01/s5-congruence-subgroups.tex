@@ -1,0 +1,122 @@
+\section{同余子群}
+\label{sec:congruence-subgroups}
+% ============================================================================
+
+\textbf{我们为什么需要同余子群？先看一个具体的算术问题。}
+
+有一条著名的椭圆曲线：
+\[
+  E\colon y^2 = x^3 - x.
+\]
+它有一个特殊的有理 $4$ 阶点，$P = (0, 0)$（验证：$2P = (0,0)$ 到 ... 事实上 $P$ 是 $2$ 阶点，
+我们换一个例子）。
+
+更深刻的问题是：能不能用模形式来捕捉"椭圆曲线 $E$ 带着某个 $N$ 阶子群 $C$"这个结构？
+
+用 $\SL_2(\Z)$ 对应的模形式空间 $\Mk_k(\SL_2(\Z))$，
+我们只能看到椭圆曲线的同构类——不区分有没有额外结构。
+如果想区分"有 $N$ 阶子群 $C$"和"没有 $N$ 阶子群"的椭圆曲线，
+就需要用更小的对称群，只保留"不破坏 $C$ 的结构"的变换。
+
+这正是\textbf{同余子群}（congruence subgroup）的来源：
+$\Gamma_0(N)$、$\Gamma_1(N)$、$\Gamma(N)$ 是 $\SL_2(\Z)$ 的子群，
+它们对应"记住 $N$ 阶额外结构"的那部分对称性。
+
+\textbf{直觉上，三种子群对应三种额外信息：}
+\begin{itemize}
+  \item $\Gamma_0(N)$：记住一个 $N$ 阶循环子群 $C \subset E[N]$（但不区分 $C$ 中的元素）。
+    条件是矩阵左下角 $c \equiv 0 \pmod N$。
+  \item $\Gamma_1(N)$：记住 $C$ 中一个具体的 $N$ 阶点 $P$（不只是子群，而是点）。
+    条件是 $a \equiv d \equiv 1$，$c \equiv 0 \pmod N$。
+  \item $\Gamma(N)$：记住 $E[N]$（$E$ 的所有 $N$ 阶点）的一整组有序基 $(P, Q)$。
+    条件是整个矩阵 $\equiv I \pmod N$。
+\end{itemize}
+越小的子群记住的信息越多，对应的模形式空间也就越大。
+这将在\cref{thm:moduli-interpretation}中精确表述。
+
+\textbf{同余条件"$\pmod N$"从哪来？}
+直觉：如果我们只关心 $E$ 的 $N$ 阶点，
+那么在格 $\Lambda = \Z\tau + \Z$ 上，$N$ 阶点就是 $\frac{1}{N}\Lambda / \Lambda$。
+一个矩阵 $\gamma = \begin{pmatrix}a&b\\c&d\end{pmatrix}$ 作用在这些点上，
+它的效果只取决于 $\gamma \bmod N$——所以"记住 $N$ 阶点结构"对应的子群
+自然就是"在模 $N$ 意义下满足某些条件的矩阵"。
+\begin{definition}[同余子群]
+\label{def:congruence-subgroups}
+\index{同余子群 (congruence subgroup)}\index{Gamma0@$\Gamma_0(N)$}\index{Gamma1@$\Gamma_1(N)$}\index{GammaN@$\Gamma(N)$}
+设 $N$ 为正整数。定义以下 $\SL_2(\Z)$ 的子群：
+\begin{align}
+  \Gamma(N) &= \left\{
+    \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \SL_2(\Z)
+    \;\middle|\;
+    \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+    \equiv \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \pmod{N}
+  \right\}, \\[6pt]
+  \GammaI(N) &= \left\{
+    \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \SL_2(\Z)
+    \;\middle|\;
+    a \equiv d \equiv 1,\; c \equiv 0 \pmod{N}
+  \right\}, \\[6pt]
+  \GammaO(N) &= \left\{
+    \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \SL_2(\Z)
+    \;\middle|\;
+    c \equiv 0 \pmod{N}
+  \right\}.
+\end{align}
+包含关系为 $\Gamma(N) \trianglelefteq \GammaI(N) \trianglelefteq \GammaO(N)
+\leq \SL_2(\Z)$。
+
+更一般地，$\SL_2(\Z)$ 的子群 $\Gamma$ 若包含某个 $\Gamma(N)$，
+则称为\textbf{同余子群}（congruence subgroup），满足此条件的最小 $N$ 称为
+$\Gamma$ 的\textbf{级}（level）。
+\end{definition}
+
+\begin{proposition}[指标公式]
+\label{prop:index-formulas}
+\leavevmode
+\begin{enumerate}
+  \item $[\SL_2(\Z) : \Gamma(N)] = N^3 \prod_{p \mid N}(1 - 1/p^2)$
+    （$N \geq 1$）。
+  \item $[\SL_2(\Z) : \GammaI(N)] = N^2 \prod_{p \mid N}(1 - 1/p^2)$
+    （$N \geq 1$）。
+  \item $[\SL_2(\Z) : \GammaO(N)] = N \prod_{p \mid N}(1 + 1/p)$
+    （$N \geq 1$）。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+考虑约化同态 $\SL_2(\Z) \to \SL_2(\Z/N\Z)$。
+
+\textbf{(1)}：$\Gamma(N) = \ker(\SL_2(\Z) \to \SL_2(\Z/N\Z))$。
+此约化同态是满射（这需要证明，我们在习题中给出提示）。
+故 $[\SL_2(\Z) : \Gamma(N)] = \#\SL_2(\Z/N\Z)$。
+由中国剩余定理，$\#\SL_2(\Z/N\Z) = \prod_{p^e \| N} \#\SL_2(\Z/p^e\Z)$。
+而 $\#\SL_2(\Z/p^e\Z) = p^{3e} \prod_{p \mid p^e}(1 - 1/p^2)
+= p^{3(e-1)} \cdot p^3(1 - 1/p^2) = p^{3e}(1 - 1/p^2)$。
+
+\textbf{(2)}：$\GammaI(N)/\Gamma(N) \cong \Z/N\Z$
+（通过映射 $\gamma \mapsto b \bmod N$），故
+$[\SL_2(\Z) : \GammaI(N)] = [\SL_2(\Z) : \Gamma(N)]/N$。
+
+\textbf{(3)}：$\GammaO(N)/\GammaI(N) \cong (\Z/N\Z)^\times$
+（通过映射 $\gamma \mapsto d \bmod N$），故
+$[\SL_2(\Z) : \GammaO(N)] = [\SL_2(\Z) : \GammaI(N)]/\varphi(N)$。
+化简得 $N \prod_{p \mid N}(1 + 1/p)$。
+\end{proof}
+
+\begin{definition}[同余子群上的模形式]
+\label{def:modular-forms-congruence}
+设 $\Gamma$ 为同余子群。权 $k$ 的\textbf{模形式} $f \in \Mk_k(\Gamma)$
+是全纯函数 $f\colon \HH \to \C$，满足：
+\begin{enumerate}
+  \item 对所有 $\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+    \in \Gamma$，
+    \[
+      f(\gamma(\tau)) = (c\tau + d)^k f(\tau);
+    \]
+  \item $f$ 在 $\Gamma$ 的每个尖点处全纯。
+\end{enumerate}
+若 $f$ 在所有尖点处的值为零（即每个尖点的 $q$-展开常数项 $a_0 = 0$），则 $f$ 是\textbf{尖点形式}，$f \in \Sk_k(\Gamma)$。
+\end{definition}
+
+
+% ============================================================================

@@ -1,0 +1,175 @@
+\section{复环面}
+\label{sec:complex-tori}
+% ============================================================================
+
+前面我们一直在研究上半平面 $\HH$ 上的函数（模形式）
+以及 $\SL_2(\Z)$ 在 $\HH$ 上的作用（基本域、尖点）。
+现在要回答一个自然的问题：
+$\SL_2(\Z) \backslash \HH$（所有轨道的集合）到底"是"什么空间？
+
+答案是：它参数化了所有的\textbf{复环面}。
+复环面是最简单的、非平凡的紧黎曼面，也是椭圆曲线的复分析版本。
+
+\textbf{什么是格？}
+在复平面 $\C$ 中，选两个 $\R$-线性无关的复数 $\omega_1, \omega_2$
+（即 $\omega_1/\omega_2 \notin \R$），它们生成一个"网格"：
+\[
+  \Lambda = \Z\omega_1 + \Z\omega_2
+  = \{m\omega_1 + n\omega_2 \mid m, n \in \Z\}.
+\]
+
+\begin{example}[几个具体的格]
+\label{ex:lattices}
+\leavevmode
+\begin{itemize}
+  \item $\Lambda = \Z + \Z i$：正方形格，格点分布在整数坐标上。
+    基本平行四边形是单位正方形。
+  \item $\Lambda = \Z + \Z e^{2\pi i/3}$：正三角形格（蜂巢状），
+    $\omega_2 = -1/2 + i\sqrt{3}/2$。
+    基本平行四边形是 $60°$ 的菱形。
+  \item $\Lambda = \Z + \Z(2i)$：长方形格，
+    基本平行四边形是 $1 \times 2$ 的长方形。
+\end{itemize}
+\end{example}
+
+\begin{definition}[格与复环面]
+\label{def:lattice-torus}
+\index{格 (lattice)}\index{复环面 (complex torus)}
+$\C$ 中的一个\textbf{格}（lattice）是
+$\Lambda = \Z\omega_1 + \Z\omega_2$（$\omega_1/\omega_2 \notin \R$）。
+
+对应的\textbf{复环面}为商群
+\[
+  \C/\Lambda = \{z + \Lambda \mid z \in \C\}.
+\]
+两个复数 $z_1, z_2$ 在 $\C/\Lambda$ 中代表同一个点，
+当且仅当 $z_1 - z_2 \in \Lambda$（即它们差一个格向量）。
+\end{definition}
+
+\textbf{复环面长什么样？}
+可以这样想象：取格的一个\textbf{基本平行四边形}
+（以 $0, \omega_1, \omega_2, \omega_1+\omega_2$ 为顶点），
+然后把对边粘合——上下粘合得到一个圆柱，再把圆柱的两端粘合得到一个甜甜圈（torus）。
+这就是为什么叫"环面"。
+
+拓扑上，$\C/\Lambda$ 是一个亏格为 $1$ 的紧曲面。
+但它不仅有拓扑结构——从 $\C$ 继承的复结构使它成为一个\textbf{黎曼面}
+（Riemann surface，详见\cref{ch:riemann-surfaces}），
+而且加法 $z + w$ 使它成为一个\textbf{复 Lie 群}（即加法群）。
+
+\begin{example}[格 $\Z + \Z i$ 对应的环面]
+\label{ex:square-torus}
+取 $\Lambda = \Z + \Z i$。基本平行四边形是单位正方形
+$\{x + iy \mid 0 \leq x < 1,\; 0 \leq y < 1\}$。
+\begin{itemize}
+  \item 点 $0.3 + 0.7i$ 和 $1.3 + 0.7i$ 在 $\C/\Lambda$ 中是同一个点
+    （差 $1 \in \Lambda$）。
+  \item 点 $0.5 + 0.5i$ 和 $-0.5 - 0.5i$ 也是同一个点
+    （差 $1 + i \in \Lambda$）。
+  \item 加法：$(0.6 + 0.8i) + (0.7 + 0.5i) = 1.3 + 1.3i \equiv 0.3 + 0.3i$
+    （模掉 $1 + i$）。
+\end{itemize}
+\end{example}
+
+\begin{proposition}[复环面的同构分类]
+\label{prop:torus-isomorphism}
+$\C/\Lambda \cong \C/\Lambda'$（作为复 Lie 群）当且仅当
+$\Lambda' = \alpha\Lambda$ 对某 $\alpha \in \C^*$。
+\end{proposition}
+
+\begin{proof}
+设 $\varphi\colon \C/\Lambda \to \C/\Lambda'$ 为全纯群同构。
+
+\textbf{关键思路：从"卷起来的"回到"展开的"。}
+复环面 $\C/\Lambda$ 是把复平面 $\C$ 按照格 $\Lambda$ "卷起来"得到的
+（就像把一张纸沿两个方向卷成甜甜圈）。
+反过来，$\C$ 就是 $\C/\Lambda$ "展开后"的样子——
+拓扑学中叫做\textbf{万有覆盖}（universal cover）。
+投影映射 $\pi\colon \C \to \C/\Lambda$（$z \mapsto z + \Lambda$）
+把 $\C$ 中相差一个格向量 $\omega \in \Lambda$ 的点映到同一个点。
+
+现在，$\varphi$ 是环面之间的映射。我们想知道它"展开后"是什么样的。
+覆盖空间理论保证：$\varphi$ 可以"提升"为一个全纯函数
+$\tilde\varphi\colon \C \to \C$，使得下图交换：
+\[
+  \begin{tikzcd}
+    \C \arrow[r, "\tilde\varphi"] \arrow[d, "\pi"'] & \C \arrow[d, "\pi'"] \\
+    \C/\Lambda \arrow[r, "\varphi"'] & \C/\Lambda'
+  \end{tikzcd}
+\]
+即 $\pi' \circ \tilde\varphi = \varphi \circ \pi$。
+直觉上：在展开的平面上做的事情，卷回去之后要和 $\varphi$ 一致。
+
+\textbf{推导 $\tilde\varphi$ 的形状。}
+由于 $\pi(z + \omega) = \pi(z)$（差一个格向量不影响），
+$\tilde\varphi(z + \omega)$ 和 $\tilde\varphi(z)$ 在 $\C/\Lambda'$
+中代表同一个点，即
+$\tilde\varphi(z + \omega) - \tilde\varphi(z) \in \Lambda'$。
+
+函数 $z \mapsto \tilde\varphi(z + \omega) - \tilde\varphi(z)$ 是连续的，
+但它的值只能落在离散集 $\Lambda'$ 中——
+连续函数的像如果是离散的，就必须是常数。
+所以对每个固定的 $\omega$，这个差是一个不依赖于 $z$ 的常数。
+
+对 $z$ 求导：$\tilde\varphi'(z + \omega) = \tilde\varphi'(z)$，
+即 $\tilde\varphi'$ 以 $\Lambda$ 为周期。
+一个全纯的双周期函数（椭圆函数）如果没有极点，
+由 Liouville 定理必为常数（\cref{thm:elliptic-basic}(1)）。
+所以 $\tilde\varphi'(z) = \alpha$ 是常数，积分得 $\tilde\varphi(z) = \alpha z + \beta$。
+
+最后，$\tilde\varphi$ 把 $\Lambda$ 映到 $\Lambda'$ 内（因为差值在 $\Lambda'$ 中），
+又由满射性得 $\alpha\Lambda = \Lambda'$。
+\end{proof}
+
+\begin{corollary}
+\label{cor:torus-tau}
+每个复环面同构于 $\C/\Lambda_\tau$（$\Lambda_\tau = \Z\tau + \Z$，
+$\tau \in \HH$）。两个环面 $\C/\Lambda_\tau$ 和 $\C/\Lambda_{\tau'}$
+同构当且仅当 $\tau' = \gamma(\tau)$ 对某 $\gamma \in \SL_2(\Z)$。
+
+因此，\textbf{复环面的同构类由 $\SL_2(\Z) \backslash \HH$ 的点参数化}。
+这就是上半平面与模群的几何意义——它们在"管理"所有复环面。
+\end{corollary}
+
+\begin{proof}
+\textbf{第一步：标准化格。}
+任意格 $\Lambda = \Z\omega_1 + \Z\omega_2$。
+不妨设 $\im(\omega_1/\omega_2) > 0$（否则交换 $\omega_1, \omega_2$）。
+
+乘以 $\alpha = 1/\omega_2$：$\alpha\Lambda = \Z(\omega_1/\omega_2) + \Z$。
+令 $\tau = \omega_1/\omega_2$，则 $\alpha\Lambda = \Z\tau + \Z = \Lambda_\tau$，
+且 $\tau \in \HH$。
+由\cref{prop:torus-isomorphism}，$\C/\Lambda \cong \C/\Lambda_\tau$。
+
+\textbf{关键直觉}：任何格都可以通过缩放变成"第一个生成元在上半平面、
+第二个生成元为 $1$"的标准形式。
+
+\textbf{第二步：什么时候两个标准格相同？}
+$\C/\Lambda_\tau \cong \C/\Lambda_{\tau'}$ 当且仅当
+$\Lambda_{\tau'} = \alpha\Lambda_\tau$ 对某 $\alpha \in \C^*$。
+
+$\Lambda_\tau = \Z\tau + \Z$，所以 $\alpha\Lambda_\tau = \Z(\alpha\tau) + \Z\alpha$。
+要求这等于 $\Lambda_{\tau'} = \Z\tau' + \Z$，
+即 $\alpha\tau$ 和 $\alpha$ 都是 $\tau'$ 和 $1$ 的整系数线性组合：
+\[
+  \alpha\tau = a\tau' + b, \qquad \alpha = c\tau' + d,
+  \qquad a,b,c,d \in \Z.
+\]
+消去 $\alpha$：$\tau = \frac{a\tau' + b}{c\tau' + d}$。
+由 $\im(\tau) > 0$、$\im(\tau') > 0$ 推出 $ad - bc > 0$。
+反过来 $\tau'$ 也要能用 $\tau$ 表示（因为是同构不是单方向），
+所以 $ad - bc = 1$，即 $\begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \SL_2(\Z)$。
+\end{proof}
+
+\begin{example}[同一个环面的不同参数]
+\label{ex:equivalent-tau}
+取 $\tau = 2i$ 和 $\tau' = -1/(2i) = i/2$。
+它们满足 $\tau' = S(\tau)$（$S \in \SL_2(\Z)$），
+所以 $\C/\Lambda_{2i} \cong \C/\Lambda_{i/2}$。
+具体地：$\Lambda_{2i} = \Z(2i) + \Z$，
+取 $\alpha = 1/(2i) = -i/2$，则
+$\alpha \cdot \Lambda_{2i} = \Z(1) + \Z(-i/2) = \Z + \Z(i/2) = \Lambda_{i/2}$。
+\end{example}
+
+
+% ============================================================================

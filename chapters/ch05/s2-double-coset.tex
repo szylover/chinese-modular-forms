@@ -1,0 +1,104 @@
+\section{双陪集分解与 Hecke 算子的定义}
+\label{sec:double-coset}
+% ============================================================================
+
+我们现在把上面的几何直觉翻译成精确的代数定义。
+
+\textbf{权 $k$ 斜算子（slash operator）。}
+\index{斜算子 (slash operator)}
+对矩阵 $\alpha = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$（$\det\alpha > 0$）
+和函数 $f\colon \HH \to \C$，定义
+\[
+  (f \mid_k \alpha)(\tau) = (\det\alpha)^{k/2}(c\tau + d)^{-k} f(\alpha(\tau)).
+\]
+模形式的变换律 $f(\gamma(\tau)) = (c\tau+d)^k f(\tau)$（$\gamma \in \SL_2(\Z)$）
+等价于 $f \mid_k \gamma = f$（对 $\det\gamma = 1$ 时 $(\det\gamma)^{k/2} = 1$）。
+
+斜算子满足 $f \mid_k (\alpha\beta) = (f \mid_k \alpha) \mid_k \beta$。
+
+\begin{definition}[Hecke 算子 $T_n$（全模群情形）]
+\label{def:hecke-operator-full}
+\index{Hecke 算子 (Hecke operator)}\index{Tn@$T_n$}
+对正整数 $n$，令
+\[
+  \Delta_n = \left\{
+    \begin{pmatrix} a & b \\ 0 & d \end{pmatrix}
+    \;\middle|\; a, d > 0,\; ad = n,\; 0 \leq b < d
+  \right\}.
+\]
+这是一组矩阵，共 $\sum_{d \mid n} 1$ 个，更精确地共 $\sigma_0(n) = \sum_{d \mid n} 1$ 个。
+
+对 $f \in \Mk_k(\SL_2(\Z))$，定义
+\[
+  (T_n f)(\tau) = n^{k-1} \sum_{\alpha \in \Delta_n} (f \mid_k \alpha)(\tau)
+  = n^{k/2-1} \sum_{\substack{ad=n,\, a,d>0 \\ 0 \leq b < d}}
+    d^{-k} f\!\left(\frac{a\tau + b}{d}\right).
+\]
+\end{definition}
+
+\input{figures/ch05-hecke-double-coset}
+
+\textbf{为什么 $\Delta_n$ 是正确的陪集代表元集合？}
+$\SL_2(\Z) \backslash M_n(\Z)$（其中 $M_n(\Z) = \{\alpha \in \Mat_2(\Z) \mid \det\alpha = n\}$）
+的每个左陪集恰好由 $\Delta_n$ 的某个元素代表。这来自对整数矩阵做初等行变换
+（类比于整数矩阵的 Smith 标准型）——对任意行列式为 $n$ 的整数矩阵，
+通过左乘 $\SL_2(\Z)$ 中的元素（初等行变换），可以化成上三角形式
+$\begin{pmatrix} a & b \\ 0 & d \end{pmatrix}$（$ad = n$，$0 \leq b < d$）。
+
+\begin{example}[$T_2$ 的显式公式（$k = 12$，作用在 $\Delta$）]
+\label{ex:T2-on-Delta}
+$n = 2$，$\Delta_2$ 包含三个矩阵：
+\[
+  \begin{pmatrix}1&0\\0&2\end{pmatrix},\quad
+  \begin{pmatrix}1&1\\0&2\end{pmatrix},\quad
+  \begin{pmatrix}2&0\\0&1\end{pmatrix}.
+\]
+故（用 $k = 12$）：
+\[
+  (T_2 f)(\tau)
+  = 2^{11}\left[
+    2^{-12}f\!\left(\frac{\tau}{2}\right)
+    + 2^{-12}f\!\left(\frac{\tau+1}{2}\right)
+    + 1^{-12}f(2\tau)
+  \right]
+  = \frac{1}{2}\left[f\!\left(\frac{\tau}{2}\right)
+    + f\!\left(\frac{\tau+1}{2}\right)\right] + 2^{11} f(2\tau).
+\]
+\end{example}
+
+\begin{example}[$T_p$ 的简洁公式（素数 $p$）]
+\label{ex:Tp-formula}
+当 $n = p$ 素数时，$ad = p$ 只有 $(a,d) = (1,p)$ 或 $(p,1)$，故
+\[
+  (T_p f)(\tau) = p^{k-1} \left[
+    p^{-k} \sum_{j=0}^{p-1} f\!\left(\frac{\tau+j}{p}\right) + f(p\tau)
+  \right]
+  = p^{k/2-1}\sum_{j=0}^{p-1} f\!\left(\frac{\tau+j}{p}\right)
+    + p^{k/2-1} \cdot p \cdot f(p\tau).
+\]
+更常见的写法（归一化后）：
+\[
+  \boxed{(T_p f)(\tau)
+  = p^{k-1} f(p\tau) + \frac{1}{p}\sum_{j=0}^{p-1} f\!\left(\frac{\tau+j}{p}\right).}
+\]
+\end{example}
+
+\begin{definition}[Diamond 算子]
+\label{def:diamond-operator}
+\index{Diamond 算子 (Diamond operator)}\index{diamond@$\langle d \rangle$}
+对同余子群 $\GammaI(N)$，还有另一族算子——\textbf{Diamond 算子}
+$\langle d \rangle$（$d \in (\Z/N\Z)^\times$）：
+
+取任意 $\gamma = \begin{pmatrix} a & b \\ c & \delta \end{pmatrix} \in \SL_2(\Z)$，
+$\delta \equiv d \pmod N$，定义
+\[
+  \langle d \rangle f = f \mid_k \gamma.
+\]
+（选择不同的 $\gamma$ 给出相同的结果，因为它们在 $\GammaI(N)$ 中等价。）
+
+Diamond 算子与 Hecke 算子交换，且 $\langle d \rangle$ 对 $f \in \Mk_k(\GammaI(N), \chi)$
+的作用是乘以 $\chi(d)$。
+\end{definition}
+
+
+% ============================================================================

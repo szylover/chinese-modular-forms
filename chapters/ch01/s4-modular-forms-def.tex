@@ -1,0 +1,109 @@
+\section{模形式的定义}
+\label{sec:modular-forms-def}
+% ============================================================================
+
+在章开头，我们已经看到 $E_4(\tau)$ 满足 $E_4(\tau+1) = E_4(\tau)$ 和
+$E_4(-1/\tau) = \tau^4 E_4(\tau)$。现在我们把这种对称性抽象为一般定义。
+
+\textbf{只有变换律还不够——为什么需要额外的"尖点条件"？}
+
+仅满足变换律 $f(\gamma\tau) = (c\tau+d)^k f(\tau)$ 的全纯函数，
+我们称之为"弱模形式"。但如果不加其他限制，这样的函数太多了——
+比如 $1/\Delta(\tau)$ 在尖点处有一阶极点，它满足变换律，
+但代数性质很差，不适合用来做算术。
+
+\textbf{$q$-展开与尖点全纯条件。}
+由 $f(\tau+1) = f(\tau)$，$f$ 可以写成 $q = e^{2\pi i\tau}$ 的 Fourier 级数：
+\[
+  f(\tau) = \sum_{n=-\infty}^{+\infty} a_n q^n.
+\]
+当 $\im(\tau) \to +\infty$ 时，$q \to 0$。
+"$f$ 在尖点全纯"等价于 $f$ 作为 $q$ 的函数在 $q=0$ 处没有极点，
+也就是 $a_n = 0$ 对所有 $n < 0$。
+
+\textbf{这个条件的效果：}它把无限维的函数空间压缩成有限维！
+一个满足变换律且在尖点全纯的函数必须同时满足太多约束，
+以至于这样的函数空间只有有限维（我们在\cref{ch:dimension}中会证明这个维数公式）。
+有限维才能用线性代数的工具，才能谈"基"和"特征值"。
+
+\textbf{为什么尖点形式更特殊？}
+尖点形式额外要求 $a_0 = 0$，即 $f$ 在无穷远处"消失"。
+这让尖点形式具有最好的分析性质（$f(\tau) = O(e^{-2\pi y})$ 当 $y\to\infty$），
+特别适合定义 Petersson 内积（\cref{sec:petersson}）和研究 $L$-函数。
+重量 $12$ 的判别形式 $\Delta$ 就是尖点形式的典型代表。
+
+\begin{definition}[权 $k$ 的弱模形式]
+\label{def:weakly-modular}
+\index{弱模形式 (weakly modular form)}
+设 $k \in \Z$。全纯函数 $f\colon \HH \to \C$ 称为权 $k$ 的
+\textbf{弱模形式}（weakly modular form），若对所有
+$\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \SL_2(\Z)$，
+\[
+  f(\gamma(\tau)) = (c\tau + d)^k f(\tau).
+\]
+由\cref{thm:sl2z-generators}，这等价于同时满足：
+\begin{enumerate}
+  \item $f(\tau + 1) = f(\tau)$（由 $T$ 给出）；
+  \item $f(-1/\tau) = \tau^k f(\tau)$（由 $S$ 给出）。
+\end{enumerate}
+\end{definition}
+
+条件 (1) 意味着 $f$ 有以 $q = e^{2\pi i\tau}$ 为变量的 Fourier 展开，
+称为 \textbf{$q$-展开}\index{q-展开 ($q$-expansion)}（$q$-expansion）：
+\[
+  f(\tau) = \sum_{n \in \Z} a_n q^n, \quad q = e^{2\pi i\tau}.
+\]
+
+\begin{definition}[模形式与尖点形式]
+\label{def:modular-form}
+\index{模形式 (modular form)}\index{尖点形式 (cusp form)}\index{Mk@$\mathcal{M}_k$}\index{Sk@$\mathcal{S}_k$}
+权 $k$ 的\textbf{模形式}（modular form）是权 $k$ 的弱模形式 $f$，
+且 $f$ 在尖点 $\infty$ 处\textbf{全纯}，即 $q$-展开中 $a_n = 0$ 对所有 $n < 0$：
+\[
+  f(\tau) = \sum_{n=0}^{\infty} a_n q^n.
+\]
+权 $k$ 的模形式空间记为 $\Mk_k(\SL_2(\Z))$。
+
+若进一步 $a_0 = 0$（即 $f$ 在尖点处的值为零），则 $f$ 称为
+\textbf{尖点形式}（cusp form）。尖点形式空间记为 $\Sk_k(\SL_2(\Z))$。
+\end{definition}
+
+\begin{example}[Eisenstein 级数]
+\label{ex:eisenstein-preview}
+对偶整数 $k \geq 4$，\textbf{Eisenstein 级数}
+\[
+  G_k(\tau) = \sum_{\substack{(c,d) \in \Z^2 \\ (c,d) \neq (0,0)}}
+  \frac{1}{(c\tau + d)^k}
+\]
+是权 $k$ 的模形式。我们将在\cref{ch:eisenstein}中详细讨论。
+规范化版本 $E_k = G_k / (2\zeta(k))$ 的 $q$-展开为
+\[
+  E_k(\tau) = 1 - \frac{2k}{B_k} \sum_{n=1}^{\infty} \sigma_{k-1}(n) q^n,
+\]
+其中 $B_k$ 是 Bernoulli 数，$\sigma_{k-1}(n) = \sum_{d \mid n} d^{k-1}$。
+\end{example}
+
+\begin{example}[判别形式 $\Delta$]
+\label{ex:discriminant-form}
+\textbf{判别形式}
+\[
+  \Delta(\tau) = \frac{1}{1728}\bigl(E_4(\tau)^3 - E_6(\tau)^2\bigr)
+  = q \prod_{n=1}^{\infty}(1 - q^n)^{24}
+  = \sum_{n=1}^{\infty} \tau(n) q^n
+\]
+是权 $12$ 的尖点形式，其中 $\tau(n)$ 是 \textbf{Ramanujan $\tau$-函数}。
+$\Delta$ 在 $\HH$ 上无零点。
+\end{example}
+
+\begin{example}[$j$-不变量]
+\label{ex:j-invariant-function}
+\textbf{$j$-不变量}
+\[
+  j(\tau) = \frac{E_4(\tau)^3}{\Delta(\tau)} = \frac{1}{q} + 744 + 196884q + \cdots
+\]
+是 $\SL_2(\Z)$ 的一个\textbf{模函数}（权 $0$ 的亚纯模形式），
+它建立了 $\SL_2(\Z) \backslash \HH$ 到 $\C$ 的双射。
+\end{example}
+
+
+% ============================================================================

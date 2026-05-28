@@ -1,0 +1,152 @@
+\section{模群与上半平面}
+\label{sec:modular-group-action}
+% ============================================================================
+
+上面我们观察到 $E_4$ 在平移 $\tau \mapsto \tau + 1$ 和反演 $\tau \mapsto -1/\tau$
+下有特殊行为。这两个变换可以组合出更多变换，它们构成一个群。
+让我们把这个群精确地描述出来。
+
+\begin{definition}[上半平面]
+\label{def:upper-half-plane}
+\textbf{上半平面}\index{上半平面 (upper half-plane)}\index{H@$\mathbb{H}$}（upper half-plane）定义为
+\[
+  \HH = \{ \tau \in \C \mid \im(\tau) > 0 \}.
+\]
+\end{definition}
+
+\begin{definition}[模群]
+\label{def:modular-group}
+\index{模群 (modular group)}\index{SL2Z@$\SL_2(\mathbb{Z})$}
+\textbf{模群} $\SL_2(\Z)$ 是所有行列式为 $1$ 的 $2 \times 2$ 整数矩阵组成的群：
+\[
+  \SL_2(\Z) = \left\{
+    \gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+    \;\middle|\; a, b, c, d \in \Z,\; ad - bc = 1
+  \right\}.
+\]
+它通过\textbf{莫比乌斯变换}\index{莫比乌斯变换 (Möbius transformation)}（Möbius transformation）作用在 $\HH$ 上：
+\[
+  \gamma(\tau) = \frac{a\tau + b}{c\tau + d}.
+\]
+\end{definition}
+
+\begin{proposition}
+\label{prop:mobius-preserves-H}
+莫比乌斯变换保持上半平面不变：若 $\tau \in \HH$，$\gamma \in \SL_2(\Z)$，
+则 $\gamma(\tau) \in \HH$。具体地，
+\[
+  \im(\gamma(\tau)) = \frac{\im(\tau)}{|c\tau + d|^2}.
+\]
+\end{proposition}
+
+\begin{proof}
+设 $\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$，$\tau = x + iy$。
+\begin{align}
+  \gamma(\tau)
+  &= \frac{a\tau + b}{c\tau + d}
+  = \frac{(a\tau + b)\overline{(c\tau + d)}}{|c\tau + d|^2}.
+\end{align}
+分子的虚部为
+\begin{align}
+  \im\bigl((a\tau + b)\overline{(c\tau + d)}\bigr)
+  &= \im\bigl((a\tau + b)(\bar c \bar\tau + \bar d)\bigr) \\
+  &= \im\bigl(ac|\tau|^2 + ad\tau + bc\bar\tau + bd\bigr) \\
+  &= (ad - bc)\im(\tau) = \im(\tau).
+\end{align}
+最后一步用了 $ad - bc = 1$ 以及 $\im(ad\tau + bc\bar\tau) = (ad - bc)y$。
+故 $\im(\gamma(\tau)) = \im(\tau)/|c\tau + d|^2 > 0$。
+\end{proof}
+
+\textbf{为什么用 $\SL_2$ 而非 $\GL_2$？}
+$\GL_2(\Z)$ 包含行列式为 $\pm 1$ 的矩阵。行列式为 $-1$ 的矩阵
+（如 $\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$）对应变换
+$\tau \mapsto -\tau$，把上半平面映到\emph{下}半平面。由上面的证明，
+$\im(\gamma(\tau)) = (ad - bc)\im(\tau)/|c\tau + d|^2$，
+只有 $ad - bc = +1$（即 $\det \gamma = 1$）时虚部才保持正性。
+
+\textbf{$-I$ 的作用与 $\PSL_2(\Z)$。}
+$-I = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}$ 作用平凡：
+$(-I)(\tau) = \frac{-\tau}{-1} = \tau$。
+也就是说，$\SL_2(\Z)$ 中不同的矩阵可能对 $\HH$ 做同样的事
+（$\gamma$ 和 $-\gamma$ 永远给出相同的变换）。
+把这种"冗余"消除掉，就得到
+$\PSL_2(\Z) = \SL_2(\Z)/\{\pm I\}$——
+在 $\PSL_2(\Z)$ 中，不同的元素一定对应不同的变换。
+
+\begin{theorem}[$\SL_2(\Z)$ 的生成元]
+\label{thm:sl2z-generators}
+$\SL_2(\Z)$ 由以下两个矩阵生成：
+\[
+  S = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}, \quad
+  T = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}.
+\]
+它们对应的莫比乌斯变换为
+\[
+  S(\tau) = -\frac{1}{\tau}, \qquad T(\tau) = \tau + 1.
+\]
+注意 $S$ 在 $\SL_2(\Z)$ 中阶为 $4$（$S^2 = -I$，$S^4 = I$），
+在 $\PSL_2(\Z)$ 中阶为 $2$。
+\end{theorem}
+
+\textbf{为什么这个定理很重要？}
+定义模形式时，我们要求 $f(\gamma(\tau)) = (c\tau+d)^k f(\tau)$ 对
+\emph{所有} $\gamma \in \SL_2(\Z)$ 成立——
+这是无穷多个条件。
+但\cref{thm:sl2z-generators} 告诉我们：$\SL_2(\Z)$ 中的每个矩阵都是 $S$ 和 $T$ 的乘积，
+所以只要验证两条：
+\[
+  f(\tau + 1) = f(\tau) \quad \text{和} \quad f(-1/\tau) = \tau^k f(\tau),
+\]
+无穷多个条件就自动都满足了。这把"验证对称性"的工作量从无穷压缩到了两条。
+
+\textbf{$S$ 与 $T$ 的几何直觉。}
+\label{rem:S-T-geometry}
+\begin{itemize}
+  \item $T(\tau) = \tau + 1$：水平平移。将竖直带
+    $\{-1/2 < \Re(\tau) \leq 1/2\}$ 左右"复制粘贴"铺满整个上半平面。
+  \item $S(\tau) = -1/\tau$：关于单位圆的反演（加上实轴的反射）。
+    关键性质：$|S(\tau)| = 1/|\tau|$，因此
+    \begin{itemize}
+      \item 单位圆 $|\tau| = 1$ 被映到\emph{自身}；
+      \item 单位圆外部（$|\tau| > 1$）映到内部（$|S(\tau)| < 1$），反之亦然。
+    \end{itemize}
+    这解释了基本域 $\mathcal{F}$ 的形状：
+    底边是单位圆弧（$S$ 的分界线），两侧是 $\Re(\tau) = \pm 1/2$
+    （$T$ 的分界线）。
+\end{itemize}
+
+\begin{proof}
+需要证明任意 $\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \SL_2(\Z)$
+可以写成 $S$ 和 $T$ 的乘积。
+
+我们对 $|c|$ 归纳。
+
+\textbf{基础情形 $c = 0$}：由 $ad = 1$，得 $a = d = \pm 1$。
+\[
+  \begin{pmatrix} 1 & b \\ 0 & 1 \end{pmatrix} = T^b, \quad
+  \begin{pmatrix} -1 & -b \\ 0 & -1 \end{pmatrix} = S^2 T^{-b}.
+\]
+（因为 $S^2 = -I$。）
+
+\textbf{归纳步骤}：设 $c \neq 0$。用带余除法：$a = qc + r$，$0 \leq r < |c|$。
+注意
+\[
+  T^{-q} \gamma
+  = \begin{pmatrix} 1 & -q \\ 0 & 1 \end{pmatrix}
+    \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+  = \begin{pmatrix} a - qc & b - qd \\ c & d \end{pmatrix}
+  = \begin{pmatrix} r & b-qd \\ c & d \end{pmatrix}.
+\]
+再左乘 $S$：
+\[
+  S \cdot T^{-q} \gamma
+  = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
+    \begin{pmatrix} r & b-qd \\ c & d \end{pmatrix}
+  = \begin{pmatrix} -c & -d \\ r & b-qd \end{pmatrix}.
+\]
+新矩阵的左下角元素为 $r$，且 $0 \leq r < |c|$。
+由归纳假设，$ST^{-q}\gamma$ 可用 $S, T$ 表示，故 $\gamma$ 也可以。
+\end{proof}
+
+
+% ============================================================================

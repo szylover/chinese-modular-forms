@@ -1,0 +1,95 @@
+\section{习题}
+\label{sec:eisenstein-exercises}
+% ============================================================================
+
+\begin{exercise}
+\label{ex:ch2-bernoulli-1}
+证明 $B_1 = -1/2$，$B_2 = 1/6$，$B_4 = -1/30$。
+（从递推关系 $\sum_{j=0}^{n-1}\binom{n}{j}B_j = 0$ 出发逐步计算。）
+\end{exercise}
+
+\begin{proof}[解答]
+$n=2$：$\binom{2}{0}B_0 + \binom{2}{1}B_1 = 0 \Rightarrow 1 + 2B_1 = 0 \Rightarrow B_1 = -1/2$。
+
+$n=3$：$B_0 + 3B_1 + 3B_2 = 0 \Rightarrow 1 - 3/2 + 3B_2 = 0 \Rightarrow B_2 = 1/6$。
+
+$n=4$：$B_3 = 0$（$m$ 奇数 $\geq 3$ 时 $B_m = 0$），
+$B_0 + 4B_1 + 6B_2 + 4B_3 + B_4 \cdot \frac{1}{5}\cdots$，
+用 $n=5$：$1 + 5(-1/2) + 10(1/6) + 10 \cdot 0 + 5B_4 = 0$
+$\Rightarrow 1 - 5/2 + 5/3 + 5B_4 = 0 \Rightarrow B_4 = -1/30$。
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch2-zeta-2}
+用\cref{prop:bernoulli-zeta}计算 $\zeta(2), \zeta(4), \zeta(6)$，
+验证 $\zeta(2) = \pi^2/6$。
+\end{exercise}
+
+\begin{proof}[解答]
+$\zeta(2) = -(2\pi i)^2 B_2 / (2 \cdot 2!) = -(-4\pi^2)(1/6)/4 = \pi^2/6$ \checkmark。
+
+$\zeta(4) = -(2\pi i)^4 B_4/(2 \cdot 24) = -(16\pi^4)(-1/30)/48 = \pi^4/90$ \checkmark。
+
+$\zeta(6) = -(2\pi i)^6 B_6/(2 \cdot 720) = -(-64\pi^6)(1/42)/1440 = \pi^6/945$ \checkmark。
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch2-sigma-multiplicative}
+证明 $\sigma_{k-1}(n)$ 是\textbf{积性函数}：$\gcd(m,n)=1 \Rightarrow \sigma_{k-1}(mn) = \sigma_{k-1}(m)\sigma_{k-1}(n)$。
+
+（提示：$mn$ 的正因子恰好是 $m$ 的因子与 $n$ 的因子的乘积。）
+\end{exercise}
+
+\begin{proof}[解答]
+若 $\gcd(m,n)=1$，则 $mn$ 的每个因子 $d$ 唯一分解为 $d = d_1 d_2$，其中 $d_1 \mid m$，$d_2 \mid n$，$\gcd(d_1, d_2) = 1$。故
+\[
+  \sigma_{k-1}(mn) = \sum_{d \mid mn} d^{k-1}
+  = \sum_{d_1 \mid m}\sum_{d_2 \mid n} (d_1 d_2)^{k-1}
+  = \left(\sum_{d_1 \mid m} d_1^{k-1}\right)\left(\sum_{d_2 \mid n} d_2^{k-1}\right)
+  = \sigma_{k-1}(m)\sigma_{k-1}(n). \qedhere
+\]
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch2-poisson-gaussian}
+设 $f_t(x) = e^{-\pi t x^2}$（$t > 0$）。
+\begin{enumerate}
+  \item 证明 $\hat{f}_t(\xi) = t^{-1/2} e^{-\pi\xi^2/t}$。
+  \item 用 Poisson 求和推导 $\theta(t) = t^{-1/2}\theta(1/t)$，
+    其中 $\theta(t) = \sum_{n \in \Z} e^{-\pi n^2 t}$。
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}[解答]
+(1) $\hat{f}_t(\xi) = \int e^{-\pi tx^2 - 2\pi i\xi x}\,dx$。配方：
+$-\pi t x^2 - 2\pi i\xi x = -\pi t(x + i\xi/t)^2 - \pi\xi^2/t$。
+故 $\hat{f}_t(\xi) = e^{-\pi\xi^2/t} \int e^{-\pi t(x+i\xi/t)^2}\,dx = t^{-1/2} e^{-\pi\xi^2/t}$
+（围道积分，同\cref{ex:gaussian-fourier}）。
+
+(2) $\theta(t) = \sum_{n \in \Z} f_t(n)$。
+由 Poisson 求和（\cref{thm:poisson-summation}），
+$\sum_n f_t(n) = \sum_n \hat{f}_t(n) = t^{-1/2}\sum_n e^{-\pi n^2/t} = t^{-1/2}\theta(1/t)$。
+\end{proof}
+
+\begin{exercise}
+\label{ex:ch2-dirichlet-L-s1}
+设 $\chi$ 是模 $N$ 的非主特征。证明 $L(1,\chi) \neq 0$。
+
+（提示：先证 $\prod_\chi L(s,\chi) = \prod_p \prod_\chi (1 - \chi(p)p^{-s})^{-1}$
+当 $s \to 1^+$ 时趋向无穷大；若某个 $L(1,\chi_0^{}) = 0$ 则乘积有界，矛盾。）
+\end{exercise}
+
+\begin{proof}[解答（思路）]
+令 $s > 1$ 实数。考虑乘积
+$\prod_{\chi \bmod N} L(s, \chi)$，其中 $\chi$ 跑遍所有模 $N$ 特征。
+利用 Euler 乘积与特征的正交性，可以证明
+\[
+  \prod_{\chi} L(s, \chi) = \prod_{p} \frac{1}{\prod_\chi(1 - \chi(p)p^{-s})}.
+\]
+用 $\sum_\chi \chi(p^k) \geq 0$（群特征的正半定性），
+整个乘积 $\geq 1$ 且当 $s \to 1^+$ 时由 $L(s, \chi_0) \sim \frac{\varphi(N)}{N(s-1)}$（极点）趋向无穷。
+
+若 $L(1, \chi_1) = 0$ 对某非主 $\chi_1$，则 $L(1, \bar\chi_1) = \overline{L(1,\chi_1)} = 0$，
+两个零点与主特征的极点"对消"，导致整个乘积在 $s = 1$ 处有界，矛盾。
+详细证明见 Serre《算术导引》或 Davenport《乘性数论》。
+\end{proof}

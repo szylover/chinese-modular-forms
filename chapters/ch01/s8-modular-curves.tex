@@ -1,0 +1,84 @@
+\section{模曲线与模空间}
+\label{sec:modular-curves-moduli}
+% ============================================================================
+
+\textbf{为什么需要模曲线？}
+
+\cref{cor:torus-tau} 告诉我们：$Y(1) = \SL_2(\Z) \backslash \HH$
+参数化所有椭圆曲线的同构类，通过 $j$-不变量与 $\C$ 同构。
+这很好——但有时我们不只想分类椭圆曲线，
+还想分类"带有额外数据"的椭圆曲线。
+
+\textbf{典型的"额外数据"是什么？}
+以 Wiles 证明 FLT 为例。核心步骤是：把"级别 $N$ 的模形式"与"有理椭圆曲线"对应起来。
+这里"级别 $N$"就意味着椭圆曲线上记录了某种 $N$ 阶结构（具体是一个 $N$ 阶循环子群）。
+要参数化"带 $N$ 阶子群的椭圆曲线"，$Y(1)$ 就不够用了——它把有无额外结构的曲线混为一谈。
+
+\textbf{解决方案：用更小的对称群。}
+如果我们只用 $\Gamma_0(N)$ 的等价关系来识别椭圆曲线
+（即只把"$N$ 阶子群相同"的曲线视为等价），
+就得到一个更细的分类空间 $Y_0(N) = \Gamma_0(N) \backslash \HH$。
+不同的 $N$ 和不同的子群类型（$\Gamma_0, \Gamma_1, \Gamma$）
+给出不同"粗细程度"的分类。
+
+这些分类空间——\textbf{模曲线}——不只是集合，
+它们还具有代数曲线的结构（将在\cref{ch:riemann-surfaces}中看到这是紧黎曼面），
+可以定义在有理数甚至整数上，成为研究椭圆曲线算术的核心工具。
+
+\textbf{谷山-志村猜想}（现在是定理）断言：每条有理椭圆曲线 $E$ 都是某个模曲线 $X_0(N)$ 的"商"，
+即存在有理映射 $X_0(N) \to E$。这就是 FLT 证明的骨架。
+
+\begin{definition}[模曲线]
+\label{def:modular-curves}
+对同余子群 $\Gamma$，定义\textbf{（开）模曲线}
+\[
+  Y(\Gamma) = \Gamma \backslash \HH.
+\]
+特别地，$Y_0(N) = \GammaO(N) \backslash \HH$，
+$Y_1(N) = \GammaI(N) \backslash \HH$，
+$Y(N) = \Gamma(N) \backslash \HH$。
+
+通过添加尖点得到\textbf{（紧化）模曲线}
+\[
+  X(\Gamma) = \Gamma \backslash \HH^*.
+\]
+$X(\Gamma)$ 是紧黎曼面（将在\cref{ch:riemann-surfaces}中详细讨论）。
+\end{definition}
+
+\begin{theorem}[模诠释]
+\label{thm:moduli-interpretation}
+模曲线参数化带附加结构的椭圆曲线（在 $\C$ 上）：
+\begin{enumerate}
+  \item $Y(1) = \SL_2(\Z) \backslash \HH$ 参数化复环面的同构类
+    （\cref{cor:torus-tau}）。通过 $j$-不变量，$Y(1) \cong \C$。
+  \item $Y_0(N)$ 参数化 $\{(E, C)\}$ 的同构类，其中 $E$ 是椭圆曲线，
+    $C \subset E$ 是 $N$ 阶循环子群（等价于核为 $\Z/N\Z$ 的同源
+    $E \to E/C$）。
+  \item $Y_1(N)$ 参数化 $\{(E, P)\}$ 的同构类，其中 $P \in E$ 是
+    $N$ 阶点。
+  \item $Y(N)$ 参数化 $\{(E, (P, Q))\}$ 的同构类，其中 $(P, Q)$ 是
+    $E[N]$ 的一组有序基。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[解释]
+\textbf{(2)}：设 $\tau \in \HH$，对应环面 $E_\tau = \C/\Lambda_\tau$
+（$\Lambda_\tau = \Z\tau + \Z$）。取 $C = \langle 1/N \rangle \subset E_\tau$，
+即 $C = \frac{1}{N}\Z/\Z$ 是 $N$ 阶循环子群。
+
+何时 $(E_\tau, C_\tau) \cong (E_{\tau'}, C_{\tau'})$？
+需要 $\alpha \in \C^*$ 使得 $\alpha\Lambda_\tau = \Lambda_{\tau'}$
+且 $\alpha C_\tau = C_{\tau'}$。写出条件：
+$\alpha\tau = a\tau' + b$，$\alpha = c\tau' + d$（$ad - bc = 1$），
+且 $\alpha \cdot \frac{1}{N} \equiv \frac{j}{N} \pmod{\Lambda_{\tau'}}$
+对某 $j$ 与 $N$ 互素。
+
+这等价于 $\frac{c\tau' + d}{N} \in \frac{1}{N}\Z + \Lambda_{\tau'}$，
+即 $c \equiv 0 \pmod{N}$。
+故等价关系正是 $\GammaO(N)$ 的作用。
+
+\textbf{(3) 和 (4)}：类似分析。
+\end{proof}
+
+
+% ============================================================================
