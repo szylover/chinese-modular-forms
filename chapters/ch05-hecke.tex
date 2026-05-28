@@ -174,3 +174,99 @@ $\delta \equiv d \pmod N$，定义
 Diamond 算子与 Hecke 算子交换，且 $\langle d \rangle$ 对 $f \in \Mk_k(\GammaI(N), \chi)$
 的作用是乘以 $\chi(d)$。
 \end{definition}
+
+
+% ============================================================================
+\section{Hecke 算子在 $q$-展开上的作用}
+\label{sec:hecke-on-qexp}
+% ============================================================================
+
+\begin{theorem}[Hecke 算子与 $q$-展开系数]
+\label{thm:hecke-on-q-exp}
+设 $f = \sum_{n=0}^{\infty} a_n q^n \in \Mk_k(\SL_2(\Z))$。则
+\[
+  T_n f = \sum_{m=0}^{\infty} b_m q^m,
+  \qquad b_m = \sum_{\substack{d \mid \gcd(m,n) \\ d > 0}} d^{k-1} a_{mn/d^2}.
+\]
+特别地，当 $n = p$ 为素数时：
+\[
+  \boxed{b_m = a_{pm} + p^{k-1} a_{m/p},}
+\]
+其中约定 $a_{m/p} = 0$ 若 $p \nmid m$。
+\end{theorem}
+
+\input{figures/ch05-hecke-q-expansion}
+
+\begin{proof}
+代入定义：
+\[
+  (T_n f)(\tau)
+  = n^{k-1} \sum_{\substack{ad=n \\ 0 \leq b < d}} d^{-k}
+    f\!\left(\frac{a\tau + b}{d}\right).
+\]
+把 $f$ 的 $q$-展开代入：
+\[
+  f\!\left(\frac{a\tau+b}{d}\right)
+  = \sum_{m=0}^{\infty} a_m e^{2\pi im(a\tau+b)/d}
+  = \sum_{m=0}^{\infty} a_m e^{2\pi ima\tau/d} e^{2\pi imb/d}.
+\]
+对 $b$ 从 $0$ 到 $d-1$ 求和：
+\[
+  \sum_{b=0}^{d-1} e^{2\pi imb/d}
+  = \begin{cases} d & \text{若 } d \mid m, \\ 0 & \text{否则.} \end{cases}
+\]
+（这是 $d$ 次单位根的求和，只有 $d \mid m$ 时不消掉。）
+
+故
+\[
+  \sum_{b=0}^{d-1} f\!\left(\frac{a\tau+b}{d}\right)
+  = d \sum_{\substack{m \geq 0 \\ d \mid m}} a_m e^{2\pi ima\tau/d}
+  = d \sum_{j=0}^{\infty} a_{jd} e^{2\pi ija\tau}.
+\]
+代回并令 $q' = e^{2\pi i\tau}$：
+\[
+  (T_n f)(\tau)
+  = n^{k-1} \sum_{ad=n} d^{-k} \cdot d \sum_{j=0}^{\infty} a_{jd} (q')^{ja}
+  = n^{k-1} \sum_{ad=n} d^{1-k} \sum_{j=0}^{\infty} a_{jd}\, q^{ja}.
+\]
+令 $m = ja$（即 $j = m/a$，要求 $a \mid m$）并换指标：
+\begin{align}
+  (T_n f)(\tau)
+  &= n^{k-1} \sum_{m=0}^{\infty}
+    \left(\sum_{\substack{ad=n \\ a \mid m}} d^{1-k} a_{(m/a)d}\right) q^m \\
+  &= \sum_{m=0}^{\infty}
+    \left(\sum_{d \mid \gcd(m,n)} \left(\frac{n}{d}\right)^{k-1} \cdot d^{1-k} \cdot a_{mn/d^2} \cdot n^{k-1}\right) q^m.
+\end{align}
+整理（令 $d' = n/a = d$ 遍历 $\gcd(m,n)$ 的因子，$a = n/d'$，用 $d^{1-k}(n/d)^{k-1} = 1$...）：
+
+更直接地，当 $n = p$ 时：$ad = p$，只有 $(a,d) = (1,p)$ 或 $(p,1)$，故
+\begin{align}
+  (T_p f)(\tau)
+  &= p^{k-1} \left[
+    p^{-k+1} \sum_{m: p\mid m} a_m q^{m/p}
+    + \sum_{m=0}^\infty a_m q^{mp}
+  \right] \\
+  &= \sum_{m=0}^\infty a_{pm} q^m + p^{k-1}\sum_{m=0}^\infty a_m q^{mp} \\
+  &= \sum_{m=0}^\infty \left(a_{pm} + p^{k-1} a_{m/p}\right) q^m.
+\end{align}
+（其中 $a_{m/p} = 0$ 若 $p \nmid m$。）
+\end{proof}
+
+\begin{example}[$T_2$ 作用在 $\Delta$]
+\label{ex:T2-Delta-explicit}
+$\Delta = \sum_{n=1}^\infty \tau(n) q^n$，$\tau(1)=1$，$\tau(2)=-24$，
+$\tau(3)=252$，$\tau(4)=-1472$，$\tau(5)=4830$，$\tau(6)=-6048$。
+
+$T_2\Delta$ 的系数（$k=12$）：$b_m = \tau(2m) + 2^{11}\tau(m/2)$。
+\begin{itemize}
+  \item $b_1 = \tau(2) + 0 = -24$。
+  \item $b_2 = \tau(4) + 2^{11}\tau(1) = -1472 + 2048 = 576 = 576$。
+  \item $b_3 = \tau(6) + 0 = -6048$。
+\end{itemize}
+下面我们会看到 $\Delta$ 是特征形式，所以 $T_2\Delta = \tau(2)\Delta = -24\Delta$，
+故 $b_m = -24\tau(m)$。验证：$b_1 = -24 \cdot 1 = -24$ \checkmark，
+$b_2 = -24 \cdot (-24) = 576$ \checkmark，$b_3 = -24 \cdot 252 = -6048$ \checkmark。
+\end{example}
+
+\textbf{Hecke 算子保持模形式空间。}
+由上面的公式，$T_n f$ 的 $q$-展开系数由 $f$ 的系数线性确定，故 $T_n\colon \Mk_k \to \Mk_k$（也保持 $\Sk_k \subset \Mk_k$）。
