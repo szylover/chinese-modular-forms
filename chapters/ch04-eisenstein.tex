@@ -2,7 +2,249 @@
 \chapter{Eisenstein 级数}
 \label{ch:eisenstein}
 % ============================================================================
-% 对应 Diamond \& Shurman Chapter 4
+% 对应 Diamond \& Shurman Chapter 4（在本书中为第 2 章）
 
-% TODO: Eisenstein 级数的构造、Fourier 展开、
-%       Bernoulli 数、非全纯 E_2、同余子群的 Eisenstein 级数
+在第一章末尾，我们见到了两类模形式的具体例子：
+Eisenstein 级数 $E_4, E_6$ 和判别形式 $\Delta$。
+本章的任务是深入研究 Eisenstein 级数——不仅要知道它"长什么样"，
+还要\textbf{证明}它满足模变换律，并理解其系数的算术含义。
+
+核心工具是\textbf{Poisson 求和公式}。
+它把对格点的求和转化为对 Fourier 系数的求和，
+是推导 $q$-展开的关键。Poisson 求和的思想非常普遍，
+也是 Riemann $\zeta$ 函数、Dirichlet $L$-函数满足函数方程的根本原因。
+
+本章结构：
+\begin{itemize}
+  \item \textbf{§\ref{sec:bernoulli}} Bernoulli 数与 $\zeta$ 函数特殊值——
+    为 $q$-展开的常数项作准备。
+  \item \textbf{§\ref{sec:lattice-sum-eisenstein}}
+    从格求和出发定义 Eisenstein 级数，验证模变换律。
+  \item \textbf{§\ref{sec:poisson-summation}}
+    Poisson 求和公式及其证明。
+  \item \textbf{§\ref{sec:eisenstein-q-expansion}}
+    用 Poisson 求和推导 $E_k$ 的 $q$-展开，计算系数。
+  \item \textbf{§\ref{sec:eisenstein-congruence}}
+    同余子群上的 Eisenstein 级数与 Dirichlet 特征。
+  \item \textbf{§\ref{sec:eisenstein-exercises}} 习题。
+\end{itemize}
+
+
+% ============================================================================
+\section{Bernoulli 数与 $\zeta$ 函数}
+\label{sec:bernoulli}
+% ============================================================================
+
+Eisenstein 级数 $E_k$ 的 $q$-展开常数项（即 $a_0$）
+是 Riemann $\zeta$ 函数在偶数负整数处的特殊值，
+可以用 Bernoulli 数表达。我们先把这些数字算清楚。
+
+\textbf{Bernoulli 数是什么？}
+把函数 $\frac{t}{e^t - 1}$ 展开成 $t$ 的幂级数：
+\[
+  \frac{t}{e^t - 1} = \sum_{m=0}^{\infty} \frac{B_m}{m!} t^m.
+\]
+这样定义的系数 $B_m$ 就叫\textbf{Bernoulli 数}\index{Bernoulli 数 (Bernoulli numbers)}。
+
+\begin{example}[计算前几个 Bernoulli 数]
+\label{ex:bernoulli-numbers}
+用 $\frac{t}{e^t - 1} \cdot (e^t - 1) = t$ 可以逐步算出 $B_m$。
+展开 $e^t - 1 = t + t^2/2! + t^3/3! + \cdots$，则
+\[
+  \left(\sum_{m=0}^{\infty} \frac{B_m}{m!} t^m\right)
+  \left(\sum_{n=1}^{\infty} \frac{t^n}{n!}\right) = t.
+\]
+比较两边 $t^n$ 的系数（$n \geq 2$）：
+\[
+  \sum_{j=0}^{n-1} \frac{B_j}{j!} \cdot \frac{1}{(n-j)!} = 0,
+  \qquad \text{即} \quad
+  \sum_{j=0}^{n-1} \binom{n}{j} B_j = 0.
+\]
+从 $B_0 = 1$ 出发逐步计算：
+\begin{align*}
+  B_0 &= 1, \\
+  B_1 &= -\frac{1}{2}, \\
+  B_2 &= \frac{1}{6}, \quad B_4 = -\frac{1}{30}, \quad
+  B_6 = \frac{1}{42}, \quad B_8 = -\frac{1}{30}, \quad
+  B_{10} = \frac{5}{66}, \quad B_{12} = -\frac{691}{2730}.
+\end{align*}
+奇数阶（$m \geq 3$）：$B_m = 0$，因为
+$\frac{t}{e^t-1} + \frac{t}{2} = \frac{t}{2} \cdot \coth\frac{t}{2}$
+是偶函数。
+\end{example}
+
+注意 $B_{12} = -691/2730$——分子 $691$ 是个素数，
+将在 Ramanujan $\tau$ 函数的同余式 $\tau(n) \equiv \sigma_{11}(n) \pmod{691}$
+中再次出现。这不是巧合，背后有深刻的数论原因（Serre-Swinnerton-Dyer 理论）。
+
+\begin{proposition}[Bernoulli 数与 $\zeta$ 函数]
+\label{prop:bernoulli-zeta}
+\index{Riemann zeta 函数 (Riemann zeta function)}\index{zeta@$\zeta(s)$}
+对偶数 $k \geq 2$，
+\[
+  \zeta(k) = \sum_{n=1}^{\infty} \frac{1}{n^k}
+  = -\frac{(2\pi i)^k B_k}{2 \cdot k!}.
+\]
+特别地，
+\[
+  \zeta(2) = \frac{\pi^2}{6}, \quad
+  \zeta(4) = \frac{\pi^4}{90}, \quad
+  \zeta(6) = \frac{\pi^6}{945}, \quad
+  \zeta(8) = \frac{\pi^8}{9450}.
+\]
+\end{proposition}
+
+\begin{proof}
+利用 $\pi \cot(\pi z)$ 的部分分式展开。
+由复分析，$\pi \cot(\pi z)$ 在所有整数处有单极点，留数均为 $1$，故
+\[
+  \pi \cot(\pi z) = \frac{1}{z} + \sum_{n=1}^{\infty}
+  \left(\frac{1}{z-n} + \frac{1}{z+n}\right)
+  = \frac{1}{z} + \sum_{n=1}^{\infty} \frac{2z}{z^2 - n^2}.
+\]
+另一方面，令 $q = e^{2\pi i z}$（$\im z > 0$），则
+\[
+  \pi\cot(\pi z)
+  = \pi i \cdot \frac{e^{i\pi z} + e^{-i\pi z}}{e^{i\pi z} - e^{-i\pi z}}
+  = \pi i \cdot \frac{q + 1}{q - 1}
+  = -\pi i \left(1 + \frac{2q}{1-q}\right)
+  = -\pi i - 2\pi i \sum_{n=1}^{\infty} q^n.
+\]
+比较两个展开在 $z = 0$ 附近的 $z^{2k-1}$（$k \geq 1$）系数，注意
+\[
+  \frac{2z}{z^2 - n^2} = -\frac{2}{n^2} \cdot \frac{1}{1 - (z/n)^2}
+  = -\frac{2}{n^2} \sum_{j=0}^{\infty} \left(\frac{z}{n}\right)^{2j},
+\]
+故 $z^{2k-1}$ 系数贡献为 $-2\sum_{n=1}^\infty n^{-2k}$；
+另一方面，$-2\pi i \sum_{n=1}^{\infty} e^{2\pi inz}$ 在 $z = 0$ 附近展开，
+$z^{2k-1}$ 系数为 $-2\pi i \sum_{n=1}^\infty \frac{(2\pi i n)^{2k-1}}{(2k-1)!}$。
+整理后即得 $\zeta(2k) = -\frac{(2\pi i)^{2k} B_{2k}}{2(2k)!}$。
+\end{proof}
+
+\textbf{系数的化简。}
+由\cref{prop:bernoulli-zeta}，
+\[
+  \frac{2}{2\zeta(k)} = \frac{2}{-\frac{(2\pi i)^k B_k}{k!}}
+  = \frac{-2k!}{(2\pi i)^k B_k}.
+\]
+这在后面计算 $E_k$ 的 $q$-展开系数时会用到。
+
+
+% ============================================================================
+\section{格求和与 Eisenstein 级数的定义}
+\label{sec:lattice-sum-eisenstein}
+% ============================================================================
+
+在\cref{sec:modular-forms-def}中我们预告了 Eisenstein 级数。
+现在我们从头构造它，并直接验证模变换律。
+
+\textbf{动机：用格求和构造自动满足变换律的函数。}
+模形式的变换律是 $f(\gamma(\tau)) = (c\tau + d)^k f(\tau)$。
+如果我们对某个函数 $h$ 做"平均"：
+\[
+  f(\tau) = \sum_{\gamma \in \SL_2(\Z)} h(\gamma(\tau)) \cdot j(\gamma, \tau)^{-k},
+  \qquad j(\gamma, \tau) = c\tau + d,
+\]
+那么 $f(\gamma_0(\tau)) = j(\gamma_0, \tau)^k f(\tau)$ 自动成立——
+因为 $\gamma \mapsto \gamma\gamma_0$ 只是对求和指标做了置换。
+Eisenstein 级数就是取最简单的 $h(\tau) = 1$ 时得到的结果。
+
+\begin{definition}[Eisenstein 级数 $G_k$]
+\label{def:eisenstein-Gk}
+\index{Eisenstein 级数 (Eisenstein series)}\index{Gk@$G_k(\tau)$}
+对偶整数 $k \geq 4$，定义
+\[
+  G_k(\tau) = \sum_{\substack{(c,d) \in \Z^2 \\ (c,d) \neq (0,0)}}
+  \frac{1}{(c\tau + d)^k}.
+\]
+\end{definition}
+
+\begin{example}[前几项展开]
+\label{ex:Gk-first-terms}
+把 $G_k(\tau)$ 的求和按 $c$ 的值分组：
+\begin{itemize}
+  \item $c = 0$：贡献 $\sum_{d \neq 0} d^{-k} = 2\zeta(k)$。
+  \item $c \neq 0$：对固定 $c$，$d$ 跑遍所有整数，
+    贡献 $\sum_{d \in \Z} (c\tau + d)^{-k}$。
+\end{itemize}
+故
+\[
+  G_k(\tau) = 2\zeta(k) + 2 \sum_{c=1}^{\infty} \sum_{d \in \Z} \frac{1}{(c\tau + d)^k}.
+\]
+\end{example}
+
+\begin{proposition}[绝对收敛性]
+\label{prop:Gk-convergence}
+对 $k \geq 3$，$G_k(\tau)$ 在 $\HH$ 上绝对收敛，
+且在每个紧子集上一致收敛。
+\end{proposition}
+
+\begin{proof}
+设 $\tau = x + iy$，$y > 0$。对 $(c, d) \neq (0, 0)$，
+\[
+  |c\tau + d|^2 = (cx + d)^2 + c^2 y^2 \geq \min(1, y^2)(c^2 + d^2).
+\]
+（若 $c = 0$：$|d|^2 = d^2 \geq c^2+d^2$；若 $c \neq 0$：
+$|c\tau+d|^2 \geq c^2y^2 \geq y^2(c^2+d^2)/2$ 当 $|c| \leq |d|$，
+直接估计另一情形。）
+
+故
+\[
+  |G_k(\tau)| \leq C(y) \sum_{(c,d) \neq 0} (c^2 + d^2)^{-k/2}.
+\]
+对二维格求和，当 $k > 2$ 时级数收敛（在极坐标下估计）。
+在紧子集 $\{y \geq \delta\}$ 上 $C(y)$ 有上界，故一致收敛。
+\end{proof}
+
+\begin{theorem}[$G_k$ 是模形式]
+\label{thm:Gk-modular}
+对偶整数 $k \geq 4$，$G_k(\tau)$ 是 $\SL_2(\Z)$ 的权 $k$ 模形式，
+且 $G_k(\infty) = 2\zeta(k) \neq 0$。
+\end{theorem}
+
+\begin{proof}
+\textbf{全纯性}：由\cref{prop:Gk-convergence}，一致收敛的全纯函数之极限是全纯的。
+
+\textbf{变换律}：设 $\gamma_0 = \begin{pmatrix} a & b \\ c_0 & d_0 \end{pmatrix}
+\in \SL_2(\Z)$，$\gamma_0(\tau) = (a\tau + b)/(c_0\tau + d_0)$。
+\begin{align}
+  G_k(\gamma_0(\tau))
+  &= \sum_{(c,d) \neq 0} \frac{1}{\!\left(c \cdot \frac{a\tau+b}{c_0\tau+d_0} + d\right)^{\!k}} \\
+  &= (c_0\tau + d_0)^k
+     \sum_{(c,d) \neq 0} \frac{1}{((ca + dc_0)\tau + (cb + dd_0))^k}.
+\end{align}
+映射 $(c, d) \mapsto (ca+dc_0,\; cb+dd_0)$ 是 $\Z^2 \setminus \{0\}$ 上的双射
+（由 $\det\gamma_0 = 1$），故
+\[
+  G_k(\gamma_0(\tau)) = (c_0\tau + d_0)^k G_k(\tau).
+\]
+
+\textbf{在尖点处}：$\im(\tau) \to +\infty$ 时非常数项趋于 $0$
+（将在\cref{sec:eisenstein-q-expansion}中用 Poisson 求和证明），
+故 $G_k(\tau) \to 2\zeta(k)$，在尖点处全纯。
+\end{proof}
+
+\begin{definition}[规范化 Eisenstein 级数 $E_k$]
+\label{def:normalized-eisenstein}
+\index{Ek@$E_k(\tau)$}
+\[
+  E_k(\tau) = \frac{G_k(\tau)}{2\zeta(k)},
+\]
+使得 $E_k(\infty) = 1$。
+\end{definition}
+
+\begin{example}[$E_4, E_6$ 的展开（预告）]
+\label{ex:E4-E6-expansion}
+用 Poisson 求和（\cref{sec:eisenstein-q-expansion}）可以证明：
+\begin{align*}
+  E_4(\tau) &= 1 + 240\sum_{n=1}^{\infty} \sigma_3(n) q^n
+  = 1 + 240q + 2160q^2 + 6720q^3 + \cdots \\
+  E_6(\tau) &= 1 - 504\sum_{n=1}^{\infty} \sigma_5(n) q^n
+  = 1 - 504q - 16632q^2 - 122976q^3 - \cdots
+\end{align*}
+其中 $\sigma_{k-1}(n) = \sum_{d \mid n} d^{k-1}$。
+系数 $240 = -2k/B_k|_{k=4} = -8/(-1/30) = 240$ ✓，
+$-504 = -2 \cdot 6 / B_6 = -12 / (1/42) = -504$ ✓。
+\end{example}
+
+\input{figures/ch04-eisenstein-coefficients}

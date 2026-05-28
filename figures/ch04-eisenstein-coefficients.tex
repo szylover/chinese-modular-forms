@@ -1,0 +1,59 @@
+% figures/ch04-eisenstein-series-plot.tex
+% Eisenstein 级数 E_4 的 q-展开前几项示意（数轴上的系数增长）
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small, scale=1.0]
+
+% 坐标轴
+\draw[->] (-0.3, 0) -- (7.5, 0) node[right] {$n$};
+\draw[->] (0, -0.3) -- (0, 4.2) node[above] {$a_n(E_4)$（规范化后）};
+
+% 刻度
+\foreach \x in {1,2,3,4,5,6,7} {
+  \draw (\x, 0.05) -- (\x, -0.05);
+  \node[below] at (\x, -0.08) {\x};
+}
+
+% 系数值（规范化：a_0=1, a_n = 240 σ_3(n) / 240 = σ_3(n)，再缩放显示）
+% a_0=1, a_1=240, a_2=2160, a_3=6720, a_4=17520, a_5=20160, a_6=60480
+% 缩放：除以 240 * 5 = 1200 再乘以 3.5 的高度
+% σ_3(1)=1, σ_3(2)=9, σ_3(3)=28, σ_3(4)=73, σ_3(5)=126, σ_3(6)=252
+
+% 用柱状图
+\foreach \x/\h/\lab in {
+  1/0.35/{$1$},
+  2/3.15/{$9$},
+  3/3.99/{$28$（峰值截断）},
+  4/3.8/{$73$（截断）},
+  5/3.9/{$126$（截断）},
+  6/4.0/{$252$（截断）},
+  7/3.85/{$344$（截断）}
+}{
+  \fill[blue!40!white, draw=blue!60!black]
+    (\x-0.3, 0) rectangle (\x+0.3, \h);
+}
+
+% a_0 = 1（常数项）
+\fill[orange!60!white, draw=orange!80!black]
+  (-0.3, 0) rectangle (0.3, 0.35);
+\node[below, orange!70!black] at (0, -0.08) {$0$};
+
+% 标注
+\node[blue!70!black, above right, font=\footnotesize] at (1, 0.35) {$\sigma_3(1)=1$};
+\node[blue!70!black, above, font=\footnotesize] at (2, 3.15) {$\sigma_3(2)=9$};
+\node[blue!70!black, above right, font=\footnotesize] at (6, 4.0) {$\sigma_3(n)\nearrow$};
+
+% 公式提示
+\node[font=\footnotesize, align=left, text=gray!70!black] at (5.5, 1.5)
+  {$E_4(\tau) = 1 + 240\!\sum_{n=1}^{\infty}\!\sigma_3(n)\,q^n$};
+
+% 虚线截断线
+\draw[dashed, gray!60] (0, 4.0) -- (7.5, 4.0);
+\node[right, font=\footnotesize, gray!60] at (7.5, 4.0) {（显示截断）};
+
+\end{tikzpicture}
+\caption{$E_4$ 的 $q$-展开系数 $a_n = 240\sigma_3(n)$（$n \geq 1$）随 $n$ 增长的示意。
+因子 $\sigma_3(n) = \sum_{d \mid n} d^3$ 是因子的立方和，增长迅速。
+系数的精确公式由 Poisson 求和公式导出。}
+\label{fig:eisenstein-coefficients}
+\end{figure}

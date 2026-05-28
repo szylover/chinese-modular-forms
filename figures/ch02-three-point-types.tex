@@ -1,0 +1,58 @@
+% figures/ch02-three-point-types.tex
+% 基本域中三类点的示意图：普通点、椭圆点、尖点
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small, scale=1.3]
+
+% --- 基本域轮廓 ---
+% 两侧竖线 Re = ±1/2，底部圆弧 |τ|=1
+\fill[blue!6]
+  (-0.5, 3.5) -- (-0.5, 0.866) arc[start angle=120, end angle=60, radius=1]
+  -- (0.5, 3.5) -- cycle;
+
+\draw[thick, blue!60!black]
+  (-0.5, 0.866) -- (-0.5, 3.5);
+\draw[thick, blue!60!black]
+  (0.5, 0.866) -- (0.5, 3.5);
+\draw[thick, blue!60!black]
+  (-0.5, 0.866) arc[start angle=120, end angle=60, radius=1];
+
+% --- 顶部箭头：尖点∞ ---
+\draw[->, thick, green!50!black, line width=1.2pt]
+  (0, 3.2) -- (0, 3.8);
+\node[green!50!black, right] at (0.05, 3.6) {$\infty$（尖点）};
+
+% --- 普通点（内部随便一点） ---
+\fill[gray!70] (0.15, 2.0) circle (2pt);
+\node[right] at (0.18, 2.0) {$\tau_0$（普通点，局部坐标 $w = \tau - \tau_0$）};
+
+% --- 椭圆点 i ---
+\fill[red!80!black] (0, 1) circle (3pt);
+\node[left, red!80!black] at (-0.05, 1) {$i$};
+\node[right, font=\footnotesize] at (0.05, 0.85)
+  {阶 $2$ 椭圆点，局部坐标 $w = \!\left(\dfrac{\tau-i}{\tau+i}\right)^{\!2}$};
+
+% --- 椭圆点 ρ = e^{2πi/3} ---
+\fill[blue!80!black] (-0.5, 0.866) circle (3pt);
+\node[left, blue!80!black] at (-0.55, 0.866) {$\rho$};
+\node[right, font=\footnotesize, blue!70!black] at (-0.42, 0.72)
+  {阶 $3$ 椭圆点，局部坐标 $w = \!\left(\dfrac{\tau-\rho}{\tau-\bar\rho}\right)^{\!3}$};
+
+% --- 标注基本域名称 ---
+\node[blue!50!black] at (0, 2.6) {$\mathcal{F}$};
+
+% --- 下方坐标轴 ---
+\draw[->] (-1, 0) -- (1, 0) node[right] {$\Re(\tau)$};
+\draw[->] (0, 0) -- (0, 0.3);
+\node[below] at (-0.5, 0) {$-\tfrac{1}{2}$};
+\node[below] at (0.5, 0) {$\tfrac{1}{2}$};
+\node[below] at (0, 0) {$0$};
+
+\end{tikzpicture}
+\caption{基本域 $\mathcal{F}$ 中的三类点及其局部坐标。
+普通点（灰色）的局部坐标直接用 $\tau - \tau_0$；
+椭圆点 $i$（红色）有阶 $2$ 的稳定子，局部坐标需要平方；
+椭圆点 $\rho$（蓝色）有阶 $3$ 的稳定子，局部坐标需要立方；
+尖点 $\infty$（绿色）需要用 $q = e^{2\pi i\tau}$ 作局部坐标（在 §\ref{sec:compactification-X} 中讨论）。}
+\label{fig:three-point-types}
+\end{figure}
