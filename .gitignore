@@ -6,6 +6,5 @@
 *.ilg
 *.ind
 *.listing
-*.pdf
 *.synctex.gz
 chapters/*.aux
