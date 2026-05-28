@@ -1,0 +1,207 @@
+\section{新形式理论（Atkin--Lehner）}
+\label{sec:newforms}
+% ============================================================================
+
+现在我们终于碰到 Hecke 理论里最容易被忽略、但在算术上最关键的一层细化。前几节已经知道：在给定级别的空间里，可以找 Hecke 算子的公共特征向量。可是一旦级别从 $M$ 升到 $N$，旧问题马上出现：若 $f \in \Sk_k(M)$，而 $M \mid N$，那么 $f(d\tau)$ 往往自动落在 $\Sk_k(N)$ 里。换句话说，高级别空间里混进了许多从低级别\textbf{抬升}上来的形式。若不把这些"旧信息"剥掉，我们就无法回答最核心的问题：\emph{到底哪些特征形式真正属于级别 $N$，而不是在更低级别就已经出现过？} 新形式理论的核心想法正是把 $\Sk_k(N)$ 分成两块：一块是从低级别搬上来的旧形式，另一块是与它们正交、真正第一次在级别 $N$ 出现的新形式。这样做的收获极大：新形式不仅给出最干净的特征形式基，而且会与椭圆曲线、$L$-函数以及费马大定理的证明链直接对接。
+
+先看一个最具体的例子。设
+\[
+  \Delta(\tau)=q-24q^2+252q^3-1472q^4+\cdots \in \Sk_{12}(\SL_2(\Z)).
+\]
+把变量换成 $2\tau$，得到
+\[
+  \Delta(2\tau)=q^2-24q^4+252q^6-1472q^8+\cdots.
+\]
+它不再是级别 $1$ 的形式，却是级别 $2$ 的尖点形式。也就是说，$\Sk_{12}(\GammaO(2))$ 里至少有一部分内容，其实早在级别 $1$ 就已经存在了，只是被重新嵌进了更大的空间。这个例子说明：在讨论级别 $N$ 的 Hecke 特征形式时，单看“是不是特征向量”还不够，我们还必须问一句：\textbf{它是不是第一次在这个级别出现？}
+
+\begin{definition}[退化映射与旧形式空间]
+\label{def:oldforms}
+设 $M \mid N$，$d \mid N/M$。定义\textbf{退化映射}（degeneracy map）
+\[
+  V_d\colon \Sk_k(M) \longrightarrow \Sk_k(N),\qquad (V_df)(\tau)=f(d\tau).
+\]
+于是级别 $N$ 的\textbf{旧形式空间}（oldspace）\index{旧形式 (oldform)}定义为
+\[
+  \Sk_k^{\mathrm{old}}(N)
+  = \sum_{\substack{M\mid N \\ M<N}}\ \sum_{d\mid N/M} V_d\Sk_k(M)
+  = \sum_{\substack{M\mid N \\ M<N}}\ \sum_{d\mid N/M}
+    \{f(d\tau):f\in \Sk_k(M)\}.
+\]
+\end{definition}
+
+\begin{example}[级别 $2$ 里的旧形式]
+上面的 $\Delta(2\tau)$ 正是 \cref{def:oldforms} 里的情形：这里 $M=1$，$N=2$，$d=2$，所以
+\[
+  \Delta(2\tau)=V_2\Delta\in \Sk_{12}^{\mathrm{old}}(2).
+\]
+它的 Fourier 展开从 $q^2$ 开始，清楚地反映出“把同一个级别 $1$ 的对象沿着 $\tau\mapsto 2\tau$ 搬到级别 $2$”这一过程。
+\end{example}
+
+要定义新形式，就需要把 Petersson 内积从 \cref{def:petersson} 的级别 $1$ 情形推广到 $\GammaO(N)$：
+若 $\mathcal{F}_N$ 是 $\GammaO(N)$ 的一个基本域，令
+\[
+  \langle f,g\rangle_N
+  =\int_{\mathcal{F}_N} f(\tau)\overline{g(\tau)}\,(\Im\tau)^k\,\frac{dx\,dy}{y^2}.
+\]
+由于尖点形式在各尖点处都指数衰减，积分仍然收敛。
+
+\begin{definition}[新形式空间]
+\label{def:newforms-space}
+级别 $N$ 的\textbf{新形式空间}（newspace）\index{新形式 (newform)}定义为旧形式空间在 Petersson 内积下的正交补：
+\[
+  \Sk_k^{\mathrm{new}}(N)
+  = \bigl(\Sk_k^{\mathrm{old}}(N)\bigr)^{\perp}
+  \subset \Sk_k(N).
+\]
+位于 $\Sk_k^{\mathrm{new}}(N)$ 中、首项归一化且是所有相关算子的公共特征向量的形式，称为\textbf{新形式}。
+\end{definition}
+
+\input{figures/ch05-newforms}
+
+\begin{theorem}[旧空间与新空间的正交分解]
+\label{thm:newform-decomposition}
+对任意整数 $N\ge 1$，有正交直和分解
+\[
+  \Sk_k(N)=\Sk_k^{\mathrm{old}}(N)\oplus \Sk_k^{\mathrm{new}}(N).
+\]
+\end{theorem}
+
+\begin{proof}
+空间 $\Sk_k(N)$ 是有限维复向量空间；给定 Petersson 内积后，它成为有限维 Hermite 空间。任取其子空间
+$U=\Sk_k^{\mathrm{old}}(N)$，线性代数告诉我们：正交补
+\[
+  U^{\perp}=\{h\in \Sk_k(N):\langle h,u\rangle_N=0\text{ 对所有 }u\in U\}
+\]
+也是子空间，并且满足 $\Sk_k(N)=U\oplus U^{\perp}$。
+
+这里的直和是正交直和：若 $x\in U\cap U^{\perp}$，则 $\langle x,x\rangle_N=0$，由内积正定性得到 $x=0$。而每个 $f\in \Sk_k(N)$ 都可唯一写成
+$f=u+h$，其中 $u\in U$，$h\in U^{\perp}$。按照 \cref{def:newforms-space}，$U^{\perp}=\Sk_k^{\mathrm{new}}(N)$，命题得证。
+\end{proof}
+
+\begin{example}[级别 $1$ 时没有旧形式]
+\label{ex:level1-all-new}
+当 $N=1$ 时，不存在满足 $M\mid 1$ 且 $M<1$ 的正整数 $M$，所以
+\[
+  \Sk_k^{\mathrm{old}}(1)=0,
+  \qquad
+  \Sk_k^{\mathrm{new}}(1)=\Sk_k(1).
+\]
+因此级别 $1$ 的所有尖点形式自动都是新形式。特别地，
+$\dim \Sk_{12}(\SL_2(\Z))=1$，故 $\Delta$ 不只是 Hecke 特征形式，而且是重量 $12$、级别 $1$ 的唯一归一化新形式。
+\end{example}
+
+接下来需要一个能看见“坏素数处局部对称性”的算子族。Hecke 算子 $T_p$（$p\nmid N$）控制的是好素数处的信息；而整除 $N$ 的素数还携带额外的局部对称，这正由 Atkin--Lehner 算子来记录。
+
+\begin{definition}[恰除因子与 Atkin--Lehner 算子]
+\label{def:atkin-lehner}
+若 $Q\mid N$ 且 $\gcd(Q,N/Q)=1$，则称 $Q$ 是 $N$ 的\textbf{恰除因子}（exact divisor），记作
+$Q\mid\mid N$\index{恰除因子 (exact divisor)}。在这种情形下，可取整数 $a,b,c,d$ 使得
+\[
+  Qad-\frac{N}{Q}bc=1,
+\]
+于是矩阵
+\[
+  w_Q=
+  \begin{pmatrix}
+    Qa & b\\
+    Nc & Qd
+  \end{pmatrix}
+\]
+的行列式是 $Q$。对 $f\in \Sk_k(N)$，定义 \textbf{Atkin--Lehner 算子}\index{Atkin--Lehner 算子}
+\[
+  W_Qf = Q^{-k/2}\,(f\mid_k w_Q).
+\]
+不同的 $w_Q$ 给出同一个作用在 $\Sk_k(N)$ 上的算子；特别地，$W_1=\mathrm{id}$，而 $W_N$ 常称为\textbf{Fricke 对合}。
+\end{definition}
+
+\begin{example}[恰除因子的样子]
+若 $N=12$，则恰除因子恰好是
+\[
+  1,\ 3,\ 4,\ 12.
+\]
+例如 $Q=3$ 是恰除因子，因为 $\gcd(3,4)=1$；但 $Q=2$ 不是，因为
+$\gcd(2,6)=2\neq 1$。因此级别 $12$ 上可以讨论 $W_3,W_4,W_{12}$，却不能讨论 $W_2$。
+\end{example}
+
+\begin{theorem}[新空间上的同时对角化]
+\label{thm:newforms-eigen}
+设 $N\ge 1$。则：
+\begin{enumerate}
+  \item 对每个满足 $\gcd(n,N)=1$ 的整数 $n$，Hecke 算子 $T_n$ 保持
+        $\Sk_k^{\mathrm{old}}(N)$ 与 $\Sk_k^{\mathrm{new}}(N)$；
+  \item 对每个恰除因子 $Q\mid\mid N$，Atkin--Lehner 算子 $W_Q$ 也保持
+        $\Sk_k^{\mathrm{old}}(N)$ 与 $\Sk_k^{\mathrm{new}}(N)$；
+  \item 因而 $\Sk_k^{\mathrm{new}}(N)$ 有一组正交基，由同时满足
+        \[
+          T_n f=a_n(f)f\quad (\gcd(n,N)=1),
+          \qquad
+          W_Qf=\varepsilon_Q(f)f\quad (Q\mid\mid N)
+        \]
+        的向量组成，其中每个 $\varepsilon_Q(f)=\pm 1$。
+\end{enumerate}
+换言之，新形式可以取为所有好 Hecke 算子与所有 Atkin--Lehner 算子的公共特征向量。
+\end{theorem}
+
+\begin{proof}
+先证 (1)。任取旧形式生成元 $V_df=f(d\tau)$，其中 $f\in \Sk_k(M)$，$M\mid N$，$M<N$，$d\mid N/M$。对任意 $n$ 满足 $\gcd(n,N)=1$，特别有 $\gcd(n,d)=1$。把 \cref{thm:hecke-on-q-exp} 的公式分别作用在 $f$ 与 $V_df$ 的 Fourier 展开上，可直接比较系数得到
+\[
+  T_n(V_df)=V_d(T_nf).
+\]
+右边仍在 $V_d\Sk_k(M)$ 中，因此 $T_n$ 保持旧空间。再由 \cref{thm:hecke-selfadjoint} 的同样思路推广到 $\GammaO(N)$ 可知，$T_n$ 关于 Petersson 内积自伴；若 $h\in \Sk_k^{\mathrm{new}}(N)$，$u\in \Sk_k^{\mathrm{old}}(N)$，则
+\[
+  \langle T_nh,u\rangle_N=\langle h,T_nu\rangle_N=0,
+\]
+因为 $T_nu\in \Sk_k^{\mathrm{old}}(N)$。所以 $T_nh\in \Sk_k^{\mathrm{new}}(N)$，(1) 成立。
+
+对 (2)，Atkin--Lehner 理论中的标准矩阵计算表明：$W_Q$ 把退化映射的像送到退化映射的像，因此保持旧空间；另一方面 $W_Q$ 是保 Petersson 内积的对合，所以若 $h\perp \Sk_k^{\mathrm{old}}(N)$，则 $W_Qh$ 仍与旧空间正交，于是也落在新空间里。
+
+现在证 (3)。在有限维 Hermite 空间 $\Sk_k^{\mathrm{new}}(N)$ 上，所有 $T_n$（$\gcd(n,N)=1$）彼此交换，所有 $W_Q$ 也彼此交换，并且 $W_Q^2=1$，故每个 $W_Q$ 都可对角化，特征值只能是 $\pm1$。这些算子又都保持新空间，所以可以在新空间上同时对角化，得到一组公共特征向量基。把这些向量再做首项归一化，便得到新形式。
+\end{proof}
+
+\begin{example}[级别 $11$ 的唯一新形式]
+\label{ex:level11-newform}
+空间 $\Sk_2(\GammaO(11))$ 的维数是 $1$，因此它自动等于自己的新空间。故其中任一非零元素都是所有好 Hecke 算子的特征向量；取首项归一化后得到唯一新形式
+\[
+  f=q-2q^2-q^3+2q^4+q^5+\cdots.
+\]
+由于维数只有 $1$，$W_{11}$ 也只能按数乘作用，所以 $f$ 还是 $W_{11}$ 的特征向量。这正是新形式理论在最小非平凡级别中的典型样子：一个真正属于级别 $11$ 的对象，把所有算术信息都压缩进一串系数 $a_p(f)$ 里。
+\end{example}
+
+这个级别 $11$ 的例子还有更深的几何意义。它对应于导子为 $11$ 的椭圆曲线
+\[
+  E\colon y^2+y=x^3-x^2-10x-10.
+\]
+模性定理告诉我们，$E$ 的 Hasse--Weil $L$-函数满足
+\[
+  L(E,s)=L(f,s).
+\]
+于是新形式不只是“模形式空间里的漂亮基向量”，而是真正把解析对象与代数几何对象连接起来的桥梁。
+
+\begin{theorem}[强重数一定理]
+\label{thm:strong-multiplicity-one}
+\index{强重数一定理 (strong multiplicity one)}
+设 $f,g\in \Sk_k^{\mathrm{new}}(N)$ 是同一重量、同一级别的归一化新形式。若
+\[
+  a_p(f)=a_p(g)
+\]
+对除了有限多个以外的所有素数 $p$ 都成立（等价地，只需对几乎所有 $p\nmid N$ 成立），则
+\[
+  f=g.
+\]
+\end{theorem}
+
+\begin{proof}[证明思路]
+由 \cref{thm:L-function-euler-product}，$f$ 与 $g$ 的 $L$-函数在几乎所有素数处有相同的局部 Euler 因子，因此它们的商只差一个有限 Euler 乘积。另一方面，归一化新形式满足完整的解析延拓与函数方程；把这些解析性质与 $\GL_2$ 上自守表示的强重数一定理结合起来，就得到对应的自守表示必须同构，从而 $f=g$。
+
+若用现代语言，这一定理是 Jacquet--Langlands 强重数一定理在经典模形式上的具体化；在本书的层次上，可以把它理解为：\textbf{一个新形式由几乎所有 $a_p$ 唯一决定。}
+\end{proof}
+
+\begin{example}[为什么这一定理如此强]
+若某个归一化新形式 $g$ 满足 $a_p(g)=a_p(\Delta)$ 对除了有限多个以外的所有素数都成立，那么 \cref{thm:strong-multiplicity-one} 立刻推出 $g=\Delta$。也就是说，我们不必逐项比较全部 Fourier 系数；“几乎所有素数处相同”已经足够恢复整个形式。
+\end{example}
+
+\textbf{与费马大定理的联系。}
+Wiles 证明了每条半稳定有理椭圆曲线都是模的：也就是说，它的 $L$-函数等于某个新形式的 $L(s,f)$。Frey 曲线若真的来自费马方程的非平凡解，那么它是一条半稳定椭圆曲线，因此也应该对应某个适当级别的新形式；但 Ribet 的降级定理表明，这会迫使它对应到一个根本不存在的新形式。矛盾就在这里爆发。换句话说，\textbf{新形式理论把“哪条椭圆曲线来自哪个级别”这个问题组织成了一个足够刚性的框架}，从而 Wiles 与 Ribet 的论证才能真正闭合。
+
+
+% ============================================================================

@@ -1,0 +1,224 @@
+\section{习题}
+\label{sec:hecke-exercises}
+% ============================================================================
+
+这一章的主线其实很清楚：先把 Hecke 算子写成可计算的公式，再把特征形式的 Fourier 系数变成特征值，最后用新形式把真正的算术信息从“旧级别污染”里剥离出来。习题的目的不是机械刷题，而是把这条链条亲手走一遍：你会看到 Eisenstein 级数为什么是特征形式、Euler 乘积为什么收敛、$\Delta$ 为什么天然是特征形式、Ramanujan 的递推怎样落到具体数字上，以及最小级别例子里“旧形式/新形式”怎样真正分开。做完这五题后，Hecke 理论的核心骨架就会从抽象定义变成可以直接操作的工具。
+
+\input{figures/ch05-newforms-exercises-roadmap}
+
+\begin{exercise}
+\label{ex:hecke-e6}
+设
+\[
+  E_6(\tau)=1-504\sum_{n=1}^{\infty}\sigma_5(n)q^n.
+\]
+利用 \cref{thm:hecke-on-q-exp} 计算 $T_3E_6$，验证 $E_6$ 是 Hecke 特征形式，并求出特征值。
+\end{exercise}
+
+\begin{proof}[解答]
+记 $E_6=\sum_{n=0}^{\infty}a_nq^n$，则 $a_0=1$，且对 $n\ge1$ 有
+\[
+  a_n=-504\sigma_5(n).
+\]
+由 \cref{thm:hecke-on-q-exp}（此时 $k=6$，$p=3$），
+\[
+  T_3E_6=\sum_{m=0}^{\infty}b_mq^m,
+  \qquad
+  b_m=a_{3m}+3^5a_{m/3},
+\]
+其中当 $3\nmid m$ 时约定 $a_{m/3}=0$。
+
+先看常数项：
+\[
+  b_0=a_0+3^5a_0=(1+3^5)a_0=244.
+\]
+再看 $m\ge1$ 的情形。若 $3\nmid m$，则
+\[
+  b_m=-504\sigma_5(3m)=-504(1+3^5)\sigma_5(m),
+\]
+因为这时 $\sigma_5(3m)=\sigma_5(3)\sigma_5(m)=(1+3^5)\sigma_5(m)$。
+
+若 $m=3^ru$，其中 $r\ge1$ 且 $3\nmid u$，则
+\[
+  \sigma_5(m)=\sigma_5(u)(1+3^5+\cdots+3^{5r}),
+\]
+于是
+\begin{align*}
+  \sigma_5(3m)+3^5\sigma_5(m/3)
+  &=\sigma_5(u)(1+3^5+\cdots+3^{5(r+1)})
+    +3^5\sigma_5(u)(1+3^5+\cdots+3^{5(r-1)})\\
+  &=\sigma_5(u)(1+3^5)(1+3^5+\cdots+3^{5r})\\
+  &=(1+3^5)\sigma_5(m).
+\end{align*}
+因此两种情形统一给出
+\[
+  b_m=-504(1+3^5)\sigma_5(m)=(1+3^5)a_m.
+\]
+再连同常数项，得到
+\[
+  T_3E_6=(1+3^5)E_6=244E_6=\sigma_5(3)E_6.
+\]
+所以 $E_6$ 确实是 Hecke 特征形式，其 $T_3$ 特征值为
+$\sigma_5(3)=1+3^5=244$。
+\end{proof}
+
+\begin{exercise}
+\label{ex:euler-product-convergence}
+设 $f\in \Mk_k$ 是归一化特征形式，$a_1=1$，并且对每个素数 $p$ 有
+$T_pf=a_pf$。证明 Euler 乘积
+\[
+  L(s,f)=\prod_p\bigl(1-a_pp^{-s}+p^{k-1-2s}\bigr)^{-1}
+\]
+在 $\Re(s)>k$ 时绝对收敛。
+\end{exercise}
+
+\begin{proof}[解答]
+设 $\sigma=\Re(s)>k$。对 holomorphic 模形式的 Fourier 系数有标准估计
+\[
+  a_n=O(n^{k-1}),
+\]
+特别地存在常数 $C>0$，使得对所有素数 $p$ 都有
+\[
+  |a_p|\le Cp^{k-1}.
+\]
+于是
+\[
+  \sum_p |a_pp^{-s}|
+  \le C\sum_p p^{k-1-\sigma}.
+\]
+因为 $\sigma>k$，指数 $\sigma-k+1>1$，故右端收敛。另一方面，
+\[
+  \sum_p \bigl|p^{k-1-2s}\bigr|=\sum_p p^{k-1-2\sigma}
+\]
+也收敛，因为 $2\sigma-k+1>1$。
+
+令
+\[
+  u_p=a_pp^{-s}-p^{k-1-2s}.
+\]
+则
+\[
+  \sum_p |u_p|
+  \le \sum_p |a_pp^{-s}|+\sum_p p^{k-1-2\sigma}<\infty.
+\]
+因此对充分大的素数 $p$，有 $|u_p|\le \tfrac12$。对这样的 $p$，利用幂级数
+$-\log(1-u)=u+O(u^2)$，可得
+\[
+  \sum_p \bigl|\log(1-u_p)\bigr|<\infty.
+\]
+于是乘积
+\[
+  \prod_p (1-u_p)
+\]
+绝对收敛，从而其倒数
+\[
+  \prod_p (1-u_p)^{-1}
+  =\prod_p\bigl(1-a_pp^{-s}+p^{k-1-2s}\bigr)^{-1}
+\]
+也绝对收敛。这就证明了 $L(s,f)$ 在 $\Re(s)>k$ 时绝对收敛。
+\end{proof}
+
+\begin{exercise}
+\label{ex:delta-auto-eigenform}
+说明为什么
+\[
+  \dim \Sk_{12}(\SL_2(\Z))=1
+\]
+立刻推出 $\Delta$ 自动是归一化 Hecke 特征形式。
+\end{exercise}
+
+\begin{proof}[解答]
+由 $\dim \Sk_{12}(\SL_2(\Z))=1$，空间 $\Sk_{12}(\SL_2(\Z))$ 由单个非零向量张成，而 $\Delta$ 正是其中一个非零元素。因此
+\[
+  \Sk_{12}(\SL_2(\Z))=\C\Delta.
+\]
+对任意 $n\ge1$，Hecke 算子 $T_n$ 保持尖点形式空间，所以
+\[
+  T_n\Delta\in \Sk_{12}(\SL_2(\Z))=\C\Delta.
+\]
+于是存在复数 $\lambda_n$ 使得
+\[
+  T_n\Delta=\lambda_n\Delta.
+\]
+这说明 $\Delta$ 是每个 $T_n$ 的特征向量，也就是 Hecke 特征形式。
+
+再看归一化。$\Delta$ 的 Fourier 展开是
+\[
+  \Delta=q-24q^2+252q^3+\cdots,
+\]
+其首项系数 $a_1(\Delta)=1$。因此 $\Delta$ 已经是归一化的。综上，$\Delta$ 自动是归一化 Hecke 特征形式。
+\end{proof}
+
+\begin{exercise}
+\label{ex:tau-four}
+利用 \cref{thm:multiplicativity} 的素数幂递推，计算
+\[
+  \tau(4)=\tau(2)^2-2^{11},
+\]
+并核对结果与已知值 $\tau(4)=-1472$ 一致。
+\end{exercise}
+
+\begin{proof}[解答]
+对 $\Delta=\sum_{n\ge1}\tau(n)q^n$，由 \cref{thm:multiplicativity} 在 $p=2$、$r=1$ 的情形得到
+\[
+  \tau(2^2)=\tau(2)\tau(2)-2^{11}\tau(1).
+\]
+因为 $\tau(1)=1$，所以
+\[
+  \tau(4)=\tau(2)^2-2^{11}.
+\]
+又已知 $\tau(2)=-24$，代入得
+\[
+  \tau(4)=(-24)^2-2^{11}=576-2048=-1472.
+\]
+这恰好与 \cref{ex:T2-Delta-explicit} 中出现的数值一致，验证无误。
+\end{proof}
+
+\begin{exercise}
+\label{ex:gamma0-4-newforms}
+利用 \cref{ch:dimension} 中的维数公式，求 $\Sk_2(\GammaO(4))$ 的维数，并判断其中哪些是旧形式、哪些是新形式。
+\end{exercise}
+
+\begin{proof}[解答]
+对重量 $2$，有标准事实
+\[
+  \dim \Sk_2(\GammaO(N))=g\bigl(X_0(N)\bigr),
+\]
+也就是它等于模曲线 $X_0(N)$ 的亏格。由 \cref{ch:dimension} 中的亏格公式，
+\[
+  g(X_0(N))=1+\frac{\mu(N)}{12}-\frac{e_2(N)}{4}-\frac{e_3(N)}{3}-\frac{c(N)}{2},
+\]
+其中 $\mu(N)=[\SL_2(\Z):\GammaO(N)]$，$e_2,e_3$ 分别是阶 $2,3$ 椭圆点个数，$c(N)$ 是尖点个数。
+
+现在取 $N=4$。
+\begin{itemize}
+  \item 指数
+        \[
+          \mu(4)=4\prod_{p\mid 4}\left(1+\frac1p\right)=4\left(1+\frac12\right)=6.
+        \]
+  \item 因为 $4\mid N$，阶 $2$ 椭圆点已经消失，所以 $e_2(4)=0$；同样 $e_3(4)=0$。
+  \item 尖点个数为
+        \[
+          c(4)=\sum_{d\mid 4}\varphi\bigl(\gcd(d,4/d)\bigr)
+          =\varphi(1)+\varphi(1)+\varphi(1)=3.
+        \]
+\end{itemize}
+代回得
+\[
+  g(X_0(4))=1+\frac{6}{12}-0-0-\frac{3}{2}=0.
+\]
+因此
+\[
+  \dim \Sk_2(\GammaO(4))=0.
+\]
+既然整个空间都是零空间，就没有任何非零尖点形式，自然也就没有非零旧形式或新形式。更形式化地说，
+\[
+  \Sk_2^{\mathrm{old}}(4)=0,
+  \qquad
+  \Sk_2^{\mathrm{new}}(4)=0.
+\]
+这与直觉一致：级别 $1,2,4$ 在重量 $2$ 时都还太小，不足以产生非平凡的尖点形式。
+\end{proof}
+
+
+% ============================================================================

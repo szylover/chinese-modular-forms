@@ -1,0 +1,23 @@
+% TikZ figure: roadmap for Hecke/newform exercises
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=1.8cm and 1.4cm,
+  box/.style={draw, rounded corners=4pt, align=center, minimum width=2.8cm, minimum height=0.95cm, font=\small, fill=blue!8},
+  arrow/.style={->, thick, >=stealth}
+]
+\node[box, fill=orange!15] (qexp) {$T_p$ 与 $q$-展开\\习题\ref{ex:hecke-e6}};
+\node[box, right=of qexp, fill=green!15] (euler) {Euler 乘积收敛\\习题\ref{ex:euler-product-convergence}};
+\node[box, below=of qexp, fill=purple!12] (delta) {$\Delta$ 的一维性\\习题\ref{ex:delta-auto-eigenform}};
+\node[box, right=of delta, fill=red!12] (tau) {$\tau(4)$ 的递推\\习题\ref{ex:tau-four}};
+\node[box, below=1.8cm of $(qexp)!0.5!(euler)$, fill=cyan!12] (newforms) {$\Gamma_0(4)$ 的零空间\\旧形式 / 新形式\\习题\ref{ex:gamma0-4-newforms}};
+
+\draw[arrow] (qexp) -- (euler);
+\draw[arrow] (qexp) -- (delta);
+\draw[arrow] (delta) -- (tau);
+\draw[arrow] (euler) -- (newforms);
+\draw[arrow] (tau) -- (newforms);
+\end{tikzpicture}
+\caption{本节习题的逻辑路线：从 Hecke 算子的显式计算出发，走到 Euler 乘积、特征形式、递推关系，再回到新形式分解。}
+\label{fig:ch05-exercise-roadmap}
+\end{figure}
