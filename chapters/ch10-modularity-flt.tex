@@ -1,13 +1,44 @@
 % ============================================================================
-\chapter{模性定理与费马大定理}
-\label{ch:modularity-flt}
+\chapter{谷山--志村猜想与费马大定理}
+\label{ch:flt}
 % ============================================================================
-% 超出 Diamond \& Shurman，专门讨论 FLT
+% 终章：从模性定理到费马大定理
 
-% TODO:
-% - Taniyama-Shimura-Weil 猜想的精确陈述
-% - Frey 曲线
-% - Ribet 定理（level lowering）
-% - Wiles 证明策略：R = T 定理、Taylor-Wiles 方法
-% - 完整的 FLT 证明逻辑链
-% - 后续发展：BCDT 完全模性定理
+到这里，全书实际上已经把证明费马大定理所需的三种语言都准备好了：
+一方面，我们从第\ref{ch:forms-curves}章到第\ref{ch:hecke}章学会了怎样操纵模形式、Hecke 算子与新形式；
+另一方面，第\ref{ch:jacobians}章与第\ref{ch:algebraic-curves}章把这些解析对象几何化、算术化为模曲线与模 Abel 簇；
+而第\ref{ch:eichler-shimura}章、第\ref{ch:galois}章则进一步把 Fourier 系数翻译成 Frobenius 迹与 Galois 表示。
+终章的任务，不再是发明第四种语言，
+而是把前九章的全部内容压缩进同一条证明链中，
+直到“模形式来自哪里、椭圆曲线来自哪里、Galois 表示记住了什么”三件事在最后一刻同时闭合。
+
+这也是全书最有仪式感的一章。
+我们要看到：
+假如费马方程真有非平凡解，
+那么它会制造出一条极其异常的半稳定椭圆曲线；
+\cref{thm:wiles} 说明这样的曲线必定是模的，
+\cref{thm:ribet} 又说明它的 residual 表示最终只能来自空空间 $\Sk_2(\GammaO(2))$。
+矛盾在这里爆发，
+而费马大定理也就不再是一句孤立的代数恒等式，
+而成为整个现代数论结构共同推出的结论。
+
+本章结构如下：
+\begin{itemize}
+  \item \textbf{§\ref{sec:ch10-motivation}} 回顾前九章的主线，并把终章的证明路线一次讲清。
+  \item \textbf{§\ref{sec:ch10-frey}} 构造 Frey 曲线，计算其判别式、导子与半稳定性。
+  \item \textbf{§\ref{sec:ch10-ts}} 陈述谷山--志村猜想的半稳定情形，也就是 Wiles 定理。
+  \item \textbf{§\ref{sec:ch10-wiles-strategy}} 解释 Wiles 证明的逻辑骨架：Langlands--Tunnell、$R=T$ 与 $3$--$5$ 技巧。
+  \item \textbf{§\ref{sec:ch10-deformation}} 介绍形变理论与 Taylor--Wiles 方法，说明为什么 $R=T$ 是可能的。
+  \item \textbf{§\ref{sec:ch10-proof}} 把所有部件重新组装，庄重地完成费马大定理的证明。
+  \item \textbf{§\ref{sec:ch10-epilogue}} 用较轻松的笔调回望 BCDT、BSD、Serre 猜想与 Langlands 纲领。
+  \item \textbf{§\ref{sec:ch10-exercises}} 通过六道综合题把整本书的主线再走一遍。
+\end{itemize}
+
+\input{chapters/ch10/s1-motivation}
+\input{chapters/ch10/s2-frey-curve}
+\input{chapters/ch10/s3-taniyama-shimura}
+\input{chapters/ch10/s4-wiles-strategy}
+\input{chapters/ch10/s5-deformation-theory}
+\input{chapters/ch10/s6-proof-complete}
+\input{chapters/ch10/s7-epilogue}
+\input{chapters/ch10/s8-exercises}

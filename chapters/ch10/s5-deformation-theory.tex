@@ -1,0 +1,205 @@
+\section{形变理论：Taylor--Wiles 方法的技术核心}
+\label{sec:ch10-deformation}
+% ============================================================================
+
+\providecommand{\rhobar}{\bar{\rho}}
+
+如果说上一节回答的是“Wiles 想证明什么”，
+那么这一节回答的就是“他究竟拿什么来证明”。
+形变理论之所以成为整个证明的技术心脏，
+是因为它把一个本来非常刚性的 mod $\ell$ 表示问题
+转换成了一个可以做维数计数、切空间比较与极限构造的局部代数问题。
+这一步看似抽象，
+实际上极富直觉：
+我们先把一个 residual 表示钉住，
+然后系统地问——它能以多少种方式被提升到 $\ell$-进世界里？
+
+\textbf{我们遇到了什么问题？}
+假设我们已经知道某个 residual 表示
+\[
+  \rhobar\colon G_\Q\to \GL_2(\F_\ell)
+\]
+是模的。
+接下来要证明某一条具体的 $\ell$-进提升 $\rho$ 也是模的。
+若只盯着这条单独的提升，
+几乎无从下手；
+因为它混杂着在每个素数处的局部条件，
+还带着行列式、半稳定性、有限平坦性等结构。
+Wiles 的关键观察是：
+与其直接抓住这一个点，
+不如把所有满足同样局部条件的提升一起收集成一个“空间”，
+再把这个空间与模形式一侧的 Hecke 空间比较。
+
+\textbf{核心思想是什么？}
+把完备 Noether 局部 $\Lambda$-代数范畴记为 $\mathrm{CNL}_\Lambda$。
+对每个对象 $A$，
+考虑所有满足规定局部条件的提升
+\[
+  \rho_A\colon G_\Q\to \GL_2(A)
+\]
+的严格同构类。
+这给出一个形变函子
+\[
+  \mathcal F\colon \mathrm{CNL}_\Lambda\to \mathrm{Sets}.
+\]
+若它可表，则存在一个完备局部环 $R$ 使得
+\[
+  \mathcal F(A)\cong \Hom_{\mathrm{CNL}_\Lambda}(R,A).
+\]
+也就是说，$R$ 真正把“全部允许提升”参数化了。
+模形式一侧的 Hecke 环 $T$ 则参数化“全部允许的模提升”。
+因此 $R=T$ 的意义非常直白：
+允许的提升与模的提升一样多，而且一一对应。
+
+\textbf{引入之后能得到什么？}
+一旦把问题压缩到局部环同构，
+证明策略就从“构造模形式”转变为“比较两个局部环的大小”。
+环的大小可以通过切空间、关系数、长度、Fitting ideal 与 congruence ideal 来测量。
+Selmer 群控制 $R$ 的切空间，
+模形式之间的同余控制 $T$ 的 congruence ideal；
+Taylor--Wiles 再用辅助素数把这两边同时扩展到一个更容易比较的无限层。
+这就是为什么 Wiles 证明虽然写在 Galois 表示语言里，
+却处处伴随着交换代数与同调代数。
+
+\input{figures/ch10-deformation-space}
+
+先把基本对象写清楚。
+
+\begin{definition}[形变问题]
+设 $\rhobar\colon G_\Q\to \GL_2(k)$，其中 $k$ 是有限域。
+若 $A$ 是带剩余域 $k$ 的完备 Noether 局部环，
+则一个 \textbf{$A$-值提升} 是连续表示
+\[
+  \rho\colon G_\Q\to \GL_2(A)
+\]
+使得模去极大理想后恢复 $\rhobar$。
+两个提升若相差一个同余于单位阵的共轭，称为严格同构。
+给定行列式与局部条件后，
+所有这样的严格同构类构成形变函子 $\mathcal F(A)$。
+\end{definition}
+
+\begin{theorem}[Mazur 的可表性定理]
+\label{thm:ch10-mazur}
+若 $\rhobar$ 满足通常的不可约性与奇性条件，
+则带有给定局部条件的形变函子 $\mathcal F$ 可由某个完备 Noether 局部环 $R$ 表示。
+等价地，存在一个泛形变
+\[
+  \rho^{\mathrm{univ}}\colon G_\Q\to \GL_2(R)
+\]
+使得任意允许的提升都唯一地由 $R\to A$ 拉回得到。
+\end{theorem}
+
+\begin{proof}[证明思路]
+Schlessinger 判据把可表性化为几个关于小扩张的粘合条件。
+对二维 Galois 表示，
+这些条件在绝对不可约的 residual 假设下可以通过群上同调验证。
+本质上，
+\[
+  H^1(G_\Q,\mathrm{ad}^0\rhobar)
+\]
+控制无穷小提升，
+而
+\[
+  H^2(G_\Q,\mathrm{ad}^0\rhobar)
+\]
+控制阻碍。
+当局部条件选取得当时，
+这些数据恰好足以构造一个泛对象 $R$。
+\end{proof}
+
+从切空间的角度看，
+形变环并不是一个神秘盒子。
+若 $\mathfrak m_R$ 是其极大理想，
+则
+\[
+  \Hom_k\bigl(\mathfrak m_R/(\mathfrak m_R^2,\ell),k\bigr)
+\]
+可以识别为某个带局部条件的 Selmer 群。
+这意味着：
+$R$ 有多少个“独立方向”，
+其实是一个 Galois 上同调问题。
+
+模形式一边也有对应对象。
+在与 $\rhobar$ 对应的极大理想 $\mathfrak m$ 处局部化后，
+Hecke 环 $T$ 作用在模形式空间或其同调上。
+由 universal modular deformation 的构造，
+存在自然满射
+\[
+  R\twoheadrightarrow T.
+\]
+之所以是满射，
+是因为 Hecke 特征值已经决定了模形式侧的 Galois 表示，
+所以每个模提升都给出 $R$ 的一个点。
+问题只剩下：
+$R$ 会不会比 $T$ 更大？
+
+\begin{theorem}[Wiles 的 $R=T$ 定理，简化表述]
+\label{thm:ch10-rt}
+设 $\rhobar$ 是奇、绝对不可约的 residual 表示，
+并固定最小局部形变条件。
+则在 Wiles--Taylor--Wiles 的情形下，
+自然满射
+\[
+  R\twoheadrightarrow T
+\]
+实际上是同构。
+因此每个满足这些局部条件的 $\ell$-进提升都来自模形式。
+\end{theorem}
+
+\begin{proof}[证明框架]
+证明分成三层。
+
+\textbf{第一层：数值判据。}
+Wiles 的数值判据说明，
+若能把 $R$ 的切空间大小与 $T$ 的 congruence ideal 大小配平，
+则满射 $R\twoheadrightarrow T$ 已经足够强，可以推出同构。
+其本质是一个交换代数命题：
+对某类 Cohen--Macaulay 环与 complete intersection 环，
+关系数与生成元数一旦恰好匹配，
+满射就只能是同构。
+
+\textbf{第二层：Selmer 群估计。}
+切空间由 Selmer 群
+\[
+  H^1_{\mathcal L}(G_\Q,\mathrm{ad}^0\rhobar)
+\]
+控制。
+Poitou--Tate 对偶把其维数与对偶 Selmer 群联系起来，
+从而把 $R$ 的生成元数压缩成一个可计算的同调不变量。
+
+\textbf{第三层：Taylor--Wiles 打补丁。}
+真正困难处在于最小情形里，
+直接比较 $R$ 与 $T$ 往往缺少自由度。
+Taylor 与 Wiles 于是选择一族辅助素数 $Q_n$，满足
+\[
+  q\equiv 1\pmod{\ell^n},
+\]
+使得在这些素数添加级别结构后，
+新的形变问题拥有额外变量，
+而模形式侧也同步多出几乎同样数量的自由方向。
+在极限上得到的大环 $R_\infty$ 与 $T_\infty$ 变成更接近幂级数环的对象，
+从而可以先证明
+\[
+  R_\infty\cong T_\infty.
+\]
+最后再通过 patching 把极限层的同构下降回原始最小层，
+得到 $R\cong T$。
+\end{proof}
+
+\textbf{注。}
+文献常把这一节写成大量符号：
+$R_Q$、$T_Q$、$\Delta_Q$、patched module、complete intersection、numerical criterion。
+第一次读时最重要的不是记号，
+而是记住整体图像：
+\emph{辅助素数的作用不是改变问题的本质，
+而是暂时把问题放到一个更有自由度的空间里，
+让两边更容易比较；
+比较完成后，再把多余自由度剥掉。}
+
+把这件事想象成“打补丁”是非常贴切的：
+我们并不是一次看清整个形变空间，
+而是先在许多带额外级别的近似层上工作，
+再把它们拼成一个大而光滑的对象，
+最后回到原来的最小层。
+正是这一步，
+让 $R=T$ 从一句勇敢猜测变成了可操作定理。

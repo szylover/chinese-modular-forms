@@ -1,0 +1,183 @@
+\section{Wiles 证明策略概述}
+\label{sec:ch10-wiles-strategy}
+% ============================================================================
+
+\providecommand{\rhobar}{\bar{\rho}}
+
+Wiles 证明最令人震撼的地方，
+不只在于它解决了一个三百多年的猜想，
+更在于它把“椭圆曲线模性”这样一句几何断言
+彻底翻译成了一个关于 Galois 表示形变与 Hecke 代数的同构问题。
+从外部看，
+费马大定理似乎与 Hecke 局部化、Selmer 群、完整交环风马牛不相及；
+但一旦进入 Wiles 的视角，
+这些对象反而比原方程本身更接近答案。
+
+\textbf{我们遇到了什么问题？}
+模性定理要求从一条半稳定椭圆曲线 $E/\Q$ 出发，
+证明它对应某个新形式 $f$。
+直接构造 $f$ 几乎不可能，
+因为模形式空间太大，
+而椭圆曲线的算术数据又以局部 Galois 条件的形式出现。
+Wiles 的突破在于：
+既然第\ref{ch:galois}章已经告诉我们“模性”可以写成 Galois 表示同构，
+那就不妨直接比较两类表示的 \emph{提升空间}。
+
+\textbf{核心思想是什么？}
+先固定一个 residual 表示
+\[
+  \rhobar\colon G_\Q\to \GL_2(\F_\ell).
+\]
+一边，考虑所有满足给定局部条件的 $\ell$-进提升，
+它们由某个泛形变环 $R$ 参数化；
+另一边，考虑所有满足同样局部条件的模形式，
+它们在局部 Hecke 代数中编码成一个环 $T$。
+如果能证明
+\[
+  R\cong T,
+\]
+那么每一个允许的 Galois 提升都自动是模的。
+Wiles 的核心定理，
+不是“直接找到了对应的新形式”，
+而是证明这两个看似来自不同世界的局部环其实同构。
+
+\textbf{引入之后能得到什么？}
+一旦 $R=T$，
+椭圆曲线的 $\ell$-进表示落在 $R$ 上的一个点就对应于 $T$ 上的一个 Hecke 特征值系统，
+也就对应于一个新形式。
+这把模性问题从“构造对象”变成了“证明两个变形空间一样大”。
+接下来，Langlands--Tunnell 提供起点，
+Taylor--Wiles 提供比较环大小的方法，
+而 $3$--$5$ 技巧则处理最初 residual 表示可能可约的例外情形。
+
+\input{figures/ch10-wiles-flow}
+
+现在按逻辑顺序概述这条证明链。
+
+\subsection*{第一步：先从一个 residual 表示起步}
+对半稳定椭圆曲线 $E/\Q$，取 $\ell=3$，得到
+\[
+  \rhobar_{E,3}\colon G_\Q\to \GL_2(\F_3).
+\]
+若它绝对不可约，
+则其射影像落在 $\PGL_2(\F_3)\cong S_4$ 的可解部分附近，
+足以让 Langlands--Tunnell 定理发挥作用。
+这个定理断言：
+满足适当奇性与可解像条件的二维 mod $3$ 表示是模的。
+于是 Wiles 的 lifting 程序至少有了一个真正的“起跑线”。
+
+\subsection*{第二步：把“所有可能提升”做成一个环}
+固定 $\rhobar_{E,3}$ 之后，
+我们不只看某一条提升，
+而是看所有满足局部条件的提升
+\[
+  \rho\colon G_\Q\to \GL_2(A),
+\]
+其中 $A$ 是完备局部环。
+这些提升的同构类组成一个形变函子；
+Mazur 证明，在温和不可约性条件下它由一个泛环 $R$ 表示。
+因此，$R$ 的每一个局部点都对应一条“可能来自椭圆曲线或模形式”的 $3$-进表示。
+
+\subsection*{第三步：模形式一侧出现 Hecke 环 $T$}
+把满足相同局部条件的权 $2$ 模形式收集起来，
+让 Hecke 算子在对应空间上作用，
+再在与 $\rhobar_{E,3}$ 相容的极大理想处局部化并完备化，
+得到 Hecke 环 $T$。
+第\ref{ch:hecke}章已经告诉我们，
+特征形式由 Hecke 特征值系统决定；
+因此 $T$ 正是“模的提升”在局部环层面的编码。
+由 universal property，存在自然满同态
+\[
+  R\twoheadrightarrow T.
+\]
+于是问题变成：这是否其实是同构？
+
+\subsection*{第四步：数值判据与 Taylor--Wiles 打补丁}
+Wiles 的数值判据把“是同构吗”转化为“两个局部环的切空间与 congruence ideal 一样大吗”。
+形变环的切空间由 Selmer 群控制，
+Hecke 环的 congruence ideal 则由模形式之间的同余控制。
+Taylor--Wiles 的决定性发明是引入一族辅助素数 $Q_n$，
+构造带有额外级别结构的环 $R_{Q_n}$ 与 $T_{Q_n}$，
+再通过 inverse limit 与 patching 把问题抬升到一个更自由的极限情形，
+在极限上先证明
+\[
+  R_\infty\cong T_\infty,
+\]
+然后再下降回原始的最小情形。
+
+\begin{theorem}[Ribet 水平下降]
+\label{thm:ribet}
+设 $p\nmid N$，
+$f\in \Sk_2(\GammaO(Np))$ 是归一化 $p$-new 特征新形式，
+$\ell\neq p$，且 residual 表示
+\[
+  \rhobar_{f,\ell}\colon G_\Q\to \GL_2(\F_\ell)
+\]
+绝对不可约。
+若 $\rhobar_{f,\ell}$ 在 $p$ 处无分歧，
+则存在归一化新形式
+\[
+  g\in \Sk_2(\GammaO(N))
+\]
+使得
+\[
+  \rhobar_{g,\ell}\cong \rhobar_{f,\ell}.
+\]
+\end{theorem}
+
+\begin{proof}[证明思路]
+这是第\ref{ch:galois}章的核心定理之一。
+其本质是：
+级别 $Np$ 与级别 $N$ 的模曲线之间存在两条退化映射，
+它们生成 $p$-old 部分；
+若 residual 表示在 $p$ 处已经无分歧，
+则它在 $J_0(Np)[\mathfrak m]$ 中留下的痕迹无法纯粹待在真正的 $p$-new 部分里，
+最终会被 Ihara 引理逼回 old 部分。
+而 old 部分本来就来自级别 $N$，
+故同一份 residual 表示也来自级别 $N$ 的新形式。
+\end{proof}
+
+\subsection*{第五步：$3$--$5$ 技巧处理可约例外}
+Wiles 证明里最著名的巧思之一，
+就是当 $\rhobar_{E,3}$ 不可用时，
+并不是随便换一个素数，
+而是精确地换到 $5$。
+
+\begin{proposition}[$3$--$5$ 技巧]
+\label{prop:ch10-35-trick}
+设 $E/\Q$ 是半稳定椭圆曲线。
+若 $\rhobar_{E,3}$ 可约，
+则 $\rhobar_{E,5}$ 必不可约。
+进一步可构造另一条半稳定椭圆曲线 $A/\Q$，满足
+\[
+  A[5]\cong E[5],
+  \qquad
+  \rhobar_{A,3}\ \text{绝对不可约}.
+\]
+若 $A$ 模，则 $E$ 亦模。
+\end{proposition}
+
+\begin{proof}[说明]
+若 $E[3]$ 与 $E[5]$ 都可约，
+则 $E$ 同时带有有理 $3$-与 $5$-isogeny，
+从而给出一条 $15$-isogeny。
+Mazur 对有理同源的分类表明，
+这在半稳定情形中不可能发生。
+因此 $E[5]$ 必不可约。
+
+接着在模曲线 $X(5)$ 上寻找与 $E[5]$ 同构的 $5$-torsion 数据，
+可构造一条新曲线 $A$，使得 $A[5]\cong E[5]$ 而 $A[3]$ 不可约。
+于是 Langlands--Tunnell 先给出 $A[3]$ 的残余模性，
+Wiles 的 lifting 定理再推出 $A$ 模。
+最后由 $A[5]\cong E[5]$ 共享同一 residual 表示，
+再一次应用 lifting，便得到 $E$ 模。
+这正是为什么证明里必须用到 $5$，而不是任意别的素数。
+\end{proof}
+
+\textbf{注。}
+从今天的视角看，
+“先证残余模性，再证所有允许的提升都是模的”
+已经是一个标准模板。
+但在 Wiles 之前，
+真正新颖的正是把这个模板组织成可计算的局部环比较问题。
+下一节我们就专门解释这个比较问题里的技术词：形变函子、形变环与 $R=T$。
