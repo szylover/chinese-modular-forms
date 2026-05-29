@@ -61,11 +61,111 @@ Taylor--Wiles 提供比较环大小的方法，
   \rhobar_{E,3}\colon G_\Q\to \GL_2(\F_3).
 \]
 若它绝对不可约，
-则其射影像落在 $\PGL_2(\F_3)\cong S_4$ 的可解部分附近，
-足以让 Langlands--Tunnell 定理发挥作用。
-这个定理断言：
-满足适当奇性与可解像条件的二维 mod $3$ 表示是模的。
-于是 Wiles 的 lifting 程序至少有了一个真正的“起跑线”。
+则其射影像落在 $\PGL_2(\F_3)\cong S_4$ 中，
+从而正好落入 Langlands--Tunnell 定理可处理的“可解射影像”范围。
+这个定理给出 Wiles 证明真正的起跑线：
+先证明残余表示已经是模的，
+然后再讨论它的所有 $3$-进提升。
+
+\begin{lemma}[Langlands--Tunnell]
+\label{lem:ch10-langlands-tunnell}
+设
+\[
+  \rhobar\colon G_\Q\to \GL_2(\F_3)
+\]
+是奇的、绝对不可约的连续表示，且其射影像
+\[
+  \mathbb P\rhobar(G_\Q)\subset \PGL_2(\F_3)
+\]
+是可解群。
+则 $\rhobar$ 是模的：存在一个权 $1$ 的归一化特征 cusp form $g$ 与 $g$ 的某个 $3$ 进素点 $\lambda$，使得
+\[
+  \rhobar_{g,\lambda}\cong \rhobar.
+\]
+把 $g$ 乘以 Hasse 不变量后，也可把这同一个残余表示看成来自某个权 $2$ 模形式。
+\end{lemma}
+
+\begin{proof}
+直觉上，这个定理说的是：当一个二维 Artin 表示的射影像还停留在可解世界里时，
+Langlands 的可解基变换与 Tunnell 对八面体情形的补足，
+足以把它送到自守一侧。
+下面把这句话拆成四步。
+
+\textbf{第一步：射影像确实可解。}
+群 $\PGL_2(\F_3)$ 的阶为
+\[
+  \frac{(3^2-1)(3^2-3)}{3-1}=24,
+\]
+而它与 $S_4$ 同构。
+另一方面，$S_4$ 有正规列
+\[
+  S_4\triangleright A_4\triangleright V_4\triangleright 1,
+\]
+其中
+\[
+  S_4/A_4\cong C_2,
+  \qquad
+  A_4/V_4\cong C_3,
+  \qquad
+  V_4/1\cong C_2\times C_2.
+\]
+这些商群全是 abelian，故 $S_4$ 可解，因而任何射影像子群也可解。
+
+\textbf{第二步：把 mod $3$ 表示提升成复 Artin 表示。}
+设 $G=\rhobar(G_\Q)$，则 $G$ 是有限群。
+因为 $\rhobar$ 绝对不可约，$G$ 的二维表示在 $\overline{\F}_3$ 上不可约。
+对有限群表示应用 Brauer 提升，可得一个二维复表示
+\[
+  r\colon G_\Q\twoheadrightarrow G\hookrightarrow \GL_2(\C),
+\]
+其特征标在与 $3$ 互素的元素上是 $\rhobar$ 特征标的 Teichm\"uller 提升。
+特别地，$r$ 仍是不可约的，且因为复共轭 $c$ 满足
+\[
+  \det \rhobar(c)=-1,
+\]
+故也有 $\det r(c)=-1$；于是 $r$ 是奇的二维 Artin 表示。
+它的射影像与 $\rhobar$ 的射影像相同，因此也是可解的。
+
+\textbf{第三步：应用 Langlands--Tunnell 的可解 Artin 模性。}
+Langlands 证明了可解扩张上的基变换与若干可解像情形的函子性；
+Tunnell 进一步补足了射影像为八面体型的最后情形。
+合起来得到：每个奇的、不可约的二维复 Artin 表示，只要其射影像可解，
+就对应一个权 $1$ 的 cuspidal 自守表示，亦即一个权 $1$ 的归一化特征模形式 $g$。
+Deligne--Serre 把这一定理表述为
+\[
+  \rho_g\cong r,
+\]
+且 $g$ 的级别恰等于 $r$ 的 Artin 导子。
+
+\textbf{第四步：模 $3$ 约化回到原来的 residual 表示。}
+取 $g$ 的系数域中一个位于 $3$ 上方的素点 $\lambda$。
+因为 $\rho_g$ 与 $r$ 同构，而 $r$ 正是 $\rhobar$ 的 Brauer 提升，
+故对几乎所有 Frobenius 元都有
+\[
+  \operatorname{tr}(\rho_g(\Frob_p))\equiv \operatorname{tr}(\rhobar(\Frob_p))\pmod{\lambda},
+\]
+且行列式也同余。
+由 Chebotarev 密度定理与半单化唯一性，得到
+\[
+  \rhobar_{g,\lambda}^{\mathrm{ss}}\cong \rhobar^{\mathrm{ss}}.
+\]
+由于 $\rhobar$ 已绝对不可约，半单化可去掉，于是
+\[
+  \rhobar_{g,\lambda}\cong \rhobar.
+\]
+这就证明了 $\rhobar$ 的模性。
+
+把这一步用于 $\rhobar_{E,3}$ 时，奇性来自 Weil 配对给出的
+\[
+  \det \rhobar_{E,3}=\chi_3,
+\]
+而若 $\rhobar_{E,3}$ 绝对不可约，则其射影像自然是 $S_4$ 的某个子群。
+因此 Langlands--Tunnell 给出一个模形式 $f_0$，满足
+\[
+  \rhobar_{f_0,3}\cong \rhobar_{E,3},
+\]
+这正是 Wiles 提升定理的起步点。
+\end{proof}
 
 \subsection*{第二步：把“所有可能提升”做成一个环}
 固定 $\rhobar_{E,3}$ 之后，
@@ -94,9 +194,133 @@ Mazur 证明，在温和不可约性条件下它由一个泛环 $R$ 表示。
 于是问题变成：这是否其实是同构？
 
 \subsection*{第四步：数值判据与 Taylor--Wiles 打补丁}
-Wiles 的数值判据把“是同构吗”转化为“两个局部环的切空间与 congruence ideal 一样大吗”。
-形变环的切空间由 Selmer 群控制，
-Hecke 环的 congruence ideal 则由模形式之间的同余控制。
+Wiles 的关键观察是：
+既然已经有自然满射 $R\twoheadrightarrow T$，
+那就不必直接写出两个环的全部方程；
+只要证明它们在“切空间大小”和“模形式同余大小”这两个数值上完全吻合，
+满射就会被迫成为同构。
+
+\begin{theorem}[Wiles 数值判据]
+\label{thm:ch10-numerical-criterion}
+设
+\[
+  \phi\colon R\twoheadrightarrow T
+\]
+是完备局部 $\Z_\ell$-代数的满射，
+并设 $\pi\colon T\to \Z_\ell$ 是一个增广，$\eta=\pi\circ\phi\colon R\to \Z_\ell$。
+记
+\[
+  I_R=\ker\eta,
+  \qquad
+  I_T=\ker\pi.
+\]
+定义
+\[
+  \Phi_T=\pi\bigl(\operatorname{Ann}_T(I_T)\bigr),
+  \qquad
+  \Phi_R=\eta\bigl(\operatorname{Ann}_R(I_R)\bigr),
+\]
+它们分别称为 $T$ 与 $R$ 的 congruence ideal。
+在 Wiles 所处理的一维 Cohen--Macaulay 情形中，有等价命题：
+\[
+  \phi\ \text{是同构}
+  \iff
+  \#(\Z_\ell/\Phi_T)\le \#(\Z_\ell/\Phi_R).
+\]
+等价地，
+\[
+  \operatorname{length}_{\Z_\ell}(\Z_\ell/\Phi_T)
+  \le
+  \operatorname{length}_{\Z_\ell}(\Z_\ell/\Phi_R).
+\]
+若进一步 $T$ 是 complete intersection，
+则上述不等式自动成为等号，且 $R$ 也是 complete intersection，因此 $R\cong T$。
+\end{theorem}
+
+\begin{proof}
+直觉上，$\Phi_T$ 衡量的是：给定增广点以后，模形式侧还能与多少别的 Hecke 特征值发生同余；
+而 $\Phi_R$ 衡量的是：形变侧在该点附近还保留多少无穷小自由度。
+数值判据的内容就是：若模形式侧并不比形变侧“更小”，
+那么满射 $R\twoheadrightarrow T$ 就已经没有核了。
+
+先看最容易的一向。
+若 $\phi$ 是同构，
+则 $I_R\cong I_T$，并且
+\[
+  \operatorname{Ann}_R(I_R)\cong \operatorname{Ann}_T(I_T).
+\]
+经由增广映到 $\Z_\ell$ 后立刻得到
+\[
+  \Phi_R=\Phi_T,
+\]
+故两边长度相等。
+
+下面设
+\[
+  \operatorname{length}_{\Z_\ell}(\Z_\ell/\Phi_T)
+  \le
+  \operatorname{length}_{\Z_\ell}(\Z_\ell/\Phi_R).
+\]
+记 $K=\ker\phi$。
+因为 $\phi$ 与增广相容，$\phi(I_R)=I_T$，于是有正合列
+\[
+  K/(I_RK)\longrightarrow I_R/I_R^2\longrightarrow I_T/I_T^2\longrightarrow 0.
+\]
+因此 $I_R/I_R^2\twoheadrightarrow I_T/I_T^2$，从而必有
+\[
+  \operatorname{length}_{\Z_\ell}(I_T/I_T^2)
+  \le
+  \operatorname{length}_{\Z_\ell}(I_R/I_R^2).
+\]
+在 Wiles 的交换代数引理中，congruence ideal 正是这些余切模的 Fitting ideal：
+\[
+  \Phi_A=\operatorname{Fitt}_{\Z_\ell}(I_A/I_A^2)
+  \qquad (A=R,T),
+\]
+故对一维 Cohen--Macaulay 局部环，
+\[
+  \operatorname{length}_{\Z_\ell}(\Z_\ell/\Phi_A)
+  =
+  \operatorname{length}_{\Z_\ell}(I_A/I_A^2).
+\]
+把它代入假设，得到
+\[
+  \operatorname{length}_{\Z_\ell}(I_T/I_T^2)
+  =
+  \operatorname{length}_{\Z_\ell}(I_R/I_R^2).
+\]
+既然前面已有一个满射
+\[
+  I_R/I_R^2\twoheadrightarrow I_T/I_T^2,
+\]
+而两边长度相等，这个满射只能是同构。
+于是
+\[
+  K/(I_RK)=0.
+\]
+由于 $I_R$ 包含在局部环 $R$ 的 Jacobson 根中，Nakayama 引理推出 $K=0$。
+因此 $\phi$ 单且满，也就是同构。
+
+最后讨论 complete intersection 情形。
+若 $T$ 是 complete intersection，
+则其余切模 $I_T/I_T^2$ 的 Fitting ideal 由一个正则序列控制，
+所以
+\[
+  \operatorname{length}_{\Z_\ell}(\Z_\ell/\Phi_T)
+"]=
+  \operatorname{length}_{\Z_\ell}(I_T/I_T^2)
+\]
+恰好达到由生成元数与关系数给出的最小值。
+上面的同构已经说明 $I_R/I_R^2\cong I_T/I_T^2$，
+故 $R$ 有与 $T$ 相同的变量数与关系数。
+de Smit--Lenstra 与 Wiles 的交换代数判据于是推出 $R$ 也必须是 complete intersection。
+在 complete intersection 范畴里，congruence ideal 与 cotangent 长度完全相配，
+所以不等式自动变成等式，最终得到
+\[
+  R\cong T.
+\]
+\end{proof}
+
 Taylor--Wiles 的决定性发明是引入一族辅助素数 $Q_n$，
 构造带有额外级别结构的环 $R_{Q_n}$ 与 $T_{Q_n}$，
 再通过 inverse limit 与 patching 把问题抬升到一个更自由的极限情形，
@@ -221,31 +445,79 @@ Wiles 证明里最著名的巧思之一，
 \label{prop:ch10-35-trick}
 设 $E/\Q$ 是半稳定椭圆曲线。
 若 $\rhobar_{E,3}$ 可约，
-则 $\rhobar_{E,5}$ 必不可约。
-进一步可构造另一条半稳定椭圆曲线 $A/\Q$，满足
+则 $\rhobar_{E,5}$ 绝对不可约，且 $\rhobar_{E,5}$ 是模的。
+更精确地，存在另一条半稳定椭圆曲线 $A/\Q$，满足
 \[
   A[5]\cong E[5],
   \qquad
   \rhobar_{A,3}\ \text{绝对不可约}.
 \]
-若 $A$ 模，则 $E$ 亦模。
+于是 $A$ 模，进而 $\rhobar_{E,5}$ 模；再由提升定理，$E$ 亦模。
 \end{proposition}
 
-\begin{proof}[说明]
-若 $E[3]$ 与 $E[5]$ 都可约，
-则 $E$ 同时带有有理 $3$-与 $5$-isogeny，
-从而给出一条 $15$-isogeny。
-Mazur 对有理同源的分类表明，
-这在半稳定情形中不可能发生。
-因此 $E[5]$ 必不可约。
+\begin{proof}
+这条技巧的核心不是直接处理 $E[5]$，
+而是先找一条与 $E$ 共享 $5$-挠 Galois 模、但在 $3$ 上更“好用”的新曲线 $A$。
+整个论证分三步。
 
-接着在模曲线 $X(5)$ 上寻找与 $E[5]$ 同构的 $5$-torsion 数据，
-可构造一条新曲线 $A$，使得 $A[5]\cong E[5]$ 而 $A[3]$ 不可约。
-于是 Langlands--Tunnell 先给出 $A[3]$ 的残余模性，
-Wiles 的 lifting 定理再推出 $A$ 模。
-最后由 $A[5]\cong E[5]$ 共享同一 residual 表示，
-再一次应用 lifting，便得到 $E$ 模。
-这正是为什么证明里必须用到 $5$，而不是任意别的素数。
+\textbf{第一步：$\rhobar_{E,3}$ 与 $\rhobar_{E,5}$ 不能同时可约。}
+若 $\rhobar_{E,3}$ 可约，
+则 $E[3]$ 中存在一个 $G_\Q$-稳定的一维子空间，
+也就是一个有理循环子群 $C_3\subset E[3]$，故 $E$ 有一个定义在 $\Q$ 上的 $3$-isogeny。
+同理，若 $\rhobar_{E,5}$ 也可约，
+则存在有理循环子群 $C_5\subset E[5]$，故 $E$ 有一个 $5$-isogeny。
+因为 $3$ 与 $5$ 互素，
+群 $C_3\oplus C_5\subset E[15]$ 是 $G_\Q$-稳定的，且同构于循环群 $C_{15}$；
+因此 $E$ 给出模曲线 $X_0(15)$ 上的一个有理点，也就是说 $E$ 有一个有理 $15$-isogeny。
+
+但 $X_0(15)(\Q)$ 的非尖点早已被完全列出；
+对应的椭圆曲线都在 $2$ 或 $5$ 处具有加性约化，因而都不是半稳定的。
+这与 $E$ 半稳定矛盾。
+故在半稳定情形里，$\rhobar_{E,3}$ 可约必然推出 $\rhobar_{E,5}$ 不可约；
+而二维 mod $5$ 表示若可约于某个扩域上，
+则其中一条 Jordan--H\"older 线在该扩域上稳定，
+再由 Galois 共轭可知原表示已有一条稳定直线，
+所以这里实际上得到的是绝对不可约。
+
+\textbf{第二步：构造一条与 $E[5]$ 相同、但 $A[3]$ 不可约的曲线。}
+考虑模曲线 $X_E(5)$，它参数化的是带有 symplectic 同构
+\[
+  \alpha\colon B[5]\xrightarrow{\sim} E[5]
+\]
+的椭圆曲线 $B/\Q$。
+因为 $E$ 自己给出一个有理点，$X_E(5)$ 是有理曲线；
+而 $X(5)$ 的亏格为 $0$，故 $X_E(5)\cong \mathbb P^1_\Q$，因此有无穷多个有理点。
+
+现在考察其中使 $B[3]$ 可约的点。
+“$B[3]$ 可约”意味着 $B$ 在模曲线 $X_0(3)$ 上有有理像；
+ 于是这些点落在从 $X_E(5)$ 到 $X(15)$ 的一个薄子集里。
+由于 $X_E(5)\cong \mathbb P^1$，Hilbert 不可约定理告诉我们：
+在无穷多个有理点中，可以选到一点对应的椭圆曲线 $A$，使得
+\[
+  A[5]\cong E[5],
+  \qquad
+  A[3]\ \text{绝对不可约}.
+\]
+进一步通过在有限多个局部点上施加开条件，还可把 $A$ 选成半稳定的。
+这就是 $3$--$5$ 技巧最精细的几何输入。
+
+\textbf{第三步：把 $A$ 的模性传回 $E$。}
+由于 $A[3]$ 绝对不可约，且其像仍落在 $\GL_2(\F_3)$ 中，
+\cref{lem:ch10-langlands-tunnell} 适用，故 $\rhobar_{A,3}$ 是模的。
+再对 $A$ 应用 Wiles 的提升定理，得到 $A$ 本身是模的。
+于是 $A$ 的 $5$ 进表示模，故其残余表示 $A[5]$ 也模。
+由构造 $A[5]\cong E[5]$，可知
+\[
+  \rhobar_{E,5}\cong \rhobar_{A,5}
+\]
+也是模的。
+最后对 $E$ 的 $5$ 进表示应用同一个模性提升定理，
+便得到 $E$ 模。
+
+因此，当 $\rhobar_{E,3}$ 可约时，
+我们先用另一条曲线 $A$ 把模性搬运到 $\rhobar_{E,5}$，
+再由 $5$ 进提升回到 $E$；
+这就完成了 $3$--$5$ 技巧的论证。
 \end{proof}
 
 \textbf{注。}
