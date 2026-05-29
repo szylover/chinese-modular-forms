@@ -3,605 +3,527 @@
 
 \section{基础题 \easy}
 
-\begin{problem}{Frey曲线的判别式}
-设 $a^p+b^p=c^p$，其中 $p\ge5$ 为素数，$\gcd(a,b,c)=1$，且 $2\mid b$。对 Frey 曲线
+\begin{problem}{指数四的化归}
+\easy
+说明若存在整数解
 \[
-E_{a,b,c}:y^2=x(x-a^p)(x+b^p)
+a^n+b^n=c^n,
+\qquad n>2,
 \]
-说明其最小判别式满足
+则只需分别处理 $n=4$ 与奇素数指数即可。特别地，说明若 $x^4+y^4=z^4$ 有非零整数解，则方程
 \[
-\Delta_{\min}=2^{-8}(abc)^{2p}.
+X^4+Y^4=Z^2
 \]
-提示：先算短 Weierstrass 形式的判别式，再做 $2$-进最小化。
+也有非零整数解。
 \end{problem}
 \begin{solution}
-把三根记为 $0,a^p,-b^p$。对方程
+若 $n$ 有奇素因子 $p$，写 $n=pm$，则
 \[
-y^2=(x-r_1)(x-r_2)(x-r_3)
+(a^m)^p+(b^m)^p=(c^m)^p,
 \]
-有判别式公式
+于是可把问题化到奇素数指数 $p$。若 $n$ 是 $2$ 的幂且 $n>2$，则 $4\mid n$，写 $n=4m$，便有
 \[
-\Delta=16\prod_{i<j}(r_i-r_j)^2.
+(a^m)^4+(b^m)^4=(c^m)^4.
 \]
-代入得
-\[
-\Delta=16(a^pb^pc^p)^2=16(abc)^{2p},
-\]
-因为三差分别是 $a^p,b^p,c^p$。
+因此只需处理 $n=4$ 与奇素数指数。
 
-这还是一个积分模型的判别式，不一定最小。由 $2\mid b$ 且 $(a,b,c)=1$ 的奇偶分析，可知在 $2$ 处恰可做一次标准最小化，把判别式的 $2$-进指数减少 $12$，也就是整体乘上 $2^{-12}$。于是
+若 $x^4+y^4=z^4$ 有解，则令
 \[
-\Delta_{\min}=2^{-12}\cdot16(abc)^{2p}=2^{-8}(abc)^{2p}.
+X=x,\quad Y=y,\quad Z=z^2,
 \]
-这就是教材中使用的最小判别式公式。
+便得到
+\[
+X^4+Y^4=Z^2.
+\]
+所以证明 $X^4+Y^4=Z^2$ 无非零整数解即可推出 $n=4$ 的费马大定理。
+\end{solution}
+
+\begin{problem}{原始解的奇偶性}
+\easy
+设
+\[
+X^4+Y^4=Z^2
+\]
+有一组非零整数解。证明可取一组原始解满足 $\gcd(X,Y)=1$，且 $X,Y$ 中恰有一个是偶数。
+\end{problem}
+\begin{solution}
+若 $d=\gcd(X,Y)>1$，则 $d^4\mid Z^2$，从而 $d^2\mid Z$。把三者同除以适当公因子，可得到原始解。
+
+在原始解中，$X,Y$ 不可能同为偶数；若同为奇数，则
+\[
+X^4\equiv Y^4\equiv1\pmod{16},
+\]
+于是
+\[
+Z^2=X^4+Y^4\equiv2\pmod{16},
+\]
+但平方数模 $16$ 不可能同余于 $2$，矛盾。故恰有一个是偶数，一个是奇数。
+\end{solution}
+
+\begin{problem}{勾股参数化的应用}
+\easy
+设 $(X,Y,Z)$ 是上一题中的原始解，并设 $Y$ 为偶数。说明三元组
+\[
+(X^2,Y^2,Z)
+\]
+是原始勾股三元组，因此存在互素整数 $u>v>0$，一奇一偶，使得
+\[
+X^2=u^2-v^2,
+\qquad
+Y^2=2uv,
+\qquad
+Z=u^2+v^2.
+\]
+\end{problem}
+\begin{solution}
+由
+\[
+X^4+Y^4=Z^2
+\]
+可知
+\[
+(X^2)^2+(Y^2)^2=Z^2.
+\]
+因为 $\gcd(X,Y)=1$，故
+\[
+\gcd(X^2,Y^2)=1,
+\]
+于是 $(X^2,Y^2,Z)$ 是原始勾股三元组。对原始勾股三元组的标准参数化给出
+\[
+X^2=u^2-v^2,
+\qquad
+Y^2=2uv,
+\qquad
+Z=u^2+v^2,
+\]
+其中 $u,v$ 互素，且一奇一偶。
+\end{solution}
+
+\begin{problem}{无穷递降的完成}
+\easy
+沿用上题记号，完成 Fermat 对 $n=4$ 的无穷递降证明：从一组最小的 $Z$ 出发构造出更小的正整数解，导出矛盾。
+\end{problem}
+\begin{solution}
+取使 $Z$ 最小的原始解，并设 $Y$ 为偶数。由上题
+\[
+Y^2=2uv,
+\qquad \gcd(u,v)=1.
+\]
+因为 $2uv$ 是平方数且 $u,v$ 互素，所以必可写成
+\[
+u=m^2,
+\qquad v=2n^2
+\]
+或交换次序；改记后可设如此。于是
+\[
+X^2=u^2-v^2=m^4-4n^4=(m^2-2n^2)(m^2+2n^2).
+\]
+这两个因子互素且都是奇数，它们的乘积是平方，因此各自都是平方：
+\[
+m^2-2n^2=r^2,
+\qquad m^2+2n^2=s^2.
+\]
+于是
+\[
+s^2-r^2=4n^2,
+\qquad
+\frac{s-r}{2}\cdot \frac{s+r}{2}=n^2.
+\]
+两因子互素，所以各自为平方。设
+\[
+\frac{s-r}{2}=a^2,
+\qquad
+\frac{s+r}{2}=b^2,
+\qquad b>a>0.
+\]
+则
+\[
+r=b^2-a^2,
+\qquad s=a^2+b^2.
+\]
+再由
+\[
+m^2=\frac{r^2+s^2}{2}
+\]
+得到
+\[
+m^2=a^4+b^4.
+\]
+这说明 $(a,b,m)$ 又给出一组方程
+\[
+a^4+b^4=m^2
+\]
+的正整数解，而且
+\[
+m< m^2 < u^2+v^2=Z.
+\]
+于是得到比最小 $Z$ 更小的解，矛盾。故不存在非零整数解，这就证明了 $n=4$ 的费马大定理。
+\end{solution}
+
+\begin{problem}{Frey曲线的定义与判别式}
+\easy
+对奇素数 $p\ge5$，设存在原始解
+\[
+a^p+b^p=c^p.
+\]
+定义 Frey 曲线
+\[
+E_{a,b,c}:y^2=x(x-a^p)(x+b^p).
+\]
+计算它的判别式，并说明为何它非奇异。
+\end{problem}
+\begin{solution}
+把三次多项式的三根写成
+\[
+0,\quad a^p,\quad -b^p.
+\]
+若椭圆曲线写成 $y^2=(x-e_1)(x-e_2)(x-e_3)$，则判别式为
+\[
+\Delta=16\prod_{i<j}(e_i-e_j)^2.
+\]
+因此
+\[
+\Delta(E_{a,b,c})=16\,a^{2p}b^{2p}(a^p+b^p)^{2}=16(a b c)^{2p}.
+\]
+因为假设 $abc\neq0$，所以 $\Delta\neq0$，曲线非奇异。
 \end{solution}
 
 \begin{problem}{奇素数处的乘法约化}
-设 $q$ 为奇素数且 $q\mid abc$。验证 Frey 曲线在 $q$ 处是乘法约化。提示：比较 $c_4$ 与 $\Delta$ 的 $q$-进赋值。
+\easy
+设 $q$ 是整除 $abc$ 的奇素数。说明 Frey 曲线 $E_{a,b,c}$ 在 $q$ 处是坏约化，并解释为何这里出现的是乘法约化而不是加性约化。
 \end{problem}
 \begin{solution}
-对方程
+由上题判别式公式，若 $q\mid abc$，则
 \[
-E:y^2=x(x-a^p)(x+b^p)
+q\mid \Delta(E_{a,b,c}),
 \]
-可算得
-\[
-c_4=16\bigl(a^{2p}+b^{2p}+a^pb^p\bigr),
-\qquad
-\Delta=16(abc)^{2p}.
-\]
-若 $q\mid a$，则由互素性知 $q\nmid b,c$，且由 $a^p+b^p=c^p$ 得
-\[
-a^{2p}+b^{2p}+a^pb^p\equiv b^{2p}\not\equiv0\pmod q.
-\]
-故 $v_q(c_4)=0$，但 $v_q(\Delta)=2pv_q(a)>0$。这正是乘法约化的判别标准。
+所以在 $q$ 处是坏约化。
 
-$q\mid b$ 或 $q\mid c$ 时完全同理。因此每个奇素数 $q\mid abc$ 处都是乘法约化。
+设 $A=a^p$，$B=b^p$。对模型
+\[
+y^2=x(x-A)(x+B)
+\]
+有
+\[
+c_4=16(A^2+AB+B^2).
+\]
+若 $q\mid a$ 而 $q\nmid b$，则模 $q$ 下 $A\equiv0$，$B\not\equiv0$，从而
+\[
+c_4\equiv16B^2\not\equiv0\pmod q.
+\]
+这说明 $q\mid\Delta$ 但 $q\nmid c_4$，正是乘法约化的判别标准。$q\mid b$ 或 $q\mid c$ 时同理。
 \end{solution}
 
-\begin{problem}{$n=4$ 的化简}
-证明费马大定理的 $n=4$ 情形等价于方程
-\[
-x^4+y^4=z^2
-\]
-没有非平凡正整数解。
+\begin{problem}{半稳定性的陈述}
+\easy
+说明 Frey 曲线在费马方程应用中为何被称为半稳定曲线。
 \end{problem}
 \begin{solution}
-若存在 $x^4+y^4=z^4$ 的非平凡解，则令 $w=z^2$，立刻得到
-\[
-x^4+y^4=w^2
-\]
-的非平凡解。
+前一题表明，所有整除 $abc$ 的奇素数处都只有乘法约化。对素数 $2$ 的分析较细，但结论仍是：Frey 曲线经过适当最小化后在 $2$ 处也不会出现真正的加性坏约化。
 
-反过来，若有
-\[
-x^4+y^4=z^2,
-\]
-则把它看成
-\[
-(x^2)^2+(y^2)^2=z^2.
-\]
-若能证明这种方程无非平凡整数解，自然更强地推出 $x^4+y^4=z^4$ 无解。因此证明 $x^4+y^4=z^2$ 无解就足以得到 $n=4$ 的 FLT。
-
-标准文献中正是先证明平方右端的版本，再把四次幂版本作为推论。
+因此它在每个坏素数处不是好约化就是乘法约化，这正是“半稳定”的定义。费马方程与 Wiles 论证之所以配合得好，一个关键原因就是 Frey 曲线落在半稳定范围内。
 \end{solution}
 
-\begin{problem}{无穷递降第一步}
-设 $(x,y,z)$ 是
-\[
-x^4+y^4=z^2
-\]
-的本原正整数解，且 $z$ 最小。证明 $z$ 必是奇数。
+\begin{problem}{模性与水平下降的联锁}
+\easy
+设 Frey 曲线 $E_{a,b,c}$ 是模的，且某个模 $\ell$ 残余表示不可约。说明把“模性”与“Ribet 水平下降”连起来后会得到怎样的总体结论。
 \end{problem}
 \begin{solution}
-若 $z$ 为偶数，则 $z^2$ 被 $4$ 整除，从而
-\[
-x^4+y^4\equiv0\pmod4.
-\]
-但四次幂模 $16$ 只能同余于 $0$ 或 $1$。若 $x,y$ 都是奇数，则左边模 $16$ 同余 $2$，不可能；因此至少一个是偶数。因为解本原，二者不可能都偶，所以恰有一个偶、一个奇。
+模性说明 $\bar\rho_{E_{a,b,c},\ell}$ 来自某个权 $2$ 新形式，其级别等于 Frey 曲线的导子。Ribet 水平下降进一步说明：若残余表示不可约，则可以把级别中由半稳定坏约化带来的素因子逐个去掉。
 
-于是左边模 $16$ 同余 $0+1=1$，故 $z^2\equiv1\pmod{16}$，从而 $z$ 必为奇数。也可从“偶数平方模 $4$ 为 $0$、奇数平方模 $8$ 为 $1$”的角度得到同样结论。
+对费马方程对应的 Frey 曲线，这一过程会把级别降到极小的值，最终降到 $2$。于是若 level $2$ 上不存在相应新形式，就得到矛盾。
 \end{solution}
 
-\begin{problem}{无穷递降第二步}
-沿上题设定，证明恰有一个变量是偶数；不妨设 $2\mid x$。再用本原勾股数参数化把
-\[
-(x^2,y^2,z)
-\]
-写成
-\[
-x^2=2ab,\qquad y^2=a^2-b^2,\qquad z=a^2+b^2
-\]
-其中 $(a,b)=1$ 且一奇一偶。
+\begin{problem}{级别二空间的消失}
+\easy
+说明为什么一旦把问题降到权 $2$、级别 $2$ 的新形式，就会立刻结束证明。
 \end{problem}
 \begin{solution}
-由上一题，$z$ 奇。于是 $x,y$ 不可能同奇，否则 $x^4+y^4\equiv2\pmod{16}$；也不可能同偶，否则与本原性矛盾。所以恰有一个偶，交换 $x,y$ 后可设 $x$ 偶、$y$ 奇。
-
-于是
+关键事实是
 \[
-(x^2)^2+(y^2)^2=z^2
+S_2(\Gamma_0(2))=0.
 \]
-是一个本原勾股三元组，其中第一项偶、第二项奇。勾股数参数化给出互素整数 $a>b>0$，一奇一偶，使得
-\[
-x^2=2ab,\qquad y^2=a^2-b^2,\qquad z=a^2+b^2.
-\]
-这正是递降开始所需的标准形。
-\end{solution}
+也就是说，级别 $2$ 的权 $2$ 尖点形式根本不存在，更不用说归一化新形式了。
 
-\begin{problem}{无穷递降完成}
-继续上题，证明必有 $a=c^2$、$b=d^2$，并可构造更小的解 $(c,d,w)$ 满足
-\[
-c^4+d^4=w^2,
-\]
-从而得到矛盾。
-\end{problem}
-\begin{solution}
-由 $x^2=2ab$ 且 $(a,b)=1$，可知 $a,b$ 本身分别都是平方乘上至多一个 $2$ 的因子。因为一奇一偶，不妨设 $a$ 奇、$b$ 偶，则唯一可能是
-\[
-a=c^2,\qquad b=2d^2.
-\]
-吸收这个 $2$ 到记号里，常写成等价形式 $a=c^2,b=d^2$ 再配合前式调整参数。代回
-\[
-y^2=a^2-b^2=(a-b)(a+b)
-\]
-并利用互素性，可推出 $a-b$ 与 $a+b$ 也分别是平方。进一步整理得到一组更小的勾股三元组，最终产出更小的
-\[
-c^4+d^4=w^2
-\]
-解。
-
-关键点在于新得到的斜边 $w$ 满足 $0<w<z$，与 $z$ 的极小性矛盾。因此原方程无本原正整数解。这就是 Fermat 对 $n=4$ 的无穷递降法。
-
-\textbf{注。} 教材正文把中间平方分解分成数步；这里保留主线：参数化 $\to$ 互素因子为平方 $\to$ 构造更小解。
-\end{solution}
-
-\begin{problem}{半稳定性的定义}
-说明椭圆曲线 $E/\Q$ ``半稳定'' 的含义，并解释为何这等价于：在每个素数处，$E$ 都是好约化或乘法约化，而从不出现加性约化。
-\end{problem}
-\begin{solution}
-椭圆曲线称为半稳定，按定义是指在每个有限素数处的 Néron 最小模型的特殊纤维没有尖点型退化；等价地说，其约化类型只可能是好约化或乘法约化。
-
-从 Kodaira--Néron 分类看，坏约化分为乘法型和加性型。半稳定正是排除了所有加性型（II, III, IV, $\mathrm{I}_n^*$, \dots）。因此
-\[
-E\text{ 半稳定}
-\iff
-\forall p,\ E\text{ 在 }p\text{ 处为好约化或乘法约化}.
-\]
-
-Frey 曲线和 Wiles 定理中的对象都恰落在这个类别里，这使局部表示在坏素数处只有 Steinberg 型，而不会出现更复杂的加性情形。
-\end{solution}
-
-\begin{problem}{Langlands--Tunnell的作用}
-为什么对半稳定椭圆曲线，若 $\bar\rho_{E,3}$ 的射影像包含于
-\[
-\PGL_2(\F_3)\cong S_4,
-\]
-且因而是可解群，这正是 Langlands--Tunnell 定理能启动模性提升的关键条件？
-\end{problem}
-\begin{solution}
-Langlands--Tunnell 定理处理的是奇的二维复表示，其射影像可解时可证明它来自权 $1$ 模形式。把这一定理应用到 mod $3$ 表示的提升，便能得到
-\[
-\bar\rho_{E,3}
-\]
-是模的。
-
-而
-\[
-\GL_2(\F_3)
-\]
-的射影商嵌入 $\PGL_2(\F_3)\cong S_4$，后者是可解群。因此 mod $3$ 情形恰好落在 Langlands--Tunnell 的适用范围内。得到残余表示模性以后，再通过 Wiles 的模性提升定理把它提升到整个 $3$-进表示的模性。
-
-所以“射影像可解”是整个论证的起点。
-\end{solution}
-
-\begin{problem}{3--5技巧}
-陈述并解释 3--5 技巧：若半稳定椭圆曲线 $E/\Q$ 的 $\bar\rho_{E,3}$ 可约，则 $\bar\rho_{E,5}$ 必不可约。提示：不能同时存在有理 $3$-isogeny 和 $5$-isogeny。
-\end{problem}
-\begin{solution}
-若 $\bar\rho_{E,3}$ 可约，则 $E$ 有有理 $3$-isogeny；若 $\bar\rho_{E,5}$ 也可约，则 $E$ 也有有理 $5$-isogeny。把两者合起来，就得到有理 $15$-isogeny，或者等价地，$E$ 在模曲线 $X_0(15)$ 上给出一个有理点。
-
-Mazur 对有理同源的分类表明，这种情形受到极强限制；在 Wiles 使用的半稳定情形里，可以借助辅助曲线和同源类分析构造另一条曲线 $A$，使得
-\[
-\bar\rho_{A,5}\cong \bar\rho_{E,5},
-\qquad
-\bar\rho_{A,3}\text{ 不可约}.
-\]
-然后先证明 $A$ 模，再把模性传回 $E$。
-
-所以 3--5 技巧的核心不是一句抽象命题，而是“在 3 与 5 之间换轨”，确保至少有一个残余表示可用于模性提升。
-\end{solution}
-
-\begin{problem}{最后的零维数}
-若 Frey 曲线模，且 Ribet 把级别降到 $2$，为什么会立刻得到矛盾？说明
-\[
-\dim S_2(\Gamma_0(2))=0
-\]
-的原因。
-\end{problem}
-\begin{solution}
-权 $2$ 尖点形式空间的维数等于模曲线 $X_0(N)$ 的亏格：
-\[
-\dim S_2(\Gamma_0(N))=g(X_0(N)).
-\]
-对 $N=2$，模曲线 $X_0(2)$ 是有理曲线，亏格为 $0$。因此
-\[
-\dim S_2(\Gamma_0(2))=0.
-\]
-
-于是若某个奇的绝对不可约残余表示“来自级别 $2$ 的权 $2$ 新形式”，就意味着一个根本不存在的对象存在，立即矛盾。这正是 FLT 证明链最后一步的终点。
+因此如果某个残余表示被证明必须来自 level $2$ 的权 $2$ 新形式，就立刻产生矛盾。这正是 Frey 曲线、模性提升与 Ribet 水平下降共同指向的终点。
 \end{solution}
 
 \section{进阶题 \medium}
 
-\begin{problem}{完整证明 $n=4$ 的FLT}
-按照“奇偶分析 $\to$ 本原勾股数参数化 $\to$ 平方因子分解 $\to$ 构造更小解”的路线，写出 $n=4$ 的 FLT 的完整八步证明。
+\begin{problem}{Langlands和Tunnell起点}
+\medium
+说明在 Wiles 证明中，Langlands--Tunnell 定理扮演什么角色。
 \end{problem}
 \begin{solution}
-可按八步组织。
-\begin{enumerate}[label=\textbf{第\arabic*步：}]
-  \item 假设存在本原正整数解 $x^4+y^4=z^2$，并取 $z$ 最小。
-  \item 由模 $16$ 分析知 $x,y$ 一奇一偶，且 $z$ 奇。
-  \item 不妨设 $x$ 偶，于是 $(x^2,y^2,z)$ 是本原勾股三元组。
-  \item 参数化得 $x^2=2ab$，$y^2=a^2-b^2$，$z=a^2+b^2$，其中 $(a,b)=1$ 且一奇一偶。
-  \item 由 $x^2=2ab$ 与互素性推出 $a,b$ 本身分别是平方（差一个可控的 $2$ 因子）。
-  \item 代回 $y^2=(a-b)(a+b)$，利用 $(a-b,a+b)=1$ 或 $2$，推出 $a-b$ 与 $a+b$ 也分别为平方。
-  \item 用这些平方重新参数化，构造出更小的本原三元组 $(x',y',z')$，满足 $x'^4+y'^4=z'^2$ 且 $0<z'<z$。
-  \item 这与 $z$ 的极小性矛盾，因此无解。
-\end{enumerate}
-这就证明了 $x^4+y^4=z^2$ 无非平凡正整数解，从而 $n=4$ 的 FLT 成立。
+Wiles 的模性提升并不是凭空开始的，它需要一个“起点”：某个残余表示已经知道是模的。对模 $3$ 的奇不可约表示，Langlands--Tunnell 定理给出这一起点，说明这类表示来自权 $1$ 模形式，进而可转化为适合模性提升使用的输入。
+
+因此，Langlands--Tunnell 的作用是提供残余模性。之后再通过模性提升定理，把“残余模”升到“整个 $\ell$-进表示模”。
 \end{solution}
 
-\begin{problem}{Selmer群是切空间}
-设 $\bar\rho$ 为固定残余表示，$\mathcal F$ 为满足给定局部条件的形变函子。证明其切空间满足
-\[
-T_{\mathcal F}(k[\varepsilon]/(\varepsilon^2))\cong H^1_f(G_\Q,\mathrm{ad}^0\bar\rho).
-\]
+\begin{problem}{三五开关技巧}
+\medium
+陈述并解释三五开关技巧的核心思想。
 \end{problem}
 \begin{solution}
-\textbf{第1步：} 一个到双数环 $k[\varepsilon]/(\varepsilon^2)$ 的形变可写成
-\[
-\rho=(1+\varepsilon c)\bar\rho,
-\]
-其中 $c:G_\Q\to \mathrm{ad}^0\bar\rho$ 满足 1-cocycle 条件
-\[
-c(\sigma\tau)=c(\sigma)+\bar\rho(\sigma)c(\tau)\bar\rho(\sigma)^{-1}.
-\]
+三五开关技巧用于处理某条椭圆曲线的模 $3$ 表示可能不可约性不足的问题。其思路是：若模 $3$ 信息不好，就利用曲线的模 $5$ 挠结构构造另一条辅助椭圆曲线，使新曲线在模 $5$ 上与原曲线相关，而在模 $3$ 上具有更适合应用 Langlands--Tunnell 的性质。
 
-\textbf{第2步：} 两个形变严格等价，当且仅当它们的 cocycle 相差一个 coboundary。因此切空间与群上同调
-\[
-H^1(G_\Q,\mathrm{ad}^0\bar\rho)
-\]
-同构。
-
-\textbf{第3步：} 若再要求每个素数处满足某些局部形变条件，就等于要求 cocycle 在局部限制
-\[
-H^1(G_{\Q_v},\mathrm{ad}^0\bar\rho)
-\]
-中落在预先指定的子空间 $L_v$。这些局部条件切出来的全局子群正是 Selmer 群
-\[
-H^1_f(G_\Q,\mathrm{ad}^0\bar\rho).
-\]
-故命题成立。
+这样就能在 $3$ 与 $5$ 之间切换：先从较好的那一侧得到残余模性，再借助模性提升把信息带回原曲线。它是 Wiles 论证中一个非常精巧的桥梁步骤。
 \end{solution}
 
-\begin{problem}{Schlessinger准则}
-说明 Galois 表示的形变函子为何满足 Schlessinger 的条件 (H1)--(H4)，从而可表示并拥有一个完备局部 Noether 环 $R$。
+\begin{problem}{残余模性到提升定理}
+\medium
+设某条半稳定椭圆曲线 $E/\Q$ 的残余表示 $\bar\rho_{E,3}$ 已知模。说明模性提升定理要解决的目标是什么。
 \end{problem}
 \begin{solution}
-(H1) 和 (H2) 关心小扩张下的纤维积相容性。对形变问题，这来自矩阵提升的逐项拼接：小扩张的核平方为零，使得 cocycle 的修正只受一次上同调控制。
-
-(H3) 要求切空间有限维，这正由
+残余模性只告诉我们
 \[
-H^1(G_\Q,\mathrm{ad}^0\bar\rho)
+\bar\rho_{E,3}
 \]
-有限维保证；对数域 Galois 群和有限系数模，这一上同调群是有限维的。
+来自某个模形式；但真正需要的是整个 $3$-进表示
+\[
+\rho_{E,3}:G_\Q\to\GL_2(\Z_3)
+\]
+来自模形式。模性提升定理的目标正是：在适当局部条件、不可约性和极小性假设下，从 $\bar\rho$ 的模性推出 $\rho$ 的模性。
 
-(H4) 要求自同构不至于过多；对“固定行列式、严格等价”的形变问题，由残余表示绝对不可约，Schur 引理保证无穷小自同构只有标量，从而满足唯一性条件。于是 Schlessinger 定理给出可表示性，得到普遍形变环 $R$。
+换言之，它把“模 $3$ 的信息”提升为“全部 $3$-进信息”，从而把椭圆曲线放入模性定理的范围。
 \end{solution}
 
-\begin{problem}{Taylor--Wiles辅助素数}
-说明为什么辅助素数集合 $Q_n$ 中的每个 $q$ 都要求满足
+\begin{problem}{变形问题的内容}
+\medium
+给定残余表示
 \[
-q\equiv1\pmod{\ell^n},
-\qquad
-\bar\rho(\Frob_q)\text{ 有不同特征值},
+\bar\rho:G_\Q\to\GL_2(k),
 \]
-以及这两个条件如何帮助构造 $R_{Q_n}$。
+说明在 Wiles 理论中，一个“变形问题”通常要求固定哪些数据。
 \end{problem}
 \begin{solution}
-条件
+一个变形问题通常考虑把 $\bar\rho$ 提升到某个完备局部环 $A$ 上的表示
 \[
-q\equiv1\pmod{\ell^n}
+\rho_A:G_\Q\to\GL_2(A),
 \]
-保证局部单位群中出现足够大的 $\ell$-幂部分，使得在 $q$ 处加入“可控的新形变参数”后，局部形变环近似一个形式光滑的幂级数环；这正提供 patching 所需的额外变量。
+并要求模极大理想约化后回到 $\bar\rho$。除此之外，还要固定一些局部条件，例如：在某些素数处要求未分歧、有限平坦、半稳定或极小；通常还固定行列式，使之等于分圆特征乘上已知角色。
 
-另一方面，$\bar\rho(\Frob_q)$ 有不同特征值意味着在 $q$ 处残余表示是正则半单的。于是局部形变问题可分解为沿两条特征线独立变形，局部形变环结构简单，且 Hecke 算子 $U_q$ 也能精确控制。
-
-这两个条件配合，使得加入 $Q_n$ 后的全局形变环 $R_{Q_n}$ 与相应 Hecke 代数都具有“接近平滑”的维数行为，从而能够在极限中拼补出 $R_\infty\cong T_\infty$。
+因此，变形问题并不是“所有可能提升”的总和，而是“满足指定局部条件与行列式的提升”的集合。
 \end{solution}
 
-\begin{problem}{R=T 定理框架}
-完整叙述 Wiles 的 $R=T$ 定理证明框架，分五步说明从残余模性到普遍形变环与 Hecke 代数同构的路线。
+\begin{problem}{普遍变形环的意义}
+\medium
+解释什么是普遍变形环 $R$，以及它为什么能把一个表示论问题变成交换代数问题。
 \end{problem}
 \begin{solution}
-\begin{enumerate}[label=\textbf{第\arabic*步：}]
-  \item 固定绝对不可约残余表示 $\bar\rho$ 及局部条件，构造普遍形变环 $R$；同时定义满足同样局部条件的 Hecke 代数 $T$，并有自然满射 $R\twoheadrightarrow T$。
-  \item 用 Langlands--Tunnell 或已知模性结果证明 $\bar\rho$ 本身是模的，故 $T\neq0$。
-  \item 选取 Taylor--Wiles 辅助素数集合 $Q_n$，构造更大的形变环 $R_{Q_n}$ 与 Hecke 代数 $T_{Q_n}$。
-  \item 对所有 $n$ 做 patching，得到极限对象 $R_\infty,T_\infty$，并证明它们都近似形式幂级数环上的完全交，从而比较维数与长度得到
-  \[
-  R_\infty\cong T_\infty.
-  \]
-  \item 把辅助素数去掉，下降回原问题，推出
-  \[
-  R\cong T.
-  \]
-  因而任何满足局部条件的 $\ell$-进形变都是模的。
-\end{enumerate}
-这就是半稳定模性定理的代数核心。
+若某个变形函子可表出，就存在一个完备 Noether 局部环 $R$ 和一个“普遍提升”
+\[
+\rho^{\mathrm{univ}}:G_\Q\to\GL_2(R),
+\]
+使任何满足条件的变形都唯一来自某个局部同态
+\[
+R\to A.
+\]
+这就是普遍变形环。
+
+它把“分类所有提升”转化成“研究一个具体局部环的结构”。于是表示论与数论问题被翻译为关于生成元、关系式、维数与交叉数的交换代数问题，这正是 Wiles 方法的核心。
+\end{solution}
+
+\begin{problem}{Hecke代数的意义}
+\medium
+说明 Hecke 代数 $T$ 在 Wiles 方法中代表什么对象。
+\end{problem}
+\begin{solution}
+Hecke 代数 $T$ 由相关模形式空间上的 Hecke 算子生成，它编码了模形式的全部 Hecke 特征值数据。对一个给定的残余表示，局部化后的 Hecke 代数对应“与该残余表示同余的模形式家族”。
+
+因此，$T$ 可以看成“模表示一侧”的坐标环：它记录所有实际来自模形式的 Galois 表示变形。若能证明 $R=T$，就说明每个允许的变形都确实来自模形式。
+\end{solution}
+
+\begin{problem}{R等于T的含义}
+\medium
+解释等式
+\[
+R=T
+\]
+在模性提升中的数学含义。
+\end{problem}
+\begin{solution}
+$R$ 参数化所有满足局部条件的 Galois 表示变形，$T$ 参数化实际由模形式产生的变形。若能构造满射
+\[
+R\twoheadrightarrow T
+\]
+并进一步证明它是同构，就说明“允许出现的变形”和“真正模的变形”完全相同。
+
+于是任一满足该变形问题条件的 $\ell$-进表示，只要其残余表示是模的，就必然自身也是模的。这就是模性提升定理的本质内容。
+\end{solution}
+
+\begin{problem}{切空间与Selmer群}
+\medium
+说明为什么普遍变形环的切空间维数会与某个 Selmer 群维数相关。
+\end{problem}
+\begin{solution}
+一阶无穷小变形对应于把系数环从 $k$ 提升到双数环
+\[
+k[\varepsilon]/(\varepsilon^2).
+\]
+这样的变形类由 Galois 上同调控制，具体地说，满足局部条件的一阶变形组成某个 Selmer 群。
+
+因此，普遍变形环的切空间维数
+\[
+\dim_k \mathfrak m_R/(\mathfrak m_R^2,\varpi)
+\]
+可以用 Selmer 群维数表达。Wiles 方法正是通过比较 Selmer 与对偶 Selmer，来估计 $R$ 的大小与关系数。
 \end{solution}
 
 \begin{problem}{Wiles数值判据}
-设 $\phi:R\twoheadrightarrow T$ 是完备局部 Cohen--Macaulay 环之间的满射，且满足
-\[
-\#(\Z_\ell/\Phi_T)\le \#(\Z_\ell/\Phi_R),
-\]
-其中 $\Phi$ 表示余切模。证明 $\phi$ 为同构。
+\medium
+简述 Wiles 数值判据想要比较的两个量是什么，以及它的结论为何强大。
 \end{problem}
 \begin{solution}
-思路是“满射 + 长度不增 + 完全交”推出核为零。首先，余切模
+Wiles 数值判据比较的是：一边来自 Hecke 模的代数长度或交叉数，另一边来自变形环切空间与对偶切空间的数据。粗略地说，它把“$R$ 有多少关系”和“$T$ 有多大”放到同一个数值框架中。
+
+当这些数值恰好相等时，就能从已有的满射
 \[
-\Phi_R=\mathfrak m_R/(\mathfrak m_R^2,\ell),
-\qquad
-\Phi_T=\mathfrak m_T/(\mathfrak m_T^2,\ell)
+R\twoheadrightarrow T
 \]
-衡量最小生成元数。满射 $R\twoheadrightarrow T$ 一般会使余切模变小。
-
-若给出的不等式恰达到数值判据所允许的极限，说明 $R$ 与 $T$ 的关系式个数也完全匹配。借助 Nakayama 引理，任何非零核都会迫使余切模进一步缩小，违反给定的长度比较。
-
-更精确地，在 Wiles 的设定中二者都是完全交局部环，长度比较等价于 Fitting 理想比较；于是核只能为零。故 $\phi$ 是同构。
+推出它其实是同构。这样，一个本来看似很深的“所有变形都模”命题，被压缩为可计算的数值比较。
 \end{solution}
 
-\begin{problem}{FLT证明链条}
-从假设存在非平凡解 $a^p+b^p=c^p$ 出发，写出到最终矛盾为止的完整逻辑链条，约 $12$ 步。
+\begin{problem}{指数大于等于五的逻辑链}
+\medium
+把 $p\ge5$ 时费马大定理证明的逻辑链按顺序写出，不要求技术细节。
 \end{problem}
 \begin{solution}
-可按如下链条。
-\begin{enumerate}[label=\arabic*.]
-  \item 假设 $p\ge5$，存在本原非平凡解 $a^p+b^p=c^p$。
-  \item 构造 Frey 曲线 $E_{a,b,c}$。
-  \item 计算其判别式与导子，得 $E$ 半稳定。
-  \item 证明对每个奇素数 $q\mid abc$，$E$ 在 $q$ 处乘法约化。
-  \item 证明残余表示 $\bar\rho_{E,p}$ 在这些 $q$ 处无分歧。
-  \item 由 Wiles--Taylor，半稳定椭圆曲线模，所以 $E$ 模。
-  \item 因而 $\bar\rho_{E,p}$ 也是模的，来自某个权 $2$ 新形式。
-  \item 由局部无分歧性与 Ribet 水平下降，可把每个奇素数从级别中逐个删去。
-  \item 最终得到 $\bar\rho_{E,p}$ 来自级别 $2$ 的权 $2$ 新形式。
-  \item 但 $S_2(\Gamma_0(2))=0$，不存在这样的新形式。
-  \item 故得到矛盾，说明不存在 $p\ge5$ 的反例。
-  \item 再加上 Fermat 已证的 $n=4$ 情形，即排除了全部指数。
-\end{enumerate}
-因此 FLT 成立。
-\end{solution}
-
-\begin{problem}{半稳定模性定理的精确陈述}
-精确陈述 Wiles--Taylor 的半稳定模性定理。
-\end{problem}
-\begin{solution}
-定理可表述为：每条定义在 $\Q$ 上的半稳定椭圆曲线都是模的。也就是说，若 $E/\Q$ 在每个有限素数处都只有好约化或乘法约化，则存在某个权 $2$、级别等于 $N_E$ 的归一化新形式 $f$，使得
-\[
-L(E,s)=L(f,s),
-\]
-等价地，对所有素数 $p\nmid N_E$，有
-\[
-a_p(E)=a_p(f).
-\]
-
-从 Galois 表示角度，这等价于：对任意 $\ell$，椭圆曲线的 Tate 模表示 $\rho_{E,\ell}$ 同构于 Deligne 表示 $\rho_{f,\lambda}$。这一定理正是 FLT 的全局模性输入。
-\end{solution}
-
-\begin{problem}{Selmer群的局部条件}
-对 $\bar\rho=\bar\rho_{E,3}$，解释 Selmer 群
-\[
-H^1_f(G_\Q,\mathrm{ad}^0\bar\rho)
-\]
-中的 ``$f$'' 到底表示什么局部条件。
-\end{problem}
-\begin{solution}
-Selmer 群是全局上同调类的一个子群：
-\[
-H^1_f(G_\Q,\mathrm{ad}^0\bar\rho)
-=\ker\Bigl(H^1(G_\Q,\mathrm{ad}^0\bar\rho)\to \prod_v H^1(G_{\Q_v},\mathrm{ad}^0\bar\rho)/L_v\Bigr).
-\]
-其中每个 $L_v\subset H^1(G_{\Q_v},\mathrm{ad}^0\bar\rho)$ 是允许的局部变形方向。
-
-具体地：在 $v\nmid3N$ 的未分歧处，$L_v$ 取未分歧子空间；在坏素数处，$L_v$ 取保持半稳定或最小导子的子空间；在 $v=3$ 处，$L_v$ 取有限平坦或晶体条件对应的子空间。于是 Selmer 群恰好刻画“哪些一阶提升同时满足所有局部几何条件”。
-\end{solution}
-
-\begin{problem}{Frey曲线在 $2,3$ 处的局部行为}
-说明 Frey 曲线的 $\bar\rho_{E,p}$ 在 $2$ 与 $3$ 处有何特殊局部行为，并解释为什么这些素数不能像其他奇素数那样随意删去。
-\end{problem}
-\begin{solution}
-在奇素数 $q\mid abc$ 处，Frey 曲线是乘法约化且模 $p$ 表示无分歧；但在 $2$ 处情形更细腻：最小模型与判别式的 $2$-进指数依赖于奇偶归一化，残余表示通常带有非平凡但受限的惯性像，因此 $2$ 的局部导子贡献无法完全消去。
-
-在 $3$ 处，若 $3\neq p$，仍需检查惯性作用是否落在可控的上三角子群；若 $p=3$，则情况更特殊，因为局部表示与有限平坦群方案/Fontaine--Laffaille 条件耦合，不能简单按“无分歧”处理。
-
-因此在 FLT 的标准论证里，真正能通过 Ribet 逐个删去的是那些 $q\mid abc$ 的奇素数；$2$ 必然保留到最后，形成级别 $2$ 的最终矛盾。
-\end{solution}
-
-\begin{problem}{Fontaine--Laffaille定理的作用}
-陈述 Fontaine--Laffaille 定理在本章中需要的版本，并解释它如何限制 Frey 曲线的 $p$-进表示。
-\end{problem}
-\begin{solution}
-一个常用版本是：若 $p>2$，且某个 mod $p$ 表示来自一个在 $p$ 处的有限平坦群方案，那么它对应的 $p$-进提升满足 Fontaine--Laffaille 的晶体条件，Hodge--Tate 权落在允许区间内。
-
-对椭圆曲线而言，若在 $p$ 处好约化，则 $V_p(E)$ crystalline；若是半稳定最小情形，则至少 semistable。Frey 曲线的局部结构因此不能任意摆动，而必须服从非常严格的 Hodge--Tate 与导子约束。
-
-这些约束正是模性提升定理可操作的原因：形变环只需考虑满足有限平坦/晶体条件的提升，而不是所有可能提升。
-\end{solution}
-
-\begin{problem}{同余模形式与同余表示}
-设两个模形式 $f,g$ 满足 $f\equiv g\pmod\lambda$，即几乎所有 Fourier 系数模 $\lambda$ 同余。说明为什么这蕴含
-\[
-\bar\rho_{f,\lambda}\cong \bar\rho_{g,\lambda}.
-\]
-并以导子 $11$ 的两个 5-同源椭圆曲线为例说明这一点。
-\end{problem}
-\begin{solution}
-Deligne 表示满足
-\[
-\Tr(\bar\rho_{f,\lambda}(\Frob_p))\equiv a_p(f)\pmod\lambda,
-\qquad
-\det(\bar\rho_{f,\lambda}(\Frob_p))\equiv p\pmod\lambda,
-\]
-对几乎所有 $p\nmid N\ell$ 成立。若 $a_p(f)\equiv a_p(g)\pmod\lambda$，则两残余表示在几乎所有 Frobenius 上具有同迹同行列式，于是由 Chebotarev 与 Brauer--Nesbitt 得到
-\[
-\bar\rho_{f,\lambda}\cong \bar\rho_{g,\lambda}.
-\]
-
-一个具体例子是导子 $11$ 的两条 5-同源曲线 $11a1$ 与 $11a3$。它们对应同一个新形式，因此所有 $a_p$ 实际上完全相同；特别模 $5$ 同余。于是其 mod $5$ Galois 表示同构。这个例子说明“曲线不同而残余表示相同”是非常自然的现象。
-\end{solution}
-
-\begin{problem}{绝对不可约性与5同源}
-证明：若半稳定椭圆曲线 $E/\Q$ 没有有理 $5$-isogeny，则
-\[
-\bar\rho_{E,5}
-\]
-绝对不可约。
-\end{problem}
-\begin{solution}
-若 $\bar\rho_{E,5}$ 可约，则存在一个 $G_\Q$-稳定的一维子空间 $L\subset E[5]$。这个子空间对应一个稳定的阶 $5$ 子群 $C\subset E[5]$，从而 Vélu 理论给出定义在 $\Q$ 上的 $5$-isogeny
-\[
-E\to E/C.
-\]
-这与“没有有理 $5$-isogeny”的假设矛盾。
-
-因此 $\bar\rho_{E,5}$ 至少在 $\F_5$ 上不可约。若它在某个有限扩张上变得可约，那么对应的稳定子线在该扩张上出现，进而 projective 像落入 Borel；对半稳定椭圆曲线，这会强迫同样的有理同源结构下降到 $\Q$。故它实际上绝对不可约。
-\end{solution}
-
-\begin{problem}{Wiles方法的创新}
-概述 Wiles 在 1995 年证明中的核心创新，并说明 Taylor--Wiles patching 如何修补早期版本中的缺口。
-\end{problem}
-\begin{solution}
-Wiles 的核心创新是把“证明椭圆曲线模”转化为“比较形变环与 Hecke 代数”，即 $R=T$ 思想。这样问题从分析对象转成可计算的局部 Noether 环问题，并由 Selmer 群控制切空间。
-
-原始稿件在 Euler 系与数值比较的一处关键步骤存在缺口。Taylor 与 Wiles 的补救办法是引入一族辅助素数，构造更大的环 $R_{Q_n},T_{Q_n}$，然后用 patching 在极限中获得一个更规则的对象 $R_\infty\cong T_\infty$，最后再下降回原始问题。
-
-因此补丁法的本质是：先把问题放到一个带更多变量、但更光滑的环境中解决，再消去这些变量。
-\end{solution}
-
-\begin{problem}{计算 $\dim S_2(\Gamma_0(2))$}
-用维数公式或亏格公式完整证明
-\[
-\dim S_2(\Gamma_0(2))=0.
-\]
-\end{problem}
-\begin{solution}
-对任意 $N$，权 $2$ 尖点形式空间维数等于模曲线 $X_0(N)$ 的亏格 $g_0(N)$。而亏格公式为
-\[
-g_0(N)=1+\frac{\mu(N)}{12}-\frac{e_2(N)}{4}-\frac{e_3(N)}{3}-\frac{c(N)}{2}.
-\]
-对 $N=2$，有指数 $\mu(2)=3$，$e_2(2)=1$，$e_3(2)=0$，尖点数 $c(2)=2$。代入得
-\[
-g_0(2)=1+\frac{3}{12}-\frac14-0-1=0.
-\]
-因此
-\[
-\dim S_2(\Gamma_0(2))=g_0(2)=0.
-\]
-这就是 FLT 末步所需的零维结论。
+逻辑链如下：
+\begin{itemize}
+\item[(i)] 反设存在原始解 $a^p+b^p=c^p$；
+\item[(ii)] 构造 Frey 曲线 $E_{a,b,c}$，它是半稳定椭圆曲线；
+\item[(iii)] 由 Wiles--Taylor--Wiles，半稳定椭圆曲线是模的；
+\item[(iv)] 选择适当的残余表示并验证其不可约性；
+\item[(v)] 由 Ribet 水平下降，把相应模表示的级别降到 $2$；
+\item[(vi)] 但 $S_2(\Gamma_0(2))=0$，level $2$ 根本没有相应新形式；
+\item[(vii)] 得到矛盾，故原始解不存在。
+\end{itemize}
+这就证明了所有奇素数指数的情形。
 \end{solution}
 
 \section{挑战题 \hard}
 
-\begin{problem}{patching的逆极限步骤}
-说明 Taylor--Wiles patching 中如何从
-\[
-R_\infty\cong T_\infty
-\]
-下降得到原始同构
-\[
-R\cong T.
-\]
+\begin{problem}{Taylor和Wiles辅助素数}
+\hard
+说明 Taylor--Wiles 方法中为什么要引入一批辅助素数。
 \end{problem}
 \begin{solution}
-在 patching 后，$R_\infty$ 与 $T_\infty$ 都是某个幂级数环上的完备局部代数，并带有一组正规序列变量 $x_1,\dots,x_t$，满足
-\[
-R\cong R_\infty/(x_1,\dots,x_t),
-\qquad
-T\cong T_\infty/(x_1,\dots,x_t).
-\]
-这些变量记录了辅助素数带来的额外自由度。
+只研究原始变形问题时，普遍变形环的关系数往往难以控制。Taylor--Wiles 引入一批精心挑选的辅助素数 $Q$，在这些素数处放宽局部条件，从而得到一族更容易计算的扩展变形环 $R_Q$ 与相应模 $M_Q$。
 
-既然已有 $R_\infty\cong T_\infty$，再模掉同一组正规序列，就得到
-\[
-R\cong T.
-\]
-关键在于要证明这些变量确实构成正规序列，从而商掉以后不会引入额外扭结。数值判据与深度计算正是为此服务。
+这些辅助素数的选择使得对偶 Selmer 群被逐步“杀掉”，环与模的维数控制变得整齐，最终可以在极限中恢复原问题。这就是辅助素数的核心作用。
 \end{solution}
 
-\begin{problem}{Kisin改进}
-陈述 Kisin 对 $R=T$ 方法的改进，并与 Wiles 版本比较其适用范围。
+\begin{problem}{Patching的核心想法}
+\hard
+用宏观语言解释 Taylor--Wiles patching 的基本步骤。
 \end{problem}
 \begin{solution}
-Kisin 的改进允许处理更一般的局部 $p$-进 Hodge 理论条件，尤其不再局限于半稳定或 Fontaine--Laffaille 范围。他构造并精细研究局部晶体/半稳定形变环的几何结构，然后把这些更复杂的局部环嵌入整体 patching 机器中。
+Patching 的思路是：不直接比较原始的 $R$ 与 $T$，而是先构造一系列带辅助素数的对象
+\[
+R_Q,
+\qquad M_Q,
+\qquad T_Q.
+\]
+这些对象在有限层面上满足更好的生成元与关系数控制。
 
-与 Wiles 相比，Kisin 版本能处理在某些素数处有加性约化的一般椭圆曲线，因此最终导致“所有定义在 $\Q$ 上的椭圆曲线都模”的完整模性定理。Wiles 证明的是半稳定版本，Kisin 则把局部条件的技术壁垒显著向前推进。
+随后把所有层面同时“拼接”成一个极限对象，使其既保留足够多的自由性，又反映原问题的 Hecke 模结构。最后在这个 patched 世界中证明自由性，再下推回原始层面，得到 $R=T$。因此 patching 的本质是“先在更大空间里变简单，再投影回原问题”。
 \end{solution}
 
-\begin{problem}{全部指数的归约}
-说明为何证明素指数情形 $n=p$ 与 $n=4$ 就足以推出全部整数指数的 FLT，特别写出 $n=2^k$ $(k\ge3)$ 的归约。
+\begin{problem}{极小与非极小变形}
+\hard
+解释“极小变形”和“非极小变形”的区别，以及为什么 Wiles 最先处理的是极小情形。
 \end{problem}
 \begin{solution}
-若存在
-\[
-x^n+y^n=z^n
-\]
-的非平凡解，取 $q$ 为 $n$ 的一个素因子，则令 $m=n/q$，可得
-\[
-(x^m)^q+(y^m)^q=(z^m)^q.
-\]
-故只需排除素指数情形。
+极小变形要求在每个素数处的局部 ramification 尽量不比残余表示更大；也就是说，提升过程中不额外增加导子。非极小变形则允许在某些素数处出现更多 ramification。
 
-当 $n=2^k$ 且 $k\ge3$ 时，令 $X=x^{2^{k-2}},Y=y^{2^{k-2}},Z=z^{2^{k-2}}$，则
-\[
-X^4+Y^4=Z^4.
-\]
-而这会推出
-\[
-X^4+Y^4=(Z^2)^2,
-\]
-与已证的 $n=4$ 情形矛盾。故所有 $2$ 的高次幂指数也被排除。
-
-综上，只要证明所有奇素数指数以及 $4$ 的情形，就得到全部 FLT。
+极小情形的局部条件最紧，因此对应的 Selmer 群和对偶 Selmer 群最容易控制，数值判据也最干净。Wiles 先在极小情形证明 $R=T$，再通过更精细的论证逐步扩展到非极小情形。
 \end{solution}
 
-\begin{problem}{Serre的 $\varepsilon$-猜想}
-陈述 Serre 对二维奇残余表示的精确猜想中关于权和级别的预测，并解释为什么 Frey 曲线对应的 Serre 权是 $2$、Serre 级别是 $2$。
+\begin{problem}{对偶Selmer群的作用}
+\hard
+说明对偶 Selmer 群在 Wiles 证明中为何如此关键。
 \end{problem}
 \begin{solution}
-Serre 猜想的精确版给每个奇的绝对不可约表示
-\[
-\bar\rho:G_\Q\to \GL_2(\overline{\F}_\ell)
-\]
-预测一个最小权 $k(\bar\rho)$、最小级别 $N(\bar\rho)$ 和 Nebentypus，使其来自该权该级别的本原模形式。级别由各素数处的 Artin 导子指数决定，权由在 $\ell$ 处的惯性行为决定。
+Selmer 群测量允许的一阶变形有多少，而对偶 Selmer 群测量这些变形之间还缺多少关系。若对偶 Selmer 群很大，普遍变形环就可能有很多关系，难以与 Hecke 代数匹配。
 
-对 Frey 曲线，除 $2$ 外所有奇坏素数在 mod $p$ 表示中都变成无分歧，所以它们不贡献 Serre 级别；$2$ 处保留一个最小贡献，因此
-\[
-N(\bar\rho_{E,p})=2.
-\]
-又因为它来自椭圆曲线的 $p$-挠，Hodge--Tate 权为 $\{0,1\}$，对应的 Serre 权正是 $2$。这就解释了为何 Serre 猜想一旦成立便直接给出 FLT。
+Taylor--Wiles 方法的关键正是利用辅助素数把对偶 Selmer 群压缩到零或足够小。这样一来，变形环的关系数得到控制，最终能证明它是完全交并与 Hecke 一侧大小一致。
 \end{solution}
 
-\begin{problem}{从FLT到abc}
-解释为什么 $abc$ 猜想比 FLT 更强，并说明 IUT 理论声称证明 abc 猜想的意义何在。
+\begin{problem}{完全交与自由性}
+\hard
+解释为什么在 $R=T$ 论证中，“完全交”和“Hecke 模自由”是两个重要目标。
 \end{problem}
 \begin{solution}
-$abc$ 猜想粗略说是：对互素整数 $a+b=c$，若 $\mathrm{rad}(abc)$ 很小，则 $c$ 不可能太大。把它应用到
-\[
-a^n+b^n=c^n
-\]
-上，可推出当 $n$ 足够大时不可能存在非平凡解，因此它蕴含 FLT。换言之，FLT 只是 $abc$ 的一个特殊推论。
+若变形环是完全交，则它的生成元数与关系数之间达到最理想的平衡，这会极大简化维数与深度计算。另一方面，若相关 Hecke 模在该环上是自由的，就说明模形式一侧没有隐藏的扭结，结构与环本身完全匹配。
 
-Mochizuki 的 IUT 理论声称证明了 abc 猜想，因此若其论证被完全接受，就会自动蕴含 FLT 及大量更强的丢番图结果。不过 IUT 的技术体系极其庞大，数学界对其可验证性曾长期保持谨慎。对本章而言，只需理解：abc 若成立，将远远超出 FLT 的结论强度。
+在 patched 层面证明这两点后，就能把交换代数信息精确传回原始层面，从而推出 Hecke 代数与变形环同构。简言之，完全交控制环，自由性控制模，两者合起来给出 $R=T$。
+\end{solution}
+
+\begin{problem}{两个方向的映射含义}
+\hard
+在很多概述中会看到
+\[
+R\twoheadrightarrow T
+\qquad\text{和}\qquad
+T\hookrightarrow R
+\]
+这样的说法。解释这两个方向分别表达了什么思想。
+\end{problem}
+\begin{solution}
+满射
+\[
+R\twoheadrightarrow T
+\]
+表示：每个 Hecke 特征值系统都对应一个满足局部条件的 Galois 表示变形，因此模形式一侧嵌入到所有允许变形之中。这通常来自构造模形式关联的 Galois 表示。
+
+而把 $T$ 看成注入某个关于 $R$ 的对象，则体现相反方向：模形式给出的变形已经“足够多”，足以探测 $R$ 的全部结构。数值判据和 patching 说明这两个方向没有缺口，最终只能是同构。
+\end{solution}
+
+\begin{problem}{半稳定模性为何足够}
+\hard
+解释为什么只要证明“所有半稳定椭圆曲线都是模的”，就已经足以推出费马大定理。
+\end{problem}
+\begin{solution}
+费马方程若有反例，就会产生一条 Frey 曲线，而这条曲线正是半稳定的。因此假如我们已经知道所有半稳定椭圆曲线都模，那么 Frey 曲线自动模。
+
+一旦 Frey 曲线模，再配合 Ribet 水平下降，就把其残余表示降到 level $2$，与
+\[
+S_2(\Gamma_0(2))=0
+\]
+矛盾。所以“半稳定模性”正好覆盖了费马反例所必然产生的全部曲线，因而已经足够证明费马大定理。
+\end{solution}
+
+\begin{problem}{费马大定理证明摘要}
+\hard
+给出费马大定理完整证明思路的摘要，要求同时包含 $n=4$ 与 $n\ge5$ 两部分。
+\end{problem}
+\begin{solution}
+证明分两部分。
+
+第一部分是 $n=4$。把问题化为
+\[
+X^4+Y^4=Z^2,
+\]
+然后对最小的正整数 $Z$ 做无穷递降：由原始解构造出更小的同类解，矛盾，因此不存在 $n=4$ 的反例。
+
+第二部分是 $n\ge5$。若存在奇素数指数 $p$ 的反例，就构造 Frey 曲线 $E_{a,b,c}$。它是半稳定的；由 Wiles 与 Taylor--Wiles，半稳定椭圆曲线都模；由 Ribet，相关残余表示可以水平下降到 level $2$；但 level $2$ 没有权 $2$ 新形式，因此矛盾。综上，所有 $n>2$ 都没有非零整数解。
+\end{solution}
+
+\begin{problem}{证明结构的全景回顾}
+\hard
+从“反设存在反例”开始，用不超过八句话概括 Wiles 证明与 Ribet 定理如何拼接成一条完整路线。
+\end{problem}
+\begin{solution}
+可以概括为：
+\begin{itemize}
+\item[(i)] 反设存在 $a^p+b^p=c^p$ 的原始反例，$p\ge5$ 为奇素数；
+\item[(ii)] 由此构造 Frey 曲线，它是半稳定椭圆曲线；
+\item[(iii)] Langlands--Tunnell 与三五开关给出残余模性的起点；
+\item[(iv)] Wiles 的模性提升与 Taylor--Wiles patching 证明半稳定曲线模；
+\item[(v)] 因而 Frey 曲线的残余表示来自某个权 $2$ 新形式；
+\item[(vi)] Ribet 水平下降把级别降到 $2$；
+\item[(vii)] 但 level $2$ 上没有权 $2$ 新形式；
+\item[(viii)] 所以反例不存在，费马大定理成立。
+\end{itemize}
 \end{solution}

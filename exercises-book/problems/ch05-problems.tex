@@ -3,824 +3,748 @@
 
 \section{基础题 \easy}
 
-\begin{problem}{ch05-01}
-\textbf{指数 $\mu$ 的计算。}
-用公式
-\[
-\mu=[\SL_2(\Z):\GammaO(N)]=N\prod_{p\mid N}\left(1+\frac1p\right)
-\]
-计算 $N=1,2,3,4,6,12$ 时的 $\mu$。
+\begin{problem}{低权维数表}
+\easy
+对偶数 $k=0,2,4,\dots,24$，计算 $M_k(\SL_2(\Z))$ 的维数。
 \end{problem}
 \begin{solution}
-逐项代入即可：
+精确维数公式是
 \[
-\begin{array}{c|c}
-N & \mu \\ \hline
-1 & 1 \\
-2 & 2\left(1+\frac12\right)=3 \\
-3 & 3\left(1+\frac13\right)=4 \\
-4 & 4\left(1+\frac12\right)=6 \\
-6 & 6\left(1+\frac12\right)\left(1+\frac13\right)=12 \\
-12 & 12\left(1+\frac12\right)\left(1+\frac13\right)=24
-\end{array}
-\]
-所以答案依次是 $1,3,4,6,12,24$。
-\end{solution}
-
-\begin{problem}{ch05-02}
-\textbf{$N=1$ 时 $\Mk(\SL_2(\Z))$ 的维数。}
-验证
-\[
-\dim \Mk(\SL_2(\Z))
-\]
-在 $k=4,6,8,10,12,14$ 时分别等于多少。
-\end{problem}
-\begin{solution}
-对偶数 $k\ge 0$，标准公式是
-\[
-\dim \Mk(\SL_2(\Z))=
+\dim M_k(\SL_2(\Z))=
 \begin{cases}
-\lfloor k/12\rfloor,&k\equiv 2\pmod{12},\\
-\lfloor k/12\rfloor+1,&k\not\equiv 2\pmod{12}.
+1,&k=0,\\
+0,&k=2,\\
+\left\lfloor \dfrac{k}{12}\right\rfloor+1,&k\ge 4\text{ 为偶数且 }k\not\equiv 2\pmod{12},\\
+\left\lfloor \dfrac{k}{12}\right\rfloor,&k\ge 4\text{ 为偶数且 }k\equiv 2\pmod{12}.
 \end{cases}
 \]
-于是
+逐项代入得到
 \[
-\begin{array}{c|cccccc}
-k & 4&6&8&10&12&14\\ \hline
-\dim \Mk & 1&1&1&1&2&1
+\begin{array}{c|ccccccccccccc}
+k&0&2&4&6&8&10&12&14&16&18&20&22&24\\ \hline
+\dim M_k&1&0&1&1&1&1&2&1&2&2&2&2&3
 \end{array}
 \]
-这也可由 $\Mk(\SL_2(\Z))=\C[E_4,E_6]_k$ 直接看出：
-$k=12$ 时基可取 $E_4^3,E_6^2$，其余所列权只有一个单项式基向量。
+这就是所求表格。
 \end{solution}
 
-\begin{problem}{ch05-03}
-\textbf{唯一的权 $12$ 尖点形式。}
-验证
-\[
-\dim S_{12}(\SL_2(\Z))=1,
-\]
-并说明 $\Delta$ 是唯一的归一化基向量。
+\begin{problem}{低权尖点维数}
+\easy
+对偶数 $k=0,2,4,\dots,24$，计算 $S_k(\SL_2(\Z))$ 的维数。
 \end{problem}
 \begin{solution}
-由上一题与关系
+对 $k\ge 4$ 的偶数，有
 \[
-S_{12}(\SL_2(\Z))=\Delta\cdot M_0(\SL_2(\Z))
+\dim S_k(\SL_2(\Z))=\dim M_k(\SL_2(\Z))-1,
 \]
-立刻得到
+而 $S_0=S_2=0$。由上一题立刻得到
 \[
-\dim S_{12}(\SL_2(\Z))=\dim M_0(\SL_2(\Z))=1.
-\]
-更具体地说，任何权 $12$ 尖点形式都必须在唯一尖点 $\infty$ 处至少消失一次，因此必被判别式
-\[
-\Delta(q)=q\prod_{n\ge1}(1-q^n)^{24}
-\]
-整除。商是权 $0$ 模形式，只能是常数。所以 $S_{12}(\SL_2(\Z))=\C\Delta$。
-归一化条件 $a_1=1$ 又唯一确定了基向量，因此归一化基向量就是 $\Delta$。
-\end{solution}
-
-\begin{problem}{ch05-04}
-\textbf{$\dim S_2(\GammaO(11))$ 与亏格。}
-用公式
-\[
-\dim S_2(\GammaO(N))=g_0(N)=1+\frac{\mu}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}-\frac{\nu_\infty}{2}
-\]
-计算 $\dim S_2(\GammaO(11))$，并与 $g_0(11)$ 比较。
-\end{problem}
-\begin{solution}
-对 $N=11$：
-\[
-\mu=11\left(1+\frac1{11}\right)=12.
-\]
-又因为 $11\equiv 3\pmod4$，故 $\left(\frac{-1}{11}\right)=-1$，从而 $\nu_2=1+(-1)=0$。
-同理 $11\equiv 2\pmod3$，故 $\left(\frac{-3}{11}\right)=-1$，从而 $\nu_3=0$。
-尖点数对素数 $p$ 为 $2$，所以 $\nu_\infty=2$。
-于是
-\[
-\dim S_2(\GammaO(11))=1+\frac{12}{12}-0-0-1=1.
-\]
-因此 $g_0(11)=1$，与 $\dim S_2(\GammaO(11))$ 完全一致。
-\end{solution}
-
-\begin{problem}{ch05-05}
-\textbf{$\dim S_2(\GammaO(37))$。}
-计算 $\dim S_2(\GammaO(37))$，并解释为什么这意味着 $J_0(37)$ 分解出两个彼此独立的一维椭圆曲线商。
-\end{problem}
-\begin{solution}
-对 $N=37$：
-\[
-\mu=37\left(1+\frac1{37}\right)=38,
-\qquad \nu_\infty=2.
-\]
-因为 $37\equiv 1\pmod4$，所以 $\nu_2=1+1=2$；
-又 $37\equiv 1\pmod3$，所以 $\nu_3=1+1=2$。
-故
-\[
-\dim S_2(\GammaO(37))=1+\frac{38}{12}-\frac24-\frac23-1=2.
-\]
-因此 $J_0(37)$ 是二维 Abel 簇。Hecke 代数在该二维空间上可同时对角化，
-而实际上这两个本征子空间都由有理系数新形式生成，所以对应两个一维 Abel 子簇，也就是两条椭圆曲线商。
-换言之，$J_0(37)$ 与两条导子 $37$ 的椭圆曲线的乘积同源。
-\end{solution}
-
-\begin{problem}{ch05-06}
-\textbf{计算 $\nu_2$。}
-对素数 $p$，若 $p\neq 2$，则
-\[
-\nu_2=1+\left(\frac{-1}{p}\right).
-\]
-计算 $p=5,7,11,13$ 时的 $\nu_2$。
-\end{problem}
-\begin{solution}
-利用
-\[
-\left(\frac{-1}{p}\right)=(-1)^{(p-1)/2}
-\]
-即可：
-\[
-\begin{array}{c|c|c}
-p & \left(\frac{-1}{p}\right) & \nu_2 \\ \hline
-5 & 1 & 2 \\
-7 & -1 & 0 \\
-11 & -1 & 0 \\
-13 & 1 & 2
+\begin{array}{c|ccccccccccccc}
+k&0&2&4&6&8&10&12&14&16&18&20&22&24\\ \hline
+\dim S_k&0&0&0&0&0&0&1&0&1&1&1&1&2
 \end{array}
 \]
-因此答案是
-\[
-\nu_2(5)=2,\quad \nu_2(7)=0,\quad \nu_2(11)=0,\quad \nu_2(13)=2.
-\]
+特别地，权 $12$ 才第一次出现非零尖点形式。
 \end{solution}
 
-\begin{problem}{ch05-07}
-\textbf{计算 $\nu_3$。}
-对素数 $p\neq 3$，有
-\[
-\nu_3=1+\left(\frac{-3}{p}\right).
-\]
-计算 $p=7,13,19$ 时的 $\nu_3$。
+\begin{problem}{价公式检验}
+\easy
+用价公式分别验证 $E_4$、$E_6$、$\Delta$ 的零点分布：
+$E_4$ 在 $\rho=e^{2\pi i/3}$ 处有一个简单零点，$E_6$ 在 $i$ 处有一个简单零点，$\Delta$ 在尖点 $\infty$ 处有一个简单零点。
 \end{problem}
 \begin{solution}
-逐个判断 $-3$ 是否为模 $p$ 的平方剩余：
-\begin{itemize}
-  \item $p=7$ 时，$-3\equiv 4\pmod7$，而 $4$ 是平方，故 $\left(\frac{-3}{7}\right)=1$；
-  \item $p=13$ 时，$-3\equiv 10\pmod{13}$，也可由二次互反律算出 $\left(\frac{-3}{13}\right)=1$；
-  \item $p=19$ 时，$-3\equiv 16\pmod{19}$，显然也是平方，故符号为 $1$。
-\end{itemize}
-所以三者都满足
+对非零 $f\in M_k(\SL_2(\Z))$，价公式是
 \[
-\nu_3=1+1=2.
+\ord_\infty(f)+\frac{1}{2}\ord_i(f)+\frac{1}{3}\ord_\rho(f)+
+\sum_{p\ne i,\rho,\infty}\ord_p(f)=\frac{k}{12}.
 \]
-即
+
+对 $E_4$，右边等于 $4/12=1/3$。因为 $E_4$ 不是尖点形式，故 $\ord_\infty(E_4)=0$；又各项都非负，所以只能是
 \[
-\nu_3(7)=\nu_3(13)=\nu_3(19)=2.
+\frac{1}{3}\ord_\rho(E_4)=\frac{1}{3},
 \]
+即 $\ord_\rho(E_4)=1$，其余点无零点。
+
+对 $E_6$，右边等于 $6/12=1/2$。同理 $\ord_\infty(E_6)=0$，于是只能有
+\[
+\frac{1}{2}\ord_i(E_6)=\frac{1}{2},
+\]
+即 $\ord_i(E_6)=1$，其余点无零点。
+
+对 $\Delta$，右边等于 $12/12=1$。而 $\Delta(q)=q+O(q^2)$，所以 $\ord_\infty(\Delta)=1$。这样左边已经达到 $1$，故上半平面内没有别的零点。
 \end{solution}
 
-\begin{problem}{ch05-08}
-\textbf{$N=1,\dots,12$ 时的 $\dim S_2(\GammaO(N))$。}
-利用亏格公式列出 $N=1,\dots,12$ 时 $\dim S_2(\GammaO(N))$ 的表格。
+\begin{problem}{低权空间的显式基}
+\easy
+利用 $M_*(\SL_2(\Z))=\C[E_4,E_6]$，分别写出 $M_8$、$M_{10}$、$M_{12}$、$M_{14}$ 的一组基。
 \end{problem}
 \begin{solution}
-计算结果如下：
+只要解方程 $4a+6b=k$，再取单项式 $E_4^aE_6^b$ 即可。
+
+当 $k=8$ 时，唯一解是 $(a,b)=(2,0)$，故
 \[
-\begin{array}{c|cccccccccccc}
-N&1&2&3&4&5&6&7&8&9&10&11&12\\ \hline
-\dim S_2(\GammaO(N))&0&0&0&0&0&0&0&0&0&0&1&0
-\end{array}
+M_8=\C E_4^2.
 \]
-其中唯一非零的是 $N=11$。这也与经典事实一致：
-$X_0(N)$ 在 $N\le 10$ 以及 $N=12$ 时皆为亏格 $0$，而 $X_0(11)$ 是最小的亏格 $1$ 模曲线。
+当 $k=10$ 时，唯一解是 $(1,1)$，故
+\[
+M_{10}=\C E_4E_6.
+\]
+当 $k=12$ 时，解为 $(3,0)$ 与 $(0,2)$，故
+\[
+M_{12}=\C E_4^3\oplus \C E_6^2.
+\]
+当 $k=14$ 时，唯一解是 $(2,1)$，故
+\[
+M_{14}=\C E_4^2E_6.
+\]
+这四个空间的维数分别是 $1,1,2,1$，与维数公式完全一致。
 \end{solution}
 
-\begin{problem}{ch05-09}
-\textbf{Eisenstein 部分与尖点数。}
-验证对偶权 $k\ge 2$，有
-\[
-\dim \Mk(\GammaO(N))=\dim \Sk(\GammaO(N))+\nu_\infty.
-\]
-并解释这条公式的含义。
+\begin{problem}{权八恒等式}
+\easy
+证明 $E_4^2=E_8$。
 \end{problem}
 \begin{solution}
-对偶权 $k\ge 2$，$\Mk(\GammaO(N))$ 分解为尖点部分和 Eisenstein 部分：
-\[
-\Mk(\GammaO(N))=\Sk(\GammaO(N))\oplus \mathcal E_k(\GammaO(N)).
-\]
-对 $\GammaO(N)$ 的每个尖点都可构造一个“以该尖点为常数项坐标”的 Eisenstein 级数；
-这些级数张成的空间维数正好等于尖点数 $\nu_\infty$。
+$E_4^2$ 与 $E_8$ 都是权 $8$ 的模形式，而且它们的常数项都等于 $1$。
+由维数公式，$M_8(\SL_2(\Z))$ 是一维空间，所以任何两个常数项同为 $1$ 的权 $8$ 模形式必然相等。
 因此
 \[
-\dim \mathcal E_k(\GammaO(N))=\nu_\infty,
+E_4^2=E_8.
 \]
-从而得到
-\[
-\dim \Mk(\GammaO(N))=\dim \Sk(\GammaO(N))+\nu_\infty.
-\]
-含义是：非尖点模形式无非是在尖点形式之外，再加上“给每个尖点一个常数项自由度”。
 \end{solution}
 
-\begin{problem}{ch05-10}
-\textbf{$N=11$ 时的 Eisenstein 维数。}
-用上一题的结论验证对任意偶权 $k\ge 2$，有
-\[
-\dim M_k(\GammaO(11))-\dim S_k(\GammaO(11))=2.
-\]
+\begin{problem}{小水平的权二空间}
+\easy
+计算 $\dim S_2(\Gamma_0(N))$，其中 $N=11,17,19$。
 \end{problem}
 \begin{solution}
-因为 $11$ 是素数，$X_0(11)$ 只有两个尖点 $\infty$ 与 $0$，故
+第 4 章已经给出
 \[
-\nu_\infty(\GammaO(11))=2.
+\dim S_2(\Gamma_0(N))=g\bigl(X_0(N)\bigr).
 \]
-由上一题的一般结论立刻得到
+而小水平表中
 \[
-\dim M_k(\GammaO(11))-\dim S_k(\GammaO(11))=\nu_\infty=2.
+g\bigl(X_0(11)\bigr)=g\bigl(X_0(17)\bigr)=g\bigl(X_0(19)\bigr)=1.
 \]
-这说明每个偶权 $k\ge 2$ 都恰有两个线性独立的 Eisenstein 级数，一个对应尖点 $\infty$，一个对应尖点 $0$。
+所以
+\[
+\dim S_2(\Gamma_0(11))=
+\dim S_2(\Gamma_0(17))=
+\dim S_2(\Gamma_0(19))=1.
+\]
+这说明这三个级别上都恰好出现一条权 $2$ 新形式方向。
+\end{solution}
+
+\begin{problem}{更多权二例子}
+\easy
+计算 $\dim S_2(\Gamma_0(N))$，其中 $N=14,15,20$。
+\end{problem}
+\begin{solution}
+同样利用
+\[
+\dim S_2(\Gamma_0(N))=g\bigl(X_0(N)\bigr).
+\]
+小水平表给出
+\[
+g\bigl(X_0(14)\bigr)=g\bigl(X_0(15)\bigr)=g\bigl(X_0(20)\bigr)=1.
+\]
+因此
+\[
+\dim S_2(\Gamma_0(14))=
+\dim S_2(\Gamma_0(15))=
+\dim S_2(\Gamma_0(20))=1.
+\]
+所以这三个级别也都是“一维权二尖点空间”的例子。
+\end{solution}
+
+\begin{problem}{尖点较多时的权二维数}
+\easy
+已知对 $\Gamma_0(12)$ 有
+\[
+g=0,\qquad \nu_2=0,\qquad \nu_3=0,\qquad \nu_\infty=6.
+\]
+计算 $\dim M_2(\Gamma_0(12))$ 与 $\dim S_2(\Gamma_0(12))$。
+\end{problem}
+\begin{solution}
+一般维数公式在 $k=2$ 时给出
+\[
+\dim M_2(\Gamma)= (2-1)(g-1)+\left\lfloor\frac{2}{4}\right\rfloor\nu_2+
+\left\lfloor\frac{2}{3}\right\rfloor\nu_3+\frac{2}{2}\nu_\infty.
+\]
+代入 $g=0$、$\nu_2=\nu_3=0$、$\nu_\infty=6$，得到
+\[
+\dim M_2(\Gamma_0(12))=-1+0+0+6=5.
+\]
+另一方面，
+\[
+\dim S_2(\Gamma_0(12))=g=0.
+\]
+所以答案是
+\[
+\dim M_2(\Gamma_0(12))=5,
+\qquad
+\dim S_2(\Gamma_0(12))=0.
+\]
+这里全部五维都来自 Eisenstein 部分。
+\end{solution}
+
+\begin{problem}{全模群上不存在权二形式}
+\easy
+证明 $M_2(\SL_2(\Z))=0$。
+\end{problem}
+\begin{solution}
+可以直接用一般维数公式。对 $\SL_2(\Z)$，有
+\[
+g=0,\qquad \nu_2=1,\qquad \nu_3=1,\qquad \nu_\infty=1.
+\]
+于是
+\[
+\dim M_2(\SL_2(\Z))=(2-1)(-1)+\left\lfloor\frac{2}{4}\right\rfloor+
+\left\lfloor\frac{2}{3}\right\rfloor+1=-1+0+0+1=0.
+\]
+所以 $M_2(\SL_2(\Z))$ 只能是零空间。
 \end{solution}
 
 \section{进阶题 \medium}
 
-\begin{problem}{ch05-11}
-\textbf{$\dim M_k(\SL_2(\Z))$ 的完整公式。}
-从模曲线 $X(1)$ 上的 Riemann--Roch 出发，推导
+\begin{problem}{单项式计数推出维数公式}
+\medium
+只用分次环结构 $M_*(\SL_2(\Z))=\C[E_4,E_6]$，重新推出 $M_k(\SL_2(\Z))$ 的精确维数公式。
+\end{problem}
+\begin{solution}
+权 $k$ 的单项式基候选正是满足
+\[
+4a+6b=k,
+\qquad a,b\ge 0,
+\]
+的所有 $E_4^aE_6^b$。把等式除以 $2$，记 $n=k/2$，就要数
+\[
+2a+3b=n
+\]
+的非负整数解个数。
+
+设 $n=6m+r$，其中 $r\in\{0,1,2,3,4,5\}$。由 $2a=n-3b$ 可知 $b$ 与 $n$ 同奇偶。又 $0\le b\le \lfloor n/3\rfloor$。
+于是可取的 $b$ 的个数恰好是：
+\[
+\#\{b\}=\begin{cases}
+m+1,&r\neq 1,\\
+m,&r=1.
+\end{cases}
+\]
+而 $r=1$ 正好等价于 $k=2n\equiv 2\pmod{12}$。
+因此
 \[
 \dim M_k(\SL_2(\Z))=
 \begin{cases}
-0,&k<0\text{ 或 }k\text{ 奇},\\
-1,&k=0,\\
-\lfloor k/12\rfloor,&k\equiv 2\pmod{12},\ k\ge2,\\
-\lfloor k/12\rfloor+1,&k\not\equiv 2\pmod{12},\ k\ge2.
+\left\lfloor\dfrac{k}{12}\right\rfloor+1,&k\not\equiv 2\pmod{12},\\
+\left\lfloor\dfrac{k}{12}\right\rfloor,&k\equiv 2\pmod{12}.
 \end{cases}
 \]
-\end{problem}
-\begin{solution}
-模曲线 $X(1)$ 亏格为 $0$，但在椭圆点 $i,\rho$ 与尖点 $\infty$ 处有 orbifold 修正。
-权 $k$ 模形式对应于一个线丛 $\mathcal L^{\otimes k}$ 的全局截面，其“有效次数”是
-\[
-\deg(\mathcal L^{\otimes k})=\frac{k}{12}.
-\]
-更准确地说，一个权 $k$ 模形式在 $i$ 处最多允许极点阶 $\lfloor k/4\rfloor-k/4$ 的补偿，在 $\rho$ 处最多允许
-$\lfloor k/3\rfloor-k/3$ 的补偿，在尖点处则由 $q$-展开的非负性控制。
-
-因此可把维数理解为满足
-\[
-4a+6b=k
-\]
-的非负整数解 $(a,b)$ 的个数，因为
-\[
-M_*(\SL_2(\Z))=\C[E_4,E_6].
-\]
-这立刻给出：
-\begin{itemize}
-  \item 若 $k$ 为奇数，则无解，所以维数为 $0$；
-  \item 若 $k\ge 0$ 为偶数，则解的个数等于上式中的分段函数。
-\end{itemize}
-具体看模 $12$ 的余数：
-\begin{itemize}
-  \item 当 $k\equiv 0,4,6,8,10\pmod{12}$ 时，总能先取一个显然的基解，再每增加 $12$ 贡献一个解，所以维数是 $\lfloor k/12\rfloor+1$；
-  \item 当 $k\equiv 2\pmod{12}$ 时，最小的非负解不存在，只能从 $k-14,k-26,\dots$ 往上平移，故少一个，维数是 $\lfloor k/12\rfloor$。
-\end{itemize}
-这与 Riemann--Roch 观点完全一致：在 $\mathbb P^1$ 上，线丛次数加一给出维数，而椭圆点的分数修正正好造成 $k\equiv2\pmod{12}$ 时的“少一维”现象。
+这就是精确维数公式。
 \end{solution}
 
-\begin{problem}{ch05-12}
-\textbf{尖点数公式。}
-证明
+\begin{problem}{尖点形式都被判别式整除}
+\medium
+证明对偶数 $k\ge 12$，乘法映射
 \[
-\nu_\infty(\GammaO(N))=\sum_{d\mid N}\phi\bigl(\gcd(d,N/d)\bigr).
+M_{k-12}(\SL_2(\Z))\longrightarrow S_k(\SL_2(\Z)),
+\qquad g\longmapsto \Delta g
 \]
+是同构。
 \end{problem}
 \begin{solution}
-$\GammaO(N)$ 在 $\mathbb P^1(\Q)$ 上的轨道由既约分数 $a/c$ 的分母 $c$ 的约数类决定。
-更具体地说，每个尖点都可表示为某个 $1/d$，其中 $d\mid N$。
+这个映射显然线性，而且因为 $\Delta$ 是权 $12$ 尖点形式，所以 $\Delta g$ 一定落在 $S_k$ 中。
 
-固定 $d\mid N$。与 $1/d$ 同分母层的尖点，其稳定子中的平移宽度只取决于
-\[
-\gcd(d,N/d).
-\]
-当分母层固定时，互不同余的分子类由
-\[
-(\Z/\gcd(d,N/d)\Z)^\times
-\]
-参数化，因此该层恰有
-\[
-\phi(\gcd(d,N/d))
-\]
-个尖点。
+单射显然：若 $\Delta g=0$，由于 $\Delta\neq 0$，只能有 $g=0$。
 
-对所有 $d\mid N$ 求和，就得到
+为证满射，取任意 $f\in S_k(\SL_2(\Z))$。由于 $f$ 是尖点形式，它在 $\infty$ 处至少有一阶零点；而 $\Delta$ 在 $\infty$ 处恰有一阶零点，并且在上半平面内无零点，所以
 \[
-\nu_\infty(\GammaO(N))=\sum_{d\mid N}\phi\bigl(\gcd(d,N/d)\bigr).
+\frac{f}{\Delta}
 \]
-例如 $N=p$ 为素数时，约数只有 $1,p$，两项都给出 $\phi(1)=1$，故 $\nu_\infty=2$。
+在整个模曲线上全纯，且权为 $k-12$。因此 $f/\Delta\in M_{k-12}(\SL_2(\Z))$，即 $f=\Delta g$。
+
+故该映射为同构，从而
+\[
+S_k(\SL_2(\Z))=\Delta\, M_{k-12}(\SL_2(\Z)).
+\]
 \end{solution}
 
-\begin{problem}{ch05-13}
-\textbf{Nebentypus 情形的维数公式。}
-对带特征的空间 $M_k(\GammaO(N),\chi)$，说明维数公式如何修改：
-哪些项与 $\chi$ 有关，哪些项保持不变？
+\begin{problem}{若干尖点空间的基}
+\medium
+求 $S_{16}(\SL_2(\Z))$、$S_{18}(\SL_2(\Z))$、$S_{24}(\SL_2(\Z))$ 的一组基。
 \end{problem}
 \begin{solution}
-带特征时，模形式对应的不再是平凡线丛上的截面，而是带有扭曲自守因子的线丛截面。
-因此维数公式的整体形状仍由 Riemann--Roch 给出，但局部修正要乘上 $\chi$ 在稳定子上的取值条件。
-
-保持不变的部分有：
-\begin{itemize}
-  \item 指数 $\mu=[\SL_2(\Z):\GammaO(N)]$；
-  \item 模曲线的几何亏格；
-  \item 尖点的组合结构与宽度。
-\end{itemize}
-会随 $\chi$ 变化的部分有：
-\begin{itemize}
-  \item 椭圆点修正：若 $\chi$ 在阶 $2$ 或阶 $3$ 稳定子上的取值与权 $k$ 的自守因子不相容，则相应椭圆点根本不贡献截面；
-  \item Eisenstein 部分：只有当某个尖点处的常数项与 $\chi$ 兼容时，该尖点才贡献一维 Eisenstein 方向，所以“尖点数”要替换成“与 $\chi$ 相容的尖点数”；
-  \item 权 $1$ 与某些低权时还会出现额外的特殊现象。
-\end{itemize}
-因此可以把无特征公式理解成：把每个局部稳定子处的贡献，按 $\chi$-本征条件筛选一遍。形式上仍是
+由上一题，
 \[
-\dim M_k(\GammaO(N),\chi)=\text{主项 }\frac{(k-1)\mu}{12}+\text{局部修正},
+S_k(\SL_2(\Z))=\Delta\,M_{k-12}(\SL_2(\Z)).
 \]
-只是局部修正中的椭圆点与尖点项都要按 $\chi$ 的值进行删减。
+
+对 $k=16$，有 $M_4=\C E_4$，所以
+\[
+S_{16}=\C\,\Delta E_4.
+\]
+
+对 $k=18$，有 $M_6=\C E_6$，所以
+\[
+S_{18}=\C\,\Delta E_6.
+\]
+
+对 $k=24$，有 $M_{12}=\C E_4^3\oplus \C E_6^2$，所以
+\[
+S_{24}=\C\,\Delta E_4^3\oplus \C\,\Delta E_6^2.
+\]
+利用 $E_4^3-E_6^2=1728\Delta$，还可改写成另一组基
+\[
+S_{24}=\C\,\Delta E_4^3\oplus \C\,\Delta^2.
+\]
 \end{solution}
 
-\begin{problem}{ch05-14}
-\textbf{素数水平的新形式维数。}
-对 $N=p$ 为素数，解释为什么
+\begin{problem}{判别式恒等式}
+\medium
+证明存在常数 $c\in\C$ 使
 \[
-S_k(\GammaO(p))=S_k^{\mathrm{new}}(\GammaO(p))\oplus S_k^{\mathrm{old}}(\GammaO(p)),
+E_4^3-E_6^2=c\Delta,
 \]
-且在权 $2$ 时 $S_2^{\mathrm{old}}(\GammaO(p))=0$。据此计算
-\[
-\dim S_2^{\mathrm{new}}(\GammaO(p))
-\]
-对 $p=11,17,19,23$ 的值。
+并求出 $c$。
 \end{problem}
 \begin{solution}
-一般地，素数水平的旧形式都来自 level $1$，通过
+$E_4^3-E_6^2$ 是权 $12$ 模形式。它的常数项是 $1-1=0$，所以它在尖点 $\infty$ 处消失，因而属于 $S_{12}(\SL_2(\Z))$。
+
+但 $S_{12}(\SL_2(\Z))$ 是一维空间，因此必有
 \[
-f(\tau)\mapsto f(\tau),\qquad f(\tau)\mapsto f(p\tau)
+E_4^3-E_6^2=c\Delta
 \]
-两个退化嵌入得到，因此旧空间同构于 $S_k(\SL_2(\Z))^{\oplus 2}$。
-但在权 $2$ 时
+对某个常数 $c$ 成立。
+
+比较 $q$-展开首项即可求 $c$。由
 \[
-S_2(\SL_2(\Z))=0,
-\]
-所以
-\[
-S_2^{\mathrm{old}}(\GammaO(p))=0,
+E_4=1+240q+O(q^2),
 \qquad
-S_2^{\mathrm{new}}(\GammaO(p))=S_2(\GammaO(p)).
-\]
-由亏格公式可得
-\[
-\dim S_2^{\mathrm{new}}(\GammaO(11))=1,
-\quad
-\dim S_2^{\mathrm{new}}(\GammaO(17))=1,
-\quad
-\dim S_2^{\mathrm{new}}(\GammaO(19))=1,
-\quad
-\dim S_2^{\mathrm{new}}(\GammaO(23))=2.
-\]
-因此前三个水平各对应一条新椭圆曲线，$N=23$ 则对应两个独立的新方向。
-\end{solution}
-
-\begin{problem}{ch05-15}
-\textbf{较大水平的计算。}
-计算
-\[
-\dim S_2(\GammaO(N))
-\]
-在 $N=50,100,200$ 时的值，并比较它们与线性主项的关系。
-\end{problem}
-\begin{solution}
-先算组合量：
-\[
-\begin{array}{c|ccc}
-N & 50 & 100 & 200 \\ \hline
-\mu & 90 & 180 & 360 \\
-\nu_2 & 2 & 0 & 0 \\
-\nu_3 & 0 & 0 & 0 \\
-\nu_\infty & 12 & 18 & 24
-\end{array}
-\]
-故
-\[
-\dim S_2(\GammaO(50))=1+\frac{90}{12}-\frac24-6=2,
-\]
-\[
-\dim S_2(\GammaO(100))=1+\frac{180}{12}-0-9=7,
-\]
-\[
-\dim S_2(\GammaO(200))=1+\frac{360}{12}-0-12=19.
-\]
-所以答案是
-\[
-2,\ 7,\ 19.
-\]
-这说明维数随 $N$ 线性增长。更精确地说，这三个 $N$ 都只有素因子 $2,5$，于是
-\[
-\mu=N\left(1+\frac12\right)\left(1+\frac15\right)=\frac{9N}{5},
-\]
-故主项其实是 $\mu/12=3N/20$，而不是严格的 $N/12$。因此应把“$N/12$”理解成粗略量级；
-真正的主项由 $\mu/12$ 控制。
-\end{solution}
-
-\begin{problem}{ch05-16}
-\textbf{何时 $\dim S_2(\GammaO(N))=0$？}
-证明
-\[
-\dim S_2(\GammaO(N))=0
-\]
-当且仅当 $X_0(N)$ 亏格为 $0$，并写出全部这样的 $N$。
-\end{problem}
-\begin{solution}
-因为
-\[
-\dim S_2(\GammaO(N))=g_0(N),
-\]
-所以 $\dim S_2(\GammaO(N))=0$ 与 $g_0(N)=0$ 完全等价。
-而经典结果指出
-\[
-X_0(N)\text{ 亏格为 }0
-\iff
-N\in\{1,2,3,4,5,6,7,8,9,10,12,13,16,18,25\}.
-\]
-因此全部满足条件的 $N$ 恰是上述有限集合。
-这也解释了为什么从 $N=11$ 开始就首次出现非平凡的权 $2$ 尖点形式。
-\end{solution}
-
-\begin{problem}{ch05-17}
-\textbf{$g=1$ 时的 Riemann--Roch。}
-在 $X_0(11)$ 上验证
-\[
-\ell(D)-\ell(K-D)=\deg D-g+1
-\]
-在 $g=1$ 的情形成立。
-\end{problem}
-\begin{solution}
-对 $X_0(11)$，我们知道 $g=1$，而椭圆曲线上的典范因子满足
-\[
-K\sim 0.
-\]
-因此 Riemann--Roch 变成
-\[
-\ell(D)-\ell(-D)=\deg D.
-\]
-若 $\deg D>0$，则 $-D$ 的次数为负，不可能有非零全纯函数以 $-D$ 为极点上界，所以
-\[
-\ell(-D)=0,
-\qquad \ell(D)=\deg D.
-\]
-例如取 $D=(P)$，则 $\deg D=1$，得到 $\ell(P)=1$；这正说明椭圆曲线上次数 $1$ 的除子类给出一维函数空间。
-若 $D=0$，则
-\[
-\ell(0)-\ell(0)=0,
-\]
-自然成立，其中 $\ell(0)=1$ 是常数函数空间。
-所以在 $g=1$ 时，Riemann--Roch 的内容就是：正次数除子的截面维数恰好等于其次数。
-\end{solution}
-
-\begin{problem}{ch05-18}
-\textbf{权 $1$ 的特殊性。}
-陈述 Selberg--Stark 思想：$\dim S_1(\GammaO(N))$ 与某些 Artin $L$-函数在 $s=1$ 的正则性有关。并给出
-\[
-\dim S_1(\GammaO(12)),\qquad \dim S_1(\GammaO(23))
-\]
-的值。
-\end{problem}
-\begin{solution}
-权 $1$ 不能简单套用高权维数公式，因为 Eichler--Shimura 对权 $1$ 不再直接给出几何实现。
-Selberg--Stark 的观点是：权 $1$ 尖点形式对应二维复 Artin 表示，
-于是其维数与相应 Artin $L$-函数在 $s=1$ 的解析性质紧密相关。
-
-具体数值上，查经典表或 LMFDB 可得
-\[
-\dim S_1(\GammaO(12))=0,
+E_6=1-504q+O(q^2),
 \qquad
-\dim S_1(\GammaO(23))=2.
+\Delta=q+O(q^2),
 \]
-其中 $N=23$ 的情形来自一个二面体型权 $1$ 新形式及其 Galois 共轭，因此总维数为 $2$。
-这正说明权 $1$ 空间虽小，却承载了深刻的 Galois 信息。
-\end{solution}
-
-\begin{problem}{ch05-19}
-\textbf{乘以 $\Delta$ 的同构。}
-证明乘以判别式给出同构
+得到
 \[
-\Mk(\SL_2(\Z))\xrightarrow{\ \cdot\Delta\ } S_{k+12}(\SL_2(\Z)).
+E_4^3-E_6^2=(1+720q+O(q^2))-(1-1008q+O(q^2))=1728q+O(q^2).
 \]
-据此推出
+所以 $c=1728$，即
 \[
-\dim S_{k+12}(\SL_2(\Z))=\dim M_k(\SL_2(\Z)).
-\]
-\end{problem}
-\begin{solution}
-映射
-\[
-f\longmapsto f\Delta
-\]
-显然把权 $k$ 模形式送到权 $k+12$ 尖点形式，因为 $\Delta$ 本身是权 $12$ 尖点形式，且在 $\infty$ 处恰有一次零点。
-
-它是单射，因为 $\Delta\neq 0$。下面证满射。
-若 $g\in S_{k+12}(\SL_2(\Z))$，则 $g$ 在唯一尖点 $\infty$ 处至少消失一次；
-而 $\Delta$ 也恰好在该尖点消失一次，且在上半平面无零点，所以
-\[
-\frac{g}{\Delta}
-\]
-在上半平面全纯，在尖点处仍全纯，因此是权 $k$ 模形式。
-于是 $g=f\Delta$，其中 $f\in M_k(\SL_2(\Z))$。
-
-故乘以 $\Delta$ 是双射，从而
-\[
-S_{k+12}(\SL_2(\Z))\cong M_k(\SL_2(\Z)),
-\qquad
-\dim S_{k+12}=\dim M_k.
+E_4^3-E_6^2=1728\Delta.
 \]
 \end{solution}
 
-\begin{problem}{ch05-20}
-\textbf{$\SL_2(\Z)$ 的 Eisenstein 维数。}
-推导对偶权 $k\ge2$，有
+\begin{problem}{两个素数水平的亏格}
+\medium
+利用
 \[
-\dim \Mk(\SL_2(\Z))=\dim \Sk(\SL_2(\Z))+1.
+g\bigl(X_0(p)\bigr)=1+\frac{p+1}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}-1
 \]
+计算 $g(X_0(23))$ 与 $g(X_0(37))$。
 \end{problem}
 \begin{solution}
-因为 $X(1)$ 只有一个尖点 $\infty$，所以 Eisenstein 子空间只有一维。
-具体地，任一偶权 $k\ge 4$ 都有经典 Eisenstein 级数 $E_k$，它张成全部非尖点方向。
-因此
+对素数 $p>3$，有 $\mu=p+1$，且尖点个数 $\nu_\infty=2$，因此公式可写成
 \[
-M_k(\SL_2(\Z))=S_k(\SL_2(\Z))\oplus \C E_k.
+g\bigl(X_0(p)\bigr)=\frac{p+1}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}.
+\]
+
+对 $p=23$，因为 $23\equiv 3\pmod 4$ 且 $23\equiv 2\pmod 3$，所以
+\[
+\nu_2=0,\qquad \nu_3=0.
 \]
 于是
 \[
-\dim M_k(\SL_2(\Z))=\dim S_k(\SL_2(\Z))+1.
+g(X_0(23))=\frac{24}{12}=2.
 \]
-若要从上一题推出，也可写成
+
+对 $p=37$，因为 $37\equiv 1\pmod 4$ 且 $37\equiv 1\pmod 3$，所以
 \[
-\dim S_k=\dim M_{k-12},
+\nu_2=2,\qquad \nu_3=2.
 \]
-再与 $M_k$ 的显式维数公式比较，差恰好也是 $1$。
+于是
+\[
+g(X_0(37))=\frac{38}{12}-\frac{2}{4}-\frac{2}{3}=\frac{19}{6}-\frac{1}{2}-\frac{2}{3}=2.
+\]
+因此
+\[
+g(X_0(23))=g(X_0(37))=2.
+\]
 \end{solution}
 
-\begin{problem}{ch05-21}
-\textbf{一般 $\GammaO(N)$ 的直和分解。}
-证明对偶权 $k\ge2$，有
+\begin{problem}{一级别十一的高权维数}
+\medium
+对 $\Gamma_0(11)$，已知
 \[
-\Mk(\GammaO(N))=\Sk(\GammaO(N))\oplus \mathcal E_k(\GammaO(N)),
+g=1,\qquad \nu_2=0,\qquad \nu_3=0,\qquad \nu_\infty=2.
+\]
+计算 $\dim M_4(\Gamma_0(11))$、$\dim S_4(\Gamma_0(11))$、$\dim M_6(\Gamma_0(11))$、$\dim S_6(\Gamma_0(11))$。
+\end{problem}
+\begin{solution}
+一般维数公式给出
+\[
+\dim M_k(\Gamma)=(k-1)(g-1)+\left\lfloor\frac{k}{4}\right\rfloor\nu_2+
+\left\lfloor\frac{k}{3}\right\rfloor\nu_3+\frac{k}{2}\nu_\infty,
+\]
+以及对偶数 $k\ge 4$，
+\[
+\dim S_k(\Gamma)=(k-1)(g-1)+\left\lfloor\frac{k}{4}\right\rfloor\nu_2+
+\left\lfloor\frac{k}{3}\right\rfloor\nu_3+\left(\frac{k}{2}-1\right)\nu_\infty.
+\]
+代入 $g=1$、$\nu_2=\nu_3=0$、$\nu_\infty=2$，得到
+\[
+\dim M_k(\Gamma_0(11))=k,
 \qquad
-\dim \mathcal E_k(\GammaO(N))=\nu_\infty.
+\dim S_k(\Gamma_0(11))=k-2\quad (k\ge 4).
 \]
-\end{problem}
-\begin{solution}
-先看交为零。若 $f$ 同时属于 $S_k$ 与 $\mathcal E_k$，那么它在每个尖点的常数项都为零；
-但 Eisenstein 级数空间正是由“允许非零常数项”的模形式组成，常数项全为零就只能落回尖点空间的零元，故交为零。
-
-再看张成性。任取 $f\in M_k(\GammaO(N))$，记其在各尖点的常数项为一组数
+于是
 \[
-(c_1,\dots,c_{\nu_\infty}).
-\]
-对每个尖点可选择一个 Eisenstein 级数 $E_j$，使它在第 $j$ 个尖点的常数项为 $1$，在其余尖点按某固定归一化给出。
-这些常数项矩阵可证明可逆，因此能找到线性组合
-\[
-E=\sum a_jE_j
-\]
-使得 $f-E$ 在所有尖点的常数项都为零，于是 $f-E\in S_k(\GammaO(N))$。
-故
-\[
-M_k=S_k+\mathcal E_k.
-\]
-由交零可知这是直和。
-
-最后，由“每个尖点给一个独立常数项自由度”可知
-\[
-\dim \mathcal E_k(\GammaO(N))=\nu_\infty.
+\dim M_4=4,
+\quad \dim S_4=2,
+\quad \dim M_6=6,
+\quad \dim S_6=4.
 \]
 \end{solution}
 
-\begin{problem}{ch05-22}
-\textbf{一维尖点空间与椭圆曲线。}
-证明若
-\[
-\dim S_2(\GammaO(N))=1,
-\]
-则 $J_0(N)$ 是一条椭圆曲线。
+\begin{problem}{椭圆点个数与权二维数}
+\medium
+对素数 $p=13,17,19,23$，计算 $\nu_2$、$\nu_3$ 与 $\dim S_2(\Gamma_0(p))$。
 \end{problem}
 \begin{solution}
-Jacobi 簇的维数满足
+对素数 $p>3$，有
 \[
-\dim J_0(N)=g_0(N)=\dim S_2(\GammaO(N)).
-\]
-若右边等于 $1$，则 $J_0(N)$ 是一维 Abel 簇。
-而一维 Abel 簇的定义正是一条带原点的椭圆曲线。
-因此 $J_0(N)$ 本身就是一条椭圆曲线。
-
-换句话说，权 $2$ 尖点空间只有一个 Hecke 本征方向时，整个 Jacobian 已无法再分解成更高维的 Abel 成分。
-\end{solution}
-
-\begin{problem}{ch05-23}
-\textbf{选做：权 $3/2$ 的维数公式。}
-简述半整数权 $3/2$ 模形式的维数公式与 Shimura 对应之间的关系。
-\end{problem}
-\begin{solution}
-半整数权情形要把群换成某个双覆盖并引入 theta 乘子系统，因此维数公式的主项仍来自 Riemann--Roch，
-但局部修正不再只取决于椭圆点与尖点，还取决于乘子系统在稳定子上的值。
-
-对权 $3/2$ 尖点形式，Kohnen plus 空间是最重要的子空间。Shimura 对应给出一个 Hecke-equivariant 的映射
-\[
-S_{3/2}^{+}(4N)\longrightarrow S_2(N),
-\]
-把半整数权形式与权 $2$ 新形式联系起来。
-因此，权 $3/2$ 的维数往往可理解为：权 $2$ 空间的维数，再加上一些 theta 系列造成的补偿项。
-这也是为什么半整数权维数公式看起来更复杂，但其核心仍受权 $2$ 理论控制。
-\end{solution}
-
-\begin{problem}{ch05-24}
-\textbf{$N\le 100$ 时哪几个水平满足 $\dim S_2(\GammaO(N))=1$？}
-用维数表格找出全部满足
-\[
-\dim S_2(\GammaO(N))=1
-\]
-且 $1\le N\le 100$ 的 $N$。
-\end{problem}
-\begin{solution}
-因为 $\dim S_2(\GammaO(N))=g_0(N)$，所以只需找出亏格为 $1$ 的水平。
-计算可得
-\[
-N\in\{11,14,15,17,19,20,21,24,27,32,36,49\}.
-\]
-这些正是 $N\le100$ 时使得 $J_0(N)$ 成为椭圆曲线的全部水平。
-在模性定理与 Cremona 表中，它们都具有特殊地位。
-\end{solution}
-
-\begin{problem}{ch05-25}
-\textbf{权的最终线性与模 $12$ 周期。}
-证明对固定 $N$，$\dim M_k(\GammaO(N))$ 对足够大的偶权 $k$，在每个模 $12$ 的剩余类上都是关于 $k$ 的仿射线性函数。
-\end{problem}
-\begin{solution}
-把 $M_k(\GammaO(N))$ 视为模曲线上的某个高次线丛截面空间。由 Riemann--Roch，
-对 $k\gg 0$ 有
-\[
-\dim M_k(\GammaO(N))=\deg(\mathcal L_k)-g_0(N)+1,
-\]
-其中 $\deg(\mathcal L_k)$ 对 $k$ 线性，主系数为 $\mu/12$。
-
-另一方面，椭圆点修正只取决于
-\[
-\left\lfloor \frac{k}{4}\right\rfloor,
+\nu_2=1+\left(\frac{-1}{p}\right),
 \qquad
-\left\lfloor \frac{k}{3}\right\rfloor,
+\nu_3=1+\left(\frac{-3}{p}\right),
+\qquad
+\dim S_2(\Gamma_0(p))=g(X_0(p)).
 \]
-所以它们仅依赖于 $k$ 模 $12$ 的余数类。
-于是当 $k$ 足够大时，在每个固定的剩余类上都有
-\[
-\dim M_k(\GammaO(N))=\frac{\mu}{12}k+c_r,
-\qquad k\equiv r\pmod{12},
-\]
-其中常数 $c_r$ 只与 $r$ 有关。
 
-等价地说：维数函数整体上不是严格周期的，但“去掉线性主项后”只剩下一个模 $12$ 周期的有界振荡项。
+逐个计算：
+\begin{itemize}
+  \item $p=13$：$13\equiv 1\pmod4$，$13\equiv 1\pmod3$，故 $\nu_2=2$、$\nu_3=2$，从而
+  \[
+  g=\frac{14}{12}-\frac{2}{4}-\frac{2}{3}=0.
+  \]
+  所以 $\dim S_2(\Gamma_0(13))=0$。
+
+  \item $p=17$：$17\equiv 1\pmod4$，$17\equiv 2\pmod3$，故 $\nu_2=2$、$\nu_3=0$，从而
+  \[
+  g=\frac{18}{12}-\frac{2}{4}=1.
+  \]
+  所以 $\dim S_2(\Gamma_0(17))=1$。
+
+  \item $p=19$：$19\equiv 3\pmod4$，$19\equiv 1\pmod3$，故 $\nu_2=0$、$\nu_3=2$，从而
+  \[
+  g=\frac{20}{12}-\frac{2}{3}=1.
+  \]
+  所以 $\dim S_2(\Gamma_0(19))=1$。
+
+  \item $p=23$：$23\equiv 3\pmod4$，$23\equiv 2\pmod3$，故 $\nu_2=0$、$\nu_3=0$，从而
+  \[
+  g=\frac{24}{12}=2.
+  \]
+  所以 $\dim S_2(\Gamma_0(23))=2$。
+\end{itemize}
+\end{solution}
+
+\begin{problem}{一维尖点空间中的 Hecke 基}
+\medium
+设 $\dim S_k(\Gamma)=1$。证明该空间中的唯一归一化向量自动是所有 Hecke 算子的共同特征向量。
+\end{problem}
+\begin{solution}
+设 $S_k(\Gamma)=\C f$，其中 $f$ 的首项归一化为 $q+O(q^2)$。对任意 Hecke 算子 $T_n$，因为 $T_n$ 保持 $S_k(\Gamma)$，所以 $T_n f$ 仍落在这一维空间里。故存在常数 $\lambda_n$ 使
+\[
+T_n f=\lambda_n f.
+\]
+这正说明 $f$ 是 $T_n$ 的特征向量。
+
+由于对每个 $n$ 都成立，所以 $f$ 是全部 Hecke 算子的共同特征向量。也就是说，一维尖点空间自动已经是 Hecke 基。
+\end{solution}
+
+\begin{problem}{尖点处的最大消失阶}
+\medium
+设 $0\ne f\in M_k(\SL_2(\Z))$，其中 $k$ 为偶数。证明：
+\[
+\ord_\infty(f)\le \left\lfloor\frac{k}{12}\right\rfloor,
+\]
+并说明当 $k\equiv 2\pmod{12}$ 时实际上有更强的不等式
+\[
+\ord_\infty(f)\le \left\lfloor\frac{k}{12}\right\rfloor-1.
+\]
+\end{problem}
+\begin{solution}
+先证第一条。价公式左边每一项都非负，所以
+\[
+\ord_\infty(f)\le \frac{k}{12}.
+\]
+由于左边是整数，便得
+\[
+\ord_\infty(f)\le \left\lfloor\frac{k}{12}\right\rfloor.
+\]
+
+再看 $k\equiv 2\pmod{12}$ 的情形。写 $k=12m+2$。若存在非零 $f$ 满足 $\ord_\infty(f)\ge m$，则 $f/\Delta^m$ 是权 $2$ 的全纯模形式；但 $M_2(\SL_2(\Z))=0$，矛盾。故只能有
+\[
+\ord_\infty(f)\le m-1=\left\lfloor\frac{k}{12}\right\rfloor-1.
+\]
+这说明余类 $2\pmod{12}$ 恰好比其他余类少掉一个可用的 $\Delta$ 因子。
 \end{solution}
 
 \section{挑战题 \hard}
 
-\begin{problem}{ch05-26}
-\textbf{Eichler--Selberg 迹公式的最小检验。}
-陈述
+\begin{problem}{从一般公式恢复全模群公式}
+\hard
+从一般维数公式
 \[
-\Tr(T_n\mid S_k(\SL_2(\Z)))
+\dim M_k(\Gamma)=(k-1)(g-1)+\left\lfloor\frac{k}{4}\right\rfloor\nu_2+
+\left\lfloor\frac{k}{3}\right\rfloor\nu_3+\frac{k}{2}\nu_\infty
 \]
-的 Eichler--Selberg 迹公式的结构，并对 $k=12$、$n=p$ 为素数时解释为什么
-\[
-\Tr(T_p)=\tau(p).
-\]
+出发，推出 $\SL_2(\Z)$ 的精确维数公式。
 \end{problem}
 \begin{solution}
-Eichler--Selberg 迹公式把 $\Tr(T_n)$ 写成三类贡献之和：
-\begin{itemize}
-  \item 抛物项；
-  \item 椭圆项（涉及二次型类数）；
-  \item 双曲项。
-\end{itemize}
-这是 Hecke 算子在模形式空间上的“显式求迹公式”。
-
-对 $k=12$，我们知道
+对 $\Gamma=\SL_2(\Z)$，有
 \[
-\dim S_{12}(\SL_2(\Z))=1,
+g=0,
+\qquad
+\nu_2=1,
+\qquad
+\nu_3=1,
+\qquad
+\nu_\infty=1.
 \]
-所以 $S_{12}(\SL_2(\Z))$ 由唯一归一化特征形式 $\Delta$ 张成。Hecke 算子在一维空间上只能按标量作用，而该标量恰是 $\Delta$ 的第 $p$ 个 Hecke 本征值，即 Ramanujan 的 $\tau(p)$。
 因此
 \[
-\Tr(T_p\mid S_{12}(\SL_2(\Z)))=\tau(p).
+\dim M_k(\SL_2(\Z))=-(k-1)+\left\lfloor\frac{k}{4}\right\rfloor+
+\left\lfloor\frac{k}{3}\right\rfloor+\frac{k}{2}.
 \]
-换言之，在一维情形下，迹公式自动退化为“特征值本身”。
-\end{solution}
+现在把偶数 $k$ 按模 $12$ 分六类讨论。写 $k=12m+r$，其中
+$r\in\{0,2,4,6,8,10\}$。
 
-\begin{problem}{ch05-27}
-\textbf{Verdier 对偶与权的互补。}
-解释为什么可以把
-\[
-\mathbb D(S_k(\Gamma))\cong M_{2-k}(\Gamma)^*
-\]
-看成“权 $k$ 与权 $2-k$ 互补”的几何表达。
-\end{problem}
-\begin{solution}
-在曲线上，Verdier 对偶把一个截面空间转成与典范层有关的对偶截面空间。
-模形式权 $k$ 对应于某个自守线丛 $\omega^{\otimes k}$，而对偶时会多出一个典范层因子 $\omega^{\otimes 2}$。
-因此对偶权自然从 $k$ 变成
-\[
-2-k.
-\]
-
-解析上，这与 Petersson 配对及 Serre 对偶是一回事：
-尖点形式因为在尖点处消失，恰好与低权弱模形式形成配对。
-所以公式
-\[
-\mathbb D(S_k(\Gamma))\cong M_{2-k}(\Gamma)^*
-\]
-并不是神秘的新对象，而正是“模曲线上的 Serre 对偶”在自守线丛语言中的写法。
-\end{solution}
-
-\begin{problem}{ch05-28}
-\textbf{模符号与有理结构。}
-定义
-\[
-\{r,s\}=\int_r^s f(\tau)\,(2\pi i\,d\tau),\qquad r,s\in\mathbb P^1(\Q).
-\]
-说明模符号为什么给出 $S_2(\GammaO(N))$ 的有理结构。
-\end{problem}
-\begin{solution}
-对 $f\in S_2(\GammaO(N))$，积分
-\[
-\int_r^s f(\tau)\,d\tau
-\]
-只依赖于从 $r$ 到 $s$ 的同调类，因此它定义了
-\[
-H_1\bigl(X_0(N),\{\text{cusps}\};\Z\bigr)\longrightarrow \C
-\]
-上的线性泛函。Manin 发现，这个相对同调群可由有限个模符号生成，并满足显式整数关系。
-
-于是 $S_2(\GammaO(N))$ 的对偶可嵌入到一个有限生成的整数模张量 $\Q$ 后得到的向量空间中，
-从而自然获得一个 $\Q$-结构。
-换言之，Hecke 算子对模符号的整数作用让权 $2$ 尖点形式不只是一个复向量空间，
-而是一个带 Hecke 兼容有理结构的对象。
-\end{solution}
-
-\begin{problem}{ch05-29}
-\textbf{共轭子群下维数不变。}
-证明若 $\Gamma' = g\Gamma g^{-1}$，其中 $g\in \SL_2(\Z)$，则
-\[
-\dim M_k(\Gamma)=\dim M_k(\Gamma').
-\]
-\end{problem}
-\begin{solution}
-定义算子
-\[
-(f\mid_k g)(\tau)=(c\tau+d)^{-k}f\!\left(\frac{a\tau+b}{c\tau+d}\right),
-\qquad
-g=\begin{pmatrix}a&b\\ c&d\end{pmatrix}.
-\]
-若 $f\in M_k(\Gamma)$，则对任意 $\gamma'\in \Gamma'=g\Gamma g^{-1}$，有
-\[
-(f\mid_k g)\mid_k \gamma'=f\mid_k(g\gamma')=f\mid_k(\gamma g)=f\mid_k g.
-\]
-所以 $f\mapsto f\mid_k g$ 给出
-\[
-M_k(\Gamma)\xrightarrow{\sim} M_k(\Gamma').
-\]
-这是线性同构，因此维数相等。
-
-本质上，共轭只是在上半平面上换坐标；模曲线的几何对象并未改变。
-而对非共轭子群，这种几何同构不再存在，所以维数一般可能不同。
-\end{solution}
-
-\begin{problem}{ch05-30}
-\textbf{有理 Hecke 特征值的例子。}
-给出两个水平 $N$ 的例子，使得 $S_k(\GammaO(N))$ 中全部 Hecke 特征值都落在 $\Q$ 中，并说明验证方法。
-\end{problem}
-\begin{solution}
-最简单的例子是
-\[
-N=11,\qquad N=37,
-\]
-都取权 $k=2$。
-
-\textbf{例 1：$N=11$。}
-$S_2(\GammaO(11))$ 只有一维，由唯一归一化新形式
-\[
-f_{11}=q-2q^2-q^3+2q^4+q^5+\cdots
-\]
-张成。所有 Hecke 算子都在一维空间上按有理数作用，所以全部特征值都在 $\Q$ 中。
-
-\textbf{例 2：$N=37$。}
-$S_2(\GammaO(37))$ 二维，但它分解成两个一维有理新形式方向，分别对应两条导子 $37$ 的椭圆曲线。
-因此每个 Hecke 本征值都就是某条椭圆曲线的 Frobenius 迹 $a_p(E)\in\Z$，仍落在 $\Q$ 中。
-
-验证方法很统一：
+逐类计算可得：
 \begin{itemize}
-  \item 先把空间分解成新形式方向；
-  \item 再检查每个新形式的 Hecke 域 $K_f$ 是否等于 $\Q$；
-  \item 若 $K_f=\Q$，则其全部 Fourier 系数与 Hecke 特征值都为有理数。
+  \item 若 $r=0,4,6,8,10$，则
+  \[
+  -(k-1)+\left\lfloor\frac{k}{4}\right\rfloor+
+  \left\lfloor\frac{k}{3}\right\rfloor+\frac{k}{2}=m+1.
+  \]
+  \item 若 $r=2$，则
+  \[
+  -(k-1)+\left\lfloor\frac{k}{4}\right\rfloor+
+  \left\lfloor\frac{k}{3}\right\rfloor+\frac{k}{2}=m.
+  \]
 \end{itemize}
+于是
+\[
+\dim M_k(\SL_2(\Z))=
+\begin{cases}
+\left\lfloor\dfrac{k}{12}\right\rfloor+1,&k\not\equiv 2\pmod{12},\\
+\left\lfloor\dfrac{k}{12}\right\rfloor,&k\equiv 2\pmod{12}.
+\end{cases}
+\]
+这正是全模群的精确维数公式。
+\end{solution}
+
+\begin{problem}{尖点理想由判别式生成}
+\hard
+证明分次理想
+\[
+S_*(\SL_2(\Z))=\bigoplus_{k\ge 0} S_k(\SL_2(\Z))
+\]
+由单个元素 $\Delta$ 生成。
+\end{problem}
+\begin{solution}
+要证的是：每个尖点形式都唯一写成 $\Delta g$ 的形式，其中 $g$ 是某个较低权模形式。
+
+设 $f\in S_k(\SL_2(\Z))$。因为 $f$ 在 $\infty$ 处至少有一阶零点，而 $\Delta$ 在 $\infty$ 处恰有一阶零点，并且在上半平面中无零点，所以 $f/\Delta$ 仍在整个模曲线上全纯。其权重降低为 $k-12$，故
+\[
+\frac{f}{\Delta}\in M_{k-12}(\SL_2(\Z)).
+\]
+所以 $f=\Delta g$。
+
+反过来，若 $g\in M_{k-12}(\SL_2(\Z))$，则 $\Delta g$ 显然是权 $k$ 尖点形式。因此
+\[
+S_k(\SL_2(\Z))=\Delta\,M_{k-12}(\SL_2(\Z))
+\]
+对每个 $k$ 都成立。
+
+唯一性来自 $\Delta\neq 0$。故整个尖点理想恰为主理想 $(\Delta)$。
+\end{solution}
+
+\begin{problem}{模形式环由两个 Eisenstein 级数生成}
+\hard
+证明每个偶权全纯模形式都可写成 $E_4$ 与 $E_6$ 的多项式。
+\end{problem}
+\begin{solution}
+对权 $k$ 作归纳。
+
+当 $k=0,4,6,8,10$ 时，结论显然成立：这几个空间都是一维，生成元分别可取
+\[
+1,\ E_4,\ E_6,\ E_4^2,\ E_4E_6.
+\]
+而 $M_2(\SL_2(\Z))=0$。
+
+设现在 $k\ge 12$ 且结论对更低偶权都成立。取任意 $f\in M_k(\SL_2(\Z))$。由于方程 $4a+6b=k$ 总有解，可取一个权 $k$ 的单项式
+\[
+P_k(E_4,E_6)=E_4^aE_6^b
+\]
+其常数项为 $1$。于是
+\[
+f-a_0(f)P_k(E_4,E_6)
+\]
+在 $\infty$ 处常数项为零，所以是尖点形式。由上一题，存在 $g\in M_{k-12}(\SL_2(\Z))$ 使
+\[
+f-a_0(f)P_k(E_4,E_6)=\Delta g.
+\]
+再用
+\[
+\Delta=\frac{E_4^3-E_6^2}{1728}
+\]
+以及归纳假设可知右边是 $E_4,E_6$ 的多项式，因此 $f$ 也是 $E_4,E_6$ 的多项式。
+
+归纳完成，所以
+\[
+M_*(\SL_2(\Z))=\C[E_4,E_6].
+\]
+\end{solution}
+
+\begin{problem}{两个生成元代数无关}
+\hard
+证明 $E_4$ 与 $E_6$ 代数无关。
+\end{problem}
+\begin{solution}
+固定偶权 $k$，考虑所有满足 $4a+6b=k$ 的单项式 $E_4^aE_6^b$。在前一题中我们已经知道这些单项式张成整个 $M_k(\SL_2(\Z))$。
+
+另一方面，这样的单项式个数恰好等于 $\dim M_k(\SL_2(\Z))$，这是前面单项式计数题已经证明过的。于是这些单项式不只是张成，而且构成一组基。
+
+现在若存在非零多项式关系
+\[
+P(E_4,E_6)=0,
+\]
+把它按权分次分解后，可得到某个固定权里的非平凡线性关系，与“该权单项式构成基”矛盾。
+
+因此不存在非零多项式关系，$E_4$ 与 $E_6$ 代数无关。
+\end{solution}
+
+\begin{problem}{素数水平中的亏格零与亏格一}
+\hard
+对素数 $p=5,7,11,13,17,19,23$，判定 $X_0(p)$ 的亏格是 $0$、$1$ 还是至少 $2$。
+\end{problem}
+\begin{solution}
+对素数 $p>3$，有
+\[
+g(X_0(p))=\frac{p+1}{12}-\frac{\nu_2}{4}-\frac{\nu_3}{3}.
+\]
+逐个代入：
+\begin{itemize}
+  \item $p=5$：$\nu_2=2$、$\nu_3=0$，故 $g=\frac{6}{12}-\frac{1}{2}=0$。
+  \item $p=7$：$\nu_2=0$、$\nu_3=2$，故 $g=\frac{8}{12}-\frac{2}{3}=0$。
+  \item $p=11$：$\nu_2=0$、$\nu_3=0$，故 $g=\frac{12}{12}=1$。
+  \item $p=13$：$\nu_2=2$、$\nu_3=2$，故 $g=\frac{14}{12}-\frac{1}{2}-\frac{2}{3}=0$。
+  \item $p=17$：$\nu_2=2$、$\nu_3=0$，故 $g=\frac{18}{12}-\frac{1}{2}=1$。
+  \item $p=19$：$\nu_2=0$、$\nu_3=2$，故 $g=\frac{20}{12}-\frac{2}{3}=1$。
+  \item $p=23$：$\nu_2=0$、$\nu_3=0$，故 $g=\frac{24}{12}=2$。
+\end{itemize}
+因此：
+\[
+\text{亏格 }0:\ p=5,7,13;
+\qquad
+\text{亏格 }1:\ p=11,17,19;
+\qquad
+\text{至少 }2:\ p=23.
+\]
+\end{solution}
+
+\begin{problem}{一级别十一的整条维数公式}
+\hard
+证明对所有偶数 $k\ge 4$，有
+\[
+\dim M_k(\Gamma_0(11))=k,
+\qquad
+\dim S_k(\Gamma_0(11))=k-2.
+\]
+\end{problem}
+\begin{solution}
+对 $\Gamma_0(11)$，几何数据是
+\[
+g=1,
+\qquad \nu_2=0,
+\qquad \nu_3=0,
+\qquad \nu_\infty=2.
+\]
+代入一般维数公式，得到
+\[
+\dim M_k(\Gamma_0(11))=(k-1)(1-1)+0+0+\frac{k}{2}\cdot 2=k.
+\]
+对偶数 $k\ge 4$，尖点空间维数是
+\[
+\dim S_k(\Gamma_0(11))=(k-1)(1-1)+0+0+\left(\frac{k}{2}-1\right)\cdot 2=k-2.
+\]
+这就得到整条线性的维数公式。
+
+顺便检查 $k=2$：此时
+\[
+\dim S_2(\Gamma_0(11))=g=1,
+\]
+也与这一组数据一致。
+\end{solution}
+
+\begin{problem}{从局部参数看维数公式中的整数部分}
+\hard
+解释为什么一般维数公式里会出现
+\[
+\left\lfloor\frac{k}{4}\right\rfloor\nu_2,
+\qquad
+\left\lfloor\frac{k}{3}\right\rfloor\nu_3,
+\qquad
+\frac{k}{2}\nu_\infty
+\]
+这些项。
+\end{problem}
+\begin{solution}
+核心思想是：权 $k$ 模形式在特殊点附近并不是普通函数，而要乘上相应的自动因子。
+
+在阶 $2$ 椭圆点附近，真正的局部参数是平方根型的。若把模形式改写成局部坐标中的普通函数，可允许的极点阶最多是 $k/4$，而极点阶必须是整数，所以贡献是
+\[
+\left\lfloor\frac{k}{4}\right\rfloor.
+\]
+
+在阶 $3$ 椭圆点附近，局部参数是立方根型的。同理，允许的极点阶最多是 $k/3$，因此贡献变成
+\[
+\left\lfloor\frac{k}{3}\right\rfloor.
+\]
+
+在尖点附近，局部参数是 $q_h=e^{2\pi i\tau/h}$。权 $k$ 形式的增长由 $(d\tau)^{k/2}$ 控制，于是每个尖点贡献 $k/2$ 个自由度；若要求是尖点形式，则还要额外消失一次，所以每个尖点只剩
+\[
+\frac{k}{2}-1.
+\]
+这些局部贡献与 Riemann--Roch 的全局项 $(k-1)(g-1)$ 合在一起，就得到整条维数公式。
+\end{solution}
+
+\begin{problem}{权二十四空间中的 Hecke 分解现象}
+\hard
+说明为什么 $S_{24}(\SL_2(\Z))$ 已经不再是自动的一维 Hecke 本征空间，并解释“寻找 Hecke 基”在这一权里意味着什么。
+\end{problem}
+\begin{solution}
+由维数公式，
+\[
+\dim S_{24}(\SL_2(\Z))=2.
+\]
+例如可以取一组基为
+\[
+\Delta E_4^3,
+\qquad
+\Delta^2.
+\]
+因此单凭维数已经不能像一维情形那样唯一确定特征形式。
+
+Hecke 算子 $T_n$ 仍然两两交换，并且对 Petersson 内积自伴，所以它们可以在这个二维空间中同时对角化。于是存在一组基
+\[
+f_1,\ f_2
+\]
+使得对每个 $n$ 都有
+\[
+T_n f_j=\lambda_{n,j}f_j.
+\]
+这组基就叫作 Hecke 基。
+
+所以在权 $24$ 的情形中，问题不再是“空间是否存在非零尖点形式”，而是“如何在二维尖点空间中选出真正的本征方向”。这正是高维 Hecke 理论开始变得有内容的地方。
 \end{solution}

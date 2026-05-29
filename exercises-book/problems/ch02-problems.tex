@@ -1,792 +1,951 @@
-\chapter{第2章：Eisenstein级数与L函数 习题}
-\label{ch:ex-ch2}
-
+\chapter{第2章：Eisenstein级数与解析工具 习题}
 \difficultykey
 
 \section{基础题 \easy}
 
-\begin{problem}{\easy\ 计算 $\sigma_3(12)$ 与 $G_8(q)$ 首项}
-计算 $\sigma_3(12)$，并写出
-\[
-G_8(q)=\sum_{n\ge1}\sigma_7(n)q^n
-\]
-的 $q^0,q^1,q^2$ 项。
-\end{problem}
-\begin{solution}
-$12$ 的正因子为 $1,2,3,4,6,12$，故
-\[
-\sigma_3(12)=1^3+2^3+3^3+4^3+6^3+12^3=1+8+27+64+216+1728=2044.
-\]
-又
-\[
-\sigma_7(1)=1,\qquad \sigma_7(2)=1+2^7=129.
-\]
-因此
-\[
-G_8(q)=0+q+129q^2+\cdots.
-\]
-若只从 $n\ge1$ 开始求和，则 $q^0$ 项就是 $0$。
-\end{solution}
-
-\begin{problem}{\easy\ Bernoulli数的前几项}
+\begin{problem}{Bernoulli数表}
+\easy
 由生成函数
 \[
-\frac{t}{e^t-1}=\sum_{n\ge0}B_n\frac{t^n}{n!}
+\frac{t}{e^t-1}=\sum_{n=0}^{\infty} B_n\frac{t^n}{n!}
 \]
-求 $B_0,B_2,B_4,B_6$。
-\end{problem}
-\begin{solution}
-展开得
-\[
-\frac{t}{e^t-1}=1-\frac t2+\frac{t^2}{12}-\frac{t^4}{720}+\frac{t^6}{30240}+\cdots.
-\]
-与
-\[
-\sum_{n\ge0}B_n\frac{t^n}{n!}
-\]
-逐项比较可得
-\[
-B_0=1,\qquad B_2=\frac16,\qquad B_4=-\frac1{30},\qquad B_6=\frac1{42}.
-\]
-\end{solution}
-
-\begin{problem}{\easy\ 证明 $E_4^2=E_8$ 并推出卷积恒等式}
-证明
-\[
-E_4^2=E_8,
-\]
-并由此推出 $\sigma_7$ 与 $\sigma_3$ 的卷积公式。
-\end{problem}
-\begin{solution}
-标准归一化下
-\[
-E_4=1+240\sum_{n\ge1}\sigma_3(n)q^n,\qquad
-E_8=1+480\sum_{n\ge1}\sigma_7(n)q^n.
-\]
-由于 $\dim M_8=1$，权 $8$ 模形式空间由 $E_8$ 张成；而 $E_4^2$ 也是权 $8$、常数项为 $1$ 的模形式，所以
-\[
-E_4^2=E_8.
-\]
-比较 $q^n$ 系数，得
-\[
-480\sigma_7(n)=480\sigma_3(n)+240^2\sum_{m=1}^{n-1}\sigma_3(m)\sigma_3(n-m).
-\]
-两边除以 $480$，得到
-\[
-\sigma_7(n)=\sigma_3(n)+120\sum_{m=1}^{n-1}\sigma_3(m)\sigma_3(n-m).
-\]
-\end{solution}
-
-\begin{problem}{\easy\ 证明 $G_2$ 的准模性}
-证明 $G_2$ 不是模形式而是准模形式，并写出其变换公式。
+求出 $B_0,B_1,B_2,B_3,B_4,B_5,B_6$。
 \end{problem}
 \begin{solution}
 把
 \[
-E_2(\tau)=1-24\sum_{n\ge1}\sigma_1(n)q^n
+e^t-1=t+\frac{t^2}{2}+\frac{t^3}{6}+\frac{t^4}{24}+\cdots
 \]
-看作 $G_2$ 的归一化形式。它满足
+代入并做幂级数除法，可得
 \[
-E_2(\tau+1)=E_2(\tau),
+\frac{t}{e^t-1}=1-\frac{t}{2}+\frac{t^2}{12}-\frac{t^4}{720}+\frac{t^6}{30240}+\cdots.
 \]
-但在 $\tau\mapsto -1/\tau$ 下有
+与
 \[
-E_2\!\left(-\frac1\tau\right)=\tau^2E_2(\tau)+\frac{6}{\pi i}\tau.
+\sum_{n=0}^{\infty} B_n\frac{t^n}{n!}
+= B_0+B_1 t+\frac{B_2}{2!}t^2+\frac{B_3}{3!}t^3+\frac{B_4}{4!}t^4+\frac{B_5}{5!}t^5+\frac{B_6}{6!}t^6+\cdots
 \]
-更一般地，对
+逐项比较，得到
 \[
-\gamma=\begin{pmatrix}a&b\\ c&d\end{pmatrix}\in \mathrm{SL}_2(\mathbf Z),
+B_0=1,\qquad B_1=-\frac12,\qquad B_2=\frac16,
 \]
-有
 \[
-E_2(\gamma\tau)=(c\tau+d)^2E_2(\tau)+\frac{6}{\pi i}c(c\tau+d).
-\]
-多出来的线性项说明它不是真正的权 $2$ 模形式，而是权 $2$ 的准模形式。等价地，若用未归一化的 $G_2$，则公式写成
-\[
-G_2(\gamma\tau)=(c\tau+d)^2G_2(\tau)-2\pi i\,c(c\tau+d).
-\]
-特别地，取 $\gamma=S=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$，便得到
-\[
-G_2(-1/\tau)=\tau^2G_2(\tau)-2\pi i\tau.
+B_3=0,\qquad B_4=-\frac1{30},\qquad B_5=0,\qquad B_6=\frac1{42}.
 \]
 \end{solution}
 
-\begin{problem}{\easy\ 写出 $E_{12}$ 的 $L$-级数前三项}
-对 $E_{12}$ 写出 $L(f,s)$ 的前三项，并说明它与 zeta 函数的关系。
+\begin{problem}{偶整数处的zeta值}
+\easy
+利用公式
+\[
+\zeta(2k)=\frac{(2\pi)^{2k}|B_{2k}|}{2(2k)!}
+\]
+计算 $\zeta(2)$、$\zeta(4)$ 与 $\zeta(6)$。
 \end{problem}
 \begin{solution}
-标准归一化下
+当 $k=1$ 时，$B_2=1/6$，所以
 \[
-E_{12}=1+\frac{65520}{691}\sum_{n\ge1}\sigma_{11}(n)q^n.
+\zeta(2)=\frac{(2\pi)^2\cdot \frac16}{2\cdot 2!}
+=\frac{4\pi^2}{24}=\frac{\pi^2}{6}.
 \]
-于是
+
+当 $k=2$ 时，$|B_4|=1/30$，故
 \[
-\sigma_{11}(1)=1,\qquad
-\sigma_{11}(2)=1+2^{11}=2049,\qquad
-\sigma_{11}(3)=1+3^{11}=177148.
+\zeta(4)=\frac{(2\pi)^4\cdot \frac1{30}}{2\cdot 4!}
+=\frac{16\pi^4}{30\cdot 48}=\frac{\pi^4}{90}.
 \]
-因此
+
+当 $k=3$ 时，$B_6=1/42$，故
 \[
-L(E_{12},s)=\frac{65520}{691}\left(1+\frac{2049}{2^s}+\frac{177148}{3^s}+\cdots\right).
-\]
-又因为
-\[
-\sum_{n\ge1}\frac{\sigma_{11}(n)}{n^s}=\zeta(s)\zeta(s-11),
+\zeta(6)=\frac{(2\pi)^6\cdot \frac1{42}}{2\cdot 6!}
+=\frac{64\pi^6}{42\cdot 1440}=\frac{\pi^6}{945}.
 \]
 所以
 \[
-L(E_{12},s)=\frac{65520}{691}\,\zeta(s)\zeta(s-11).
+\zeta(2)=\frac{\pi^2}{6},\qquad
+\zeta(4)=\frac{\pi^4}{90},\qquad
+\zeta(6)=\frac{\pi^6}{945}.
 \]
 \end{solution}
 
-\begin{problem}{\easy\ 证明 $\zeta(2)=\pi^2/6$}
-证明
+\begin{problem}{除数函数计算}
+\easy
+计算下列值：
 \[
-\zeta(2)=\frac{\pi^2}{6}.
+\sigma_1(12),\qquad \sigma_3(12),\qquad \sigma_5(6).
 \]
 \end{problem}
 \begin{solution}
-Euler 的乘积公式
+$12$ 的正因子为 $1,2,3,4,6,12$，故
 \[
-\frac{\sin \pi x}{\pi x}=\prod_{n\ge1}\left(1-\frac{x^2}{n^2}\right)
+\sigma_1(12)=1+2+3+4+6+12=28.
 \]
-两边展开并比较 $x^2$ 项。左边为
+又
 \[
-1-\frac{\pi^2x^2}{6}+\cdots,
+\sigma_3(12)=1^3+2^3+3^3+4^3+6^3+12^3
+=1+8+27+64+216+1728=2044.
 \]
-右边为
+
+$6$ 的正因子为 $1,2,3,6$，所以
 \[
-1-\left(\sum_{n\ge1}\frac1{n^2}\right)x^2+\cdots.
+\sigma_5(6)=1^5+2^5+3^5+6^5=1+32+243+7776=8052.
+\]
+\end{solution}
+
+\begin{problem}{乘性的例子}
+\easy
+利用除数函数的乘性，计算
+\[
+\sigma_1(15),\qquad \sigma_3(35).
+\]
+\end{problem}
+\begin{solution}
+因为 $15=3\cdot 5$ 且 $(3,5)=1$，所以
+\[
+\sigma_1(15)=\sigma_1(3)\sigma_1(5)=(1+3)(1+5)=4\cdot 6=24.
+\]
+
+又因为 $35=5\cdot 7$ 且 $(5,7)=1$，所以
+\[
+\sigma_3(35)=\sigma_3(5)\sigma_3(7)=(1+5^3)(1+7^3)=(1+125)(1+343).
 \]
 故
 \[
-\sum_{n\ge1}\frac1{n^2}=\frac{\pi^2}{6},
-\]
-即
-\[
-\zeta(2)=\frac{\pi^2}{6}.
+\sigma_3(35)=126\cdot 344=43344.
 \]
 \end{solution}
 
-\begin{problem}{\easy\ 计算若干权的 $\dim S_k$}
-计算
-\[
-\dim S_k\qquad (k=12,14,16,18,20,22).
-\]
+\begin{problem}{E4展开}
+\easy
+写出归一化 Eisenstein 级数 $E_4$ 的前四个非零项。
 \end{problem}
 \begin{solution}
-在 $\mathrm{SL}_2(\mathbf Z)$ 上，
+由一般公式
 \[
-S_k=\Delta\cdot M_{k-12}\qquad (k\ge12,\ k\text{ 偶}).
+E_k(\tau)=1-\frac{2k}{B_k}\sum_{n\ge 1}\sigma_{k-1}(n)q^n,
+\qquad q=e^{2\pi i\tau},
+\]
+对 $k=4$ 有 $B_4=-1/30$，所以
+\[
+E_4(\tau)=1+240\sum_{n\ge1}\sigma_3(n)q^n.
+\]
+又
+\[
+\sigma_3(1)=1,\quad \sigma_3(2)=9,\quad \sigma_3(3)=28,\quad \sigma_3(4)=73.
 \]
 因此
 \[
-\dim S_k=\dim M_{k-12}.
-\]
-而
-\[
-\dim M_0=1,\ \dim M_2=0,\ \dim M_4=1,\ \dim M_6=1,\ \dim M_8=1,\ \dim M_{10}=1.
-\]
-所以
-\[
-\dim S_{12}=1,\quad
-\dim S_{14}=0,\quad
-\dim S_{16}=1,\quad
-\dim S_{18}=1,\quad
-\dim S_{20}=1,\quad
-\dim S_{22}=1.
+E_4(\tau)=1+240q+2160q^2+6720q^3+17520q^4+\cdots.
 \]
 \end{solution}
 
-\begin{problem}{\easy\ 证明 $\sum \sigma_k(n)n^{-s}=\zeta(s)\zeta(s-k)$}
-证明在收敛区域内有
-\[
-\sum_{n\ge1}\frac{\sigma_k(n)}{n^s}=\zeta(s)\zeta(s-k).
-\]
+\begin{problem}{E6与E8展开}
+\easy
+写出 $E_6$ 与 $E_8$ 的前四个非零项。
 \end{problem}
 \begin{solution}
-由
+对 $E_6$，由于 $B_6=1/42$，所以
 \[
-\sigma_k(n)=\sum_{d\mid n}d^k
+E_6(\tau)=1-504\sum_{n\ge1}\sigma_5(n)q^n.
 \]
-可得
+又
 \[
-\sum_{n\ge1}\frac{\sigma_k(n)}{n^s}
-=
-\sum_{n\ge1}\sum_{d\mid n}\frac{d^k}{n^s}.
-\]
-令 $n=dm$，则
-\[
-\sum_{n\ge1}\frac{\sigma_k(n)}{n^s}
-=
-\sum_{d,m\ge1}\frac{d^k}{(dm)^s}
-=
-\left(\sum_{d\ge1}d^{k-s}\right)\left(\sum_{m\ge1}m^{-s}\right).
+\sigma_5(1)=1,\quad \sigma_5(2)=33,\quad \sigma_5(3)=244,\quad \sigma_5(4)=1057.
 \]
 故
 \[
-\sum_{n\ge1}\frac{\sigma_k(n)}{n^s}
-=
-\zeta(s-k)\zeta(s).
+E_6(\tau)=1-504q-16632q^2-122976q^3-532728q^4+\cdots.
 \]
-当 $\Re(s)>k+1$ 时上式绝对收敛。
-\end{solution}
 
-\begin{problem}{\easy\ 说明为什么 $\Delta=q\prod_{n\ge1}(1-q^n)^{24}$}
-说明
+对 $E_8$，由于 $B_8=-1/30$，所以
 \[
-\Delta(\tau)=q\prod_{n\ge1}(1-q^n)^{24}
+E_8(\tau)=1+480\sum_{n\ge1}\sigma_7(n)q^n.
 \]
-为什么是权 $12$ 的尖点形式。
-\end{problem}
-\begin{solution}
-Dedekind eta 函数为
+又
 \[
-\eta(\tau)=q^{1/24}\prod_{n\ge1}(1-q^n),
+\sigma_7(1)=1,\quad \sigma_7(2)=129,\quad \sigma_7(3)=2188,\quad \sigma_7(4)=16513.
 \]
-它是权 $1/2$ 的模形式（带乘子）。因此
+故
 \[
-\eta(\tau)^{24}=q\prod_{n\ge1}(1-q^n)^{24}
-\]
-是权 $12$ 的模形式，而且乘子已消失。
-又它的 $q$-展开首项为 $q$，故在无穷远尖点处消失，是 cusp form。由于 $S_{12}$ 一维，这个首项为 $q$ 的权 $12$ 尖点形式只能是 $\Delta$，所以
-\[
-\Delta(\tau)=\eta(\tau)^{24}=q\prod_{n\ge1}(1-q^n)^{24}.
+E_8(\tau)=1+480q+61920q^2+1050240q^3+7926240q^4+\cdots.
 \]
 \end{solution}
 
-\begin{problem}{\easy\ 验证 $E_4$ 的函数方程}
-验证 $E_4$ 的完成 $L$-函数满足关于 $s\leftrightarrow 4-s$ 的函数方程。
+\begin{problem}{平移不变性}
+\easy
+利用 $q=e^{2\pi i\tau}$ 证明 Eisenstein 级数满足
+\[
+E_k(\tau+1)=E_k(\tau).
+\]
 \end{problem}
 \begin{solution}
-考虑去掉常数项后的 Mellin 变换
+因为
 \[
-\Lambda^\ast(E_4,s):=\int_0^\infty \bigl(E_4(iy)-1-y^{-4}\bigr)y^{s-1}\,dy.
+q(\tau+1)=e^{2\pi i(\tau+1)}=e^{2\pi i\tau}e^{2\pi i}=q(\tau),
 \]
-它收敛，并代表 $E_4$ 的正则化完成 $L$-函数。由模性
+所以 $q$ 在变换 $\tau\mapsto \tau+1$ 下不变。
+
+而 $E_k$ 的 $q$-展开形如
 \[
-E_4\!\left(-\frac1\tau\right)=\tau^4E_4(\tau),
+E_k(\tau)=1+\sum_{n\ge1} a_n q^n,
 \]
-取 $\tau=iy$ 得
+因此
 \[
-E_4(i/y)=y^4E_4(iy).
+E_k(\tau+1)=1+\sum_{n\ge1} a_n q(\tau+1)^n
+=1+\sum_{n\ge1} a_n q(\tau)^n
+=E_k(\tau).
 \]
-把积分在 $(0,1)$ 上作代换 $y\mapsto 1/y$，便得到
-\[
-\Lambda^\ast(E_4,s)=\Lambda^\ast(E_4,4-s).
-\]
-这就是 $E_4$ 的函数方程。
+这就证明了平移不变性。
 \end{solution}
 
-\begin{problem}{\easy\ 原始 Dirichlet 特征的 Euler 乘积与延拓}
-设 $\chi$ 是原始 Dirichlet 特征。写出 $L(\chi,s)$ 的 Euler 乘积，并说明它如何解析延拓到 $\Re(s)>0$。
+\begin{problem}{theta函数的对称性}
+\easy
+设
+\[
+\theta(t)=\sum_{n\in\Z} e^{-\pi n^2 t},\qquad t>0.
+\]
+利用 Poisson 求和公式证明
+\[
+\theta(t)=t^{-1/2}\theta(1/t),
+\]
+并据此写出 $\theta(4)$ 与 $\theta(1/4)$ 的关系。
 \end{problem}
 \begin{solution}
-在 $\Re(s)>1$ 时，
+对高斯函数应用 Poisson 求和公式，可得经典恒等式
 \[
-L(\chi,s)=\sum_{n\ge1}\frac{\chi(n)}{n^s}
-=\prod_p\left(1-\chi(p)p^{-s}\right)^{-1}.
+\theta(t)=t^{-1/2}\theta(1/t).
 \]
-若 $\chi$ 非平凡且原始，设 $a=0$ 或 $1$ 分别表示 $\chi(-1)=1$ 或 $-1$，则完成函数
+这是 theta 函数最基本的变换公式。
+
+把 $t=4$ 代入，得到
 \[
-\Lambda(\chi,s)=\left(\frac{q}{\pi}\right)^{(s+a)/2}\Gamma\!\left(\frac{s+a}{2}\right)L(\chi,s)
+\theta(4)=4^{-1/2}\theta(1/4)=\frac12\theta(1/4).
 \]
-满足函数方程
+也就是说
 \[
-\Lambda(\chi,s)=\varepsilon(\chi)\Lambda(\overline{\chi},1-s),
-\qquad |\varepsilon(\chi)|=1.
+\theta(1/4)=2\theta(4).
 \]
-因此 $L(\chi,s)$ 可延拓为整函数；当然也就延拓到了 $\Re(s)>0$。唯一的例外是平凡特征，它给出 $\zeta(s)$，在 $s=1$ 有简单极点。
 \end{solution}
 
-\begin{problem}{\easy\ 负奇整数处的 zeta 值}
-用 Bernoulli 数表示 $\zeta(-1),\zeta(-3),\zeta(-5)$，并解释为什么 $\zeta(-2m)=0$ 称为平凡零点。
+\begin{problem}{模四特征}
+\easy
+定义模 $4$ 的 Dirichlet 特征
+\[
+\chi_4(n)=
+\begin{cases}
+0,& n\equiv 0,2\pmod 4,\\
+1,& n\equiv 1\pmod 4,\\
+-1,& n\equiv 3\pmod 4.
+\end{cases}
+\]
+写出 $L(s,\chi_4)$ 的前几项，并说明哪些整数项消失。
 \end{problem}
 \begin{solution}
-公式
+按定义
 \[
-\zeta(1-n)=-\frac{B_n}{n}\qquad (n\ge1)
+L(s,\chi_4)=\sum_{n\ge1}\frac{\chi_4(n)}{n^s}.
 \]
-给出
+因为偶数上 $\chi_4(n)=0$，所以所有偶数项都消失；奇数上符号按模 $4$ 的余数交替。于是
 \[
-\zeta(-1)=-\frac{B_2}{2}=-\frac1{12},
-\qquad
-\zeta(-3)=-\frac{B_4}{4}=\frac1{120},
-\qquad
-\zeta(-5)=-\frac{B_6}{6}=-\frac1{252}.
+L(s,\chi_4)=1-\frac1{3^s}+\frac1{5^s}-\frac1{7^s}+\frac1{9^s}-\frac1{11^s}+\cdots.
 \]
-又因
-\[
-B_{2m+1}=0\qquad (m\ge1),
-\]
-所以
-\[
-\zeta(-2m)=\zeta\bigl(1-(2m+1)\bigr)=-\frac{B_{2m+1}}{2m+1}=0.
-\]
-这些零点直接来自 Bernoulli 数的消失，位置又很显然，所以称为平凡零点。
+消失的正是所有偶数项。
 \end{solution}
 
 \section{进阶题 \medium}
 
-\begin{problem}{\medium\ 证明 $L(E_k,s)=\zeta(s)\zeta(s-k+1)$}
-证明 Eisenstein 级数的 Dirichlet 级数满足
+\begin{problem}{除数函数乘性证明}
+\medium
+证明：若 $(m,n)=1$，则
 \[
-L(E_k,s)=\zeta(s)\zeta(s-k+1).
+\sigma_r(mn)=\sigma_r(m)\sigma_r(n).
 \]
 \end{problem}
 \begin{solution}
-若把 Eisenstein 级数的非零次 Fourier 系数记为
+因为 $(m,n)=1$，$mn$ 的每个正因子都可以唯一写成 $d_1d_2$ 的形式，其中 $d_1\mid m$，$d_2\mid n$。因此
 \[
-a_n=\sigma_{k-1}(n),
+\sigma_r(mn)=\sum_{d\mid mn} d^r
+=\sum_{d_1\mid m}\sum_{d_2\mid n}(d_1d_2)^r.
 \]
-则
+把幂拆开得
 \[
-L(E_k,s)=\sum_{n\ge1}\frac{a_n}{n^s}
-=\sum_{n\ge1}\frac{\sigma_{k-1}(n)}{n^s}.
+\sigma_r(mn)=\left(\sum_{d_1\mid m} d_1^r\right)
+\left(\sum_{d_2\mid n} d_2^r\right)
+=\sigma_r(m)\sigma_r(n).
 \]
-由上一节的恒等式，立刻得到
-\[
-L(E_k,s)=\zeta(s)\zeta\bigl(s-(k-1)\bigr)=\zeta(s)\zeta(s-k+1).
-\]
-\textbf{注。} 若采用标准归一化
-\[
-E_k=1-\frac{2k}{B_k}\sum_{n\ge1}\sigma_{k-1}(n)q^n,
-\]
-则右边还要乘上同一个常数 $-2k/B_k$。
+这就证明了乘性。
 \end{solution}
 
-\begin{problem}{\medium\ 证明尖点形式 $L(f,s)$ 的绝对收敛}
-设 $f(\tau)=\sum_{n\ge1}a_nq^n\in S_k$。证明 $L(f,s)=\sum a_nn^{-s}$ 在 $\Re(s)>k$ 时绝对收敛。
+\begin{problem}{归一化系数公式}
+\medium
+证明对偶整数 $k\ge 4$，归一化 Eisenstein 级数满足
+\[
+E_k(\tau)=1-\frac{2k}{B_k}\sum_{n\ge1}\sigma_{k-1}(n)q^n.
+\]
 \end{problem}
 \begin{solution}
-由 Fourier 系数公式
+章节中给出的公式是
 \[
-a_n=e^{2\pi ny}\int_0^1 f(x+iy)e^{-2\pi inx}\,dx.
+E_k(\tau)=1+\frac{2}{\zeta(1-k)}\sum_{n\ge1}\sigma_{k-1}(n)q^n.
 \]
-又由模性可知，当 $y\to0^+$ 时
+又对偶整数 $k\ge 2$ 有
 \[
-f(x+iy)=O(y^{-k/2}),
+\zeta(1-k)=-\frac{B_k}{k}.
 \]
-取 $y=1/n$，便得到
+因此
 \[
-a_n=O(n^{k/2}).
+\frac{2}{\zeta(1-k)}=\frac{2}{-B_k/k}=-\frac{2k}{B_k}.
 \]
-于是当 $\Re(s)=\sigma>k$ 时，
+代回上式便得
 \[
-\sum_{n\ge1}|a_n|n^{-\sigma}
-\ll
-\sum_{n\ge1}n^{k/2-\sigma}.
+E_k(\tau)=1-\frac{2k}{B_k}\sum_{n\ge1}\sigma_{k-1}(n)q^n.
 \]
-因为 $\sigma>k\ge k/2+1$，故右端收敛，所以 $L(f,s)$ 在 $\Re(s)>k$ 绝对收敛。
+这正是所求公式。
 \end{solution}
 
-\begin{problem}{\medium\ Mellin变换导出的 Hecke 函数方程}
-用 Mellin 变换说明 Hecke 型函数方程的来源。
+\begin{problem}{E10与E12展开}
+\medium
+写出 $E_{10}$ 与 $E_{12}$ 的前两个非零 Fourier 系数。
 \end{problem}
 \begin{solution}
-设 $f$ 是权 $k$、level $N$ 的 cusp form，并满足 Fricke 关系
+对 $k=10$，有 $B_{10}=5/66$，所以
 \[
-f\big|_k W_N=\varepsilon\,\overline{f},\qquad |\varepsilon|=1.
+E_{10}(\tau)=1-264\sum_{n\ge1}\sigma_9(n)q^n.
 \]
-定义完成 $L$-函数
+又
 \[
-\Lambda(f,s)=N^{s/2}(2\pi)^{-s}\Gamma(s)L(f,s)
-=\int_0^\infty f\!\left(\frac{iy}{\sqrt N}\right)y^{s-1}\,dy.
+\sigma_9(1)=1,\qquad \sigma_9(2)=1+2^9=513.
 \]
-在积分中作代换 $y\mapsto 1/y$，再用 Fricke 关系，可得
+因此
 \[
-\Lambda(f,s)=\varepsilon\, i^k\,\Lambda(\overline f,k-s).
+E_{10}(\tau)=1-264q-135432q^2+\cdots.
 \]
-若 $f$ 系数实，则化为
+
+对 $k=12$，有 $B_{12}=-691/2730$，所以
 \[
-\Lambda(f,s)=\varepsilon\, i^k\,\Lambda(f,k-s).
+E_{12}(\tau)=1+\frac{65520}{691}\sum_{n\ge1}\sigma_{11}(n)q^n.
 \]
-这就是 Hecke 函数方程。
+又
+\[
+\sigma_{11}(1)=1,
+\qquad
+\sigma_{11}(2)=1+2^{11}=2049.
+\]
+因此
+\[
+E_{12}(\tau)=1+\frac{65520}{691}q+\frac{134250480}{691}q^2+\cdots.
+\]
+这两个例子说明：当权增长时，Fourier 系数依然由 Bernoulli 数与除数函数统一控制；真正新的现象并不在“是否有 $q$-展开”，而在不同权空间的维数和尖点部分如何出现。对 $k=10$，这里只有 Eisenstein 方向；而到 $k=12$，由于同时出现了 $\Delta$，模形式空间开始出现非平凡的 cusp 部分。
 \end{solution}
 
-\begin{problem}{\medium\ Poincar\'e级数与 Petersson 内积}
-说明 Poincar\'e 级数 $P_m$ 属于 $S_k$，并计算它与任意 $f\in S_k$ 的 Petersson 内积。
+\begin{problem}{权十二恒等式}
+\medium
+利用 $M_{12}$ 是二维空间，证明
+\[
+E_4^3-E_6^2=1728\Delta.
+\]
+\end{problem}
+\begin{solution}
+$E_4^3$ 与 $E_6^2$ 都是权 $12$ 模形式，而且它们的常数项都等于 $1$。因此
+\[
+E_4^3-E_6^2
+\]
+是权 $12$ 的尖点形式。
+
+又因为 $M_{12}$ 是二维，而 $E_{12}$ 提供了一条 Eisenstein 方向，所以尖点空间 $S_{12}$ 是一维的。$\Delta$ 是一个非零的权 $12$ 尖点形式，因此
+\[
+S_{12}=\C\Delta.
+\]
+于是存在常数 $c$ 使
+\[
+E_4^3-E_6^2=c\Delta.
+\]
+
+接着比较 $q$ 的一次项。由前面已经算出的展开，
+\[
+E_4=1+240q+\cdots,
+\qquad
+E_6=1-504q+\cdots.
+\]
+所以
+\[
+E_4^3=1+720q+\cdots,
+\qquad
+E_6^2=1-1008q+\cdots.
+\]
+故
+\[
+E_4^3-E_6^2=1728q+\cdots.
+\]
+另一方面，$\Delta=q+O(q^2)$，所以必有 $c=1728$。因此
+\[
+E_4^3-E_6^2=1728\Delta.
+\]
+\end{solution}
+
+\begin{problem}{Delta的首项系数}
+\medium
+由恒等式
+\[
+\Delta=\frac{E_4^3-E_6^2}{1728}
+\]
+计算 $\Delta$ 的前四个非零项。
+\end{problem}
+\begin{solution}
+先写出
+\[
+E_4=1+240q+2160q^2+6720q^3+17520q^4+\cdots,
+\]
+\[
+E_6=1-504q-16632q^2-122976q^3-532728q^4+\cdots.
+\]
+直接展开可得
+\[
+E_4^3=1+720q+179280q^2+16954560q^3+396974160q^4+\cdots,
+\]
+\[
+E_6^2=1-1008q+220752q^2+16519104q^3+399517776q^4+\cdots.
+\]
+两者相减得到
+\[
+E_4^3-E_6^2=1728q-41472q^2+435456q^3-2543616q^4+\cdots.
+\]
+除以 $1728$ 便有
+\[
+\Delta=q-24q^2+252q^3-1472q^4+\cdots.
+\]
+\end{solution}
+
+\begin{problem}{E2的变换公式}
+\medium
+已知
+\[
+E_2(\tau+1)=E_2(\tau),
+\qquad
+E_2\!\left(-\frac1\tau\right)=\tau^2E_2(\tau)+\frac{6}{\pi i}\tau.
+\]
+证明对任意
+\[
+\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\SL_2(\Z)
+\]
+都有
+\[
+E_2(\gamma\tau)=(c\tau+d)^2E_2(\tau)+\frac{6}{\pi i}c(c\tau+d).
+\]
 \end{problem}
 \begin{solution}
 定义
 \[
-P_m(\tau)=\sum_{\gamma\in \Gamma_\infty\backslash \Gamma}
-\frac{e^{2\pi i m\gamma\tau}}{j(\gamma,\tau)^k}
-\qquad (m\ge1,\ k>2).
+F_\gamma(\tau)=E_2(\gamma\tau)-(c\tau+d)^2E_2(\tau)-\frac{6}{\pi i}c(c\tau+d).
 \]
-它按构造满足权 $k$ 的模变换；又因为 $m\ge1$，在尖点处有指数衰减，所以
+我们要证 $F_\gamma\equiv 0$。
+
+对生成元 $T=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}$，因为 $c=0,d=1$，有
 \[
-P_m\in S_k.
+F_T(\tau)=E_2(\tau+1)-E_2(\tau)=0.
 \]
-若
+
+对生成元 $S=\begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}$，公式正是已知条件，所以
 \[
-f(\tau)=\sum_{n\ge1}a_nq^n\in S_k,
+F_S(\tau)=0.
 \]
-则 unfolding 计算给出
+
+现在设该公式已对 $\gamma_1,\gamma_2$ 成立。把 $\gamma_1\gamma_2$ 写成
 \[
-\langle f,P_m\rangle
-=
-\frac{\Gamma(k-1)}{(4\pi m)^{k-1}}\,a_m.
+\gamma_1\gamma_2=
+\begin{pmatrix}a&b\\c&d\end{pmatrix}.
 \]
-因此 $P_m$ 的作用是“抽取第 $m$ 个 Fourier 系数”。
+那么
+\[
+E_2(\gamma_1\gamma_2\tau)
+= (c_1\gamma_2\tau+d_1)^2E_2(\gamma_2\tau)+\frac{6}{\pi i}c_1(c_1\gamma_2\tau+d_1).
+\]
+再对 $E_2(\gamma_2\tau)$ 代入同样公式并整理，恰好得到
+\[
+E_2(\gamma_1\gamma_2\tau)=(c\tau+d)^2E_2(\tau)+\frac{6}{\pi i}c(c\tau+d).
+\]
+也就是说，若公式对两个矩阵成立，则对它们的乘积也成立。
+
+由于 $\SL_2(\Z)$ 由 $S,T$ 生成，而公式已对 $S,T$ 成立，所以对一切 $\gamma\in\SL_2(\Z)$ 都成立。
 \end{solution}
 
-\begin{problem}{\medium\ 说明为什么 $L(E_4,1)=\pi^4/90$}
-从 zeta 因子分解解释为什么会出现
+\begin{problem}{E2的实解析修正}
+\medium
+定义
 \[
-\frac{\pi^4}{90}.
+E_2^*(\tau)=E_2(\tau)-\frac{3}{\pi\Im\tau}.
 \]
+证明 $E_2^*$ 满足真正的权 $2$ 模变换律。
 \end{problem}
 \begin{solution}
-由
+设 $\tau=x+iy$，并记
 \[
-L(E_4,s)=\zeta(s)\zeta(s-3)
+\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix}.
 \]
-可见 Eisenstein 情形在 $s=1$ 会遇到 $\zeta(s)$ 的极点，所以通常要先把这一个极点因子剥去。剥去之后剩下的有限部分就是
+由上一题，
 \[
-\zeta(4)=\frac{\pi^4}{90}.
+E_2(\gamma\tau)=(c\tau+d)^2E_2(\tau)+\frac{6}{\pi i}c(c\tau+d).
 \]
-因此题目中的
+又由虚部公式，
 \[
-L(E_4,1)=\frac{\pi^4}{90}
-\]
-应理解为 Eisenstein 极点去掉后的正规化 special value。
-
-\textbf{注。} 真正未正规化的 $L(E_4,s)$ 在 $s=1$ 并不直接取有限值。
-\end{solution}
-
-\begin{problem}{\medium\ 椭圆曲线好素数处的 Euler 因子}
-设 $E/\mathbf Q$ 是椭圆曲线，$p\nmid N$ 为好素数。证明局部 Euler 因子为
-\[
-(1-a_pp^{-s}+p^{1-2s})^{-1},
-\qquad
-a_p=p+1-\#E(\mathbf F_p).
-\]
-\end{problem}
-\begin{solution}
-对好素数 $p$，局部 zeta 函数满足 Weil 形式
-\[
-Z(E/\mathbf F_p,T)=\frac{1-a_pT+pT^2}{(1-T)(1-pT)}.
-\]
-其中分子是 Frobenius 在一维上同调上的特征多项式。设其根为 $\alpha_p,\beta_p$，则
-\[
-\alpha_p+\beta_p=a_p,\qquad \alpha_p\beta_p=p.
-\]
-于是局部 $L$-因子取分子的倒数：
-\[
-L_p(E,s)=\frac1{(1-\alpha_pp^{-s})(1-\beta_pp^{-s})}
-=\frac1{1-a_pp^{-s}+p^{1-2s}}.
-\]
-即得所求。
-\end{solution}
-
-\begin{problem}{\medium\ Hecke本征值的代数整数性}
-证明归一化 Hecke 本征形式的本征值 $a_n$ 都是代数整数。
-\end{problem}
-\begin{solution}
-Hecke 算子 $T_n$ 保持模形式空间中的整数格，例如保持整系数 $q$-展开所张成的有限生成模。因此 $T_n$ 在某组基下可以写成整系数矩阵，所以它的特征多项式属于 $\mathbf Z[x]$，且首一。
-若 $f$ 是归一化 Hecke 本征形式，则
-\[
-T_nf=a_nf.
-\]
-因此 $a_n$ 是整系数首一多项式的根，从而是代数整数。
-\end{solution}
-
-\begin{problem}{\medium\ Eisenstein空间与 cusp空间的正交性}
-说明为什么 Eisenstein 子空间与 cusp 子空间在 Petersson 内积下正交。
-\end{problem}
-\begin{solution}
-只需验证
-\[
-\langle E_k,f\rangle=0\qquad (f\in S_k).
-\]
-把 $E_k$ 写成对 $\Gamma_\infty\backslash\Gamma$ 的和后做 unfolding，得到
-\[
-\langle E_k,f\rangle
-=
-\int_0^\infty\int_0^1 \overline{f(x+iy)}\,y^{k-2}\,dx\,dy.
-\]
-但 cusp form 的常数项为 $0$，所以对每个 $y>0$ 都有
-\[
-\int_0^1 f(x+iy)\,dx=0.
-\]
-故上式为 $0$。因此 Eisenstein 子空间与 cusp 子空间正交。
-\end{solution}
-
-\begin{problem}{\medium\ 用 $\zeta(12)$ 表示 $\langle \Delta,\Delta\rangle$}
-给出把 Petersson 范数 $\langle \Delta,\Delta\rangle$ 表成 $\zeta(12)$ 的一个标准表达式。
-\end{problem}
-\begin{solution}
-Rankin--Selberg 方法给出
-\[
-\langle \Delta,\Delta\rangle
-=
-\frac{(4\pi)^{11}}{11!}\cdot\frac{\pi}{3}\,
-L(1,\operatorname{Sym}^2\Delta).
-\]
-又
-\[
-\zeta(12)=\frac{691}{638512875}\pi^{12},
-\qquad
-\pi^{12}=\frac{638512875}{691}\zeta(12).
-\]
-因此可把上式改写为
-\[
-\langle \Delta,\Delta\rangle
-=
-\frac{4^{11}\cdot 638512875}{3\cdot 11!\cdot 691}\,
-\zeta(12)\,L(1,\operatorname{Sym}^2\Delta).
-\]
-这就把 $\langle \Delta,\Delta\rangle$ 明确写成了“$\zeta(12)$ 乘以一个对称平方特殊值”的形式。
-\end{solution}
-
-\begin{problem}{\medium\ 说明导体 $11$ 曲线的模性并验证到 $p=7$}
-设
-\[
-E_{11}: y^2+y=x^3-x^2-10x-20.
-\]
-说明它的模性，并验证 $p=2,3,5,7$ 时的 Fourier 系数。
-\end{problem}
-\begin{solution}
-模性定理说明：每条定义在 $\mathbf Q$ 上的椭圆曲线都对应一个权 $2$ 新形式 $f_E=\sum a_nq^n$，使得
-\[
-L(E,s)=L(f_E,s).
-\]
-导体 $11$ 的这条曲线对应的新形式是
-\[
-f_{11}=q-2q^2-q^3+2q^4+q^5+2q^6-2q^7+\cdots.
-\]
-在好素数处
-\[
-a_p=p+1-\#E(\mathbf F_p).
-\]
-直接计数得
-\[
-\#E(\mathbf F_2)=5,\quad
-\#E(\mathbf F_3)=5,\quad
-\#E(\mathbf F_5)=5,\quad
-\#E(\mathbf F_7)=10.
-\]
-故
-\[
-a_2=2+1-5=-2,\quad
-a_3=3+1-5=-1,\quad
-a_5=5+1-5=1,\quad
-a_7=7+1-10=-2.
-\]
-这与 $f_{11}$ 的系数完全一致，因此在 $p\le7$ 的范围内验证了模性对应。
-\end{solution}
-
-\begin{problem}{\medium\ zeta在 $\Re(s)>0$ 的解析延拓公式}
-写出一个把 $\zeta(s)$ 延拓到 $\Re(s)>0$ 的公式，并说明原因。
-\end{problem}
-\begin{solution}
-交错级数
-\[
-\eta(s)=\sum_{n\ge1}\frac{(-1)^{n-1}}{n^s}
-\]
-在 $\Re(s)>0$ 收敛，并定义全纯函数。又在 $\Re(s)>1$ 时，
-\[
-\eta(s)=(1-2^{1-s})\zeta(s).
+\Im(\gamma\tau)=\frac{y}{|c\tau+d|^2}.
 \]
 因此
 \[
-\zeta(s)=\frac{\eta(s)}{1-2^{1-s}}
-=\frac{1}{1-2^{1-s}}\sum_{n\ge1}\frac{(-1)^{n-1}}{n^s}.
+E_2^*(\gamma\tau)
+=E_2(\gamma\tau)-\frac{3}{\pi\Im(\gamma\tau)}
+=(c\tau+d)^2E_2(\tau)+\frac{6}{\pi i}c(c\tau+d)-\frac{3|c\tau+d|^2}{\pi y}.
 \]
-这就把 $\zeta(s)$ 延拓到了 $\Re(s)>0$；唯一真正的奇点是 $s=1$ 的简单极点。
+另一方面，
+\[
+(c\tau+d)^2-|c\tau+d|^2=(c\tau+d)(c\tau+d-c\bar\tau-d)=2iy\,c(c\tau+d).
+\]
+故
+\[
+-\frac{3|c\tau+d|^2}{\pi y}
+=-\frac{3(c\tau+d)^2}{\pi y}+\frac{6i}{\pi}c(c\tau+d).
+\]
+注意到
+\[
+\frac{6}{\pi i}=-\frac{6i}{\pi},
+\]
+所以上式中的附加项正好抵消，得到
+\[
+E_2^*(\gamma\tau)=(c\tau+d)^2\left(E_2(\tau)-\frac{3}{\pi y}\right)
+=(c\tau+d)^2E_2^*(\tau).
+\]
+这说明 $E_2^*$ 确实按权 $2$ 变换。
 \end{solution}
 
-\begin{problem}{\medium\ 用 theta 与 Poisson 求和证明 $\xi(s)=\xi(1-s)$}
-利用 theta 函数和 Poisson 求和说明 Riemann 函数方程。
+\begin{problem}{Euler乘积}
+\medium
+证明：当 $\Re(s)>1$ 时，Dirichlet $L$-函数满足 Euler 乘积
+\[
+L(s,\chi)=\prod_p \left(1-\chi(p)p^{-s}\right)^{-1}.
+\]
 \end{problem}
 \begin{solution}
-设
+由定义
 \[
-\theta(t)=\sum_{n\in \mathbf Z}e^{-\pi n^2t}.
+L(s,\chi)=\sum_{n\ge1}\frac{\chi(n)}{n^s}.
 \]
-Poisson 求和给出
+在 $\Re(s)>1$ 时该级数绝对收敛。又因为 Dirichlet 特征是完全乘法的，所以对于每个素数 $p$，有几何级数展开
 \[
-\theta(t)=t^{-1/2}\theta(1/t).
+\left(1-\chi(p)p^{-s}\right)^{-1}=1+\chi(p)p^{-s}+\chi(p)^2p^{-2s}+\cdots.
 \]
-又在 $\Re(s)>1$ 时，
+把所有素数的这些级数相乘，依据算术基本定理，每个正整数
 \[
-\pi^{-s/2}\Gamma\!\left(\frac s2\right)\zeta(s)
-=
-\frac12\int_0^\infty (\theta(t)-1)t^{s/2-1}\,dt.
+n=\prod_p p^{\nu_p(n)}
 \]
-记
+恰好出现一次，其对应项为
 \[
-\xi(s):=\pi^{-s/2}\Gamma\!\left(\frac s2\right)\zeta(s).
+\prod_p \chi(p)^{\nu_p(n)}p^{-\nu_p(n)s}=\chi(n)n^{-s}.
 \]
-把积分拆成 $(0,1)$ 与 $(1,\infty)$，并在 $(0,1)$ 上用 $t\mapsto 1/t$ 及 theta 变换公式，可得
+因此乘积展开后得到
 \[
-\xi(s)=\frac12\int_1^\infty (\theta(t)-1)\bigl(t^{s/2-1}+t^{(1-s)/2-1}\bigr)\,dt.
-\]
-右端在 $s\leftrightarrow 1-s$ 下不变，因此
-\[
-\xi(s)=\xi(1-s).
+\prod_p \left(1-\chi(p)p^{-s}\right)^{-1}
+=\sum_{n\ge1}\frac{\chi(n)}{n^s}=L(s,\chi).
 \]
 \end{solution}
 
-\begin{problem}{\medium\ 陈述广义Ramanujan与GRH及其和椭圆曲线的关系}
-陈述广义 Ramanujan 猜想与广义 Riemann 猜想，并说明它们与椭圆曲线 $L$-函数的关系。
+\begin{problem}{模四Gauss和}
+\medium
+对模 $4$ 的特征 $\chi_4$，计算它的 Gauss 和
+\[
+\tau(\chi_4)=\sum_{a=1}^{4}\chi_4(a)e^{2\pi i a/4}.
+\]
 \end{problem}
 \begin{solution}
-广义 Ramanujan 猜想说：未分歧处的归一化 Satake 参数都应落在单位圆上。对权 $2$ 模形式，这等价于
+按定义逐项计算：
 \[
-|a_p|\le 2\sqrt p.
+\chi_4(1)=1,\qquad \chi_4(2)=0,\qquad \chi_4(3)=-1,\qquad \chi_4(4)=0.
 \]
-对椭圆曲线，这正是 Hasse 界。
-
-广义 Riemann 猜想说：适当完成后的自守 $L$-函数，其所有非平凡零点都落在临界线上。对椭圆曲线的 Hasse--Weil $L(E,s)$，这意味着非平凡零点应位于
+因此
 \[
-\Re(s)=1
+\tau(\chi_4)=e^{2\pi i/4}-e^{6\pi i/4}=i-(-i)=2i.
 \]
-（若改用居中变量，则是 $\Re(s)=1/2$）。
-
-二者分别控制局部 Euler 因子的大小和全局零点的分布，因此都直接影响椭圆曲线点数波动、素数和估计以及 BSD 型问题。
+故
+\[
+\tau(\chi_4)=2i,
+\qquad
+|\tau(\chi_4)|=2.
+\]
 \end{solution}
 
 \section{挑战题 \hard}
 
-\begin{problem}{\hard\ 证明偶权 $k\ge12$ 时 $\dim S_k=\dim M_k-1$}
-对偶权 $k\ge12$，证明
+\begin{problem}{zeta函数的函数方程}
+\hard
+设
 \[
-\dim S_k=\dim M_k-1.
+\Lambda(s)=\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right)\zeta(s).
+\]
+利用 theta 函数的变换公式证明
+\[
+\Lambda(s)=\Lambda(1-s).
 \]
 \end{problem}
 \begin{solution}
-在 $\mathrm{SL}_2(\mathbf Z)$ 上，偶权 $k\ge4$ 的 Eisenstein 子空间是一维，由 $E_k$ 张成；而 cusp 子空间 $S_k$ 正好是它的补空间，所以
+先对 $\Re(s)>1$ 写 Mellin 变换：
 \[
-M_k=\mathbf C E_k\oplus S_k.
+\Lambda(s)=\frac12\int_0^{\infty}(\theta(t)-1)t^{s/2-1}\,dt.
+\]
+把积分拆成两段：
+\[
+\Lambda(s)=\frac12\int_0^1(\theta(t)-1)t^{s/2-1}dt
++\frac12\int_1^{\infty}(\theta(t)-1)t^{s/2-1}dt.
+\]
+在第一段中令 $t=1/u$，并用
+\[
+\theta(1/u)=u^{1/2}\theta(u),
+\]
+得到
+\[
+\int_0^1(\theta(t)-1)t^{s/2-1}dt
+=\int_1^{\infty}(u^{1/2}\theta(u)-1)u^{-s/2-1}du.
+\]
+把右边拆开并整理，可得
+\[
+\int_0^1(\theta(t)-1)t^{s/2-1}dt
+=\int_1^{\infty}(\theta(u)-1)u^{(1-s)/2-1}du+\frac{2}{s-1}-\frac{2}{s}.
+\]
+于是
+\[
+\Lambda(s)=\frac{1}{s(s-1)}+\frac12\int_1^{\infty}(\theta(t)-1)
+\left(t^{s/2-1}+t^{(1-s)/2-1}\right)dt.
+\]
+这个表达式对 $s$ 与 $1-s$ 完全对称，因此
+\[
+\Lambda(s)=\Lambda(1-s).
+\]
+这就是 Riemann zeta 函数的函数方程。
+\end{solution}
+
+\begin{problem}{L值与反正切}
+\hard
+证明
+\[
+L(1,\chi_4)=\frac{\pi}{4}.
+\]
+\end{problem}
+\begin{solution}
+由定义
+\[
+L(1,\chi_4)=1-\frac13+\frac15-\frac17+\cdots.
+\]
+另一方面，初等分析中的反正切级数给出
+\[
+\arctan x=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+\cdots,
+\qquad |x|\le 1.
+\]
+令 $x=1$，便得到 Leibniz 级数
+\[
+\arctan 1=1-\frac13+\frac15-\frac17+\cdots.
+\]
+而 $\arctan 1=\pi/4$，故
+\[
+L(1,\chi_4)=\frac{\pi}{4}.
+\]
+\end{solution}
+
+\begin{problem}{Gauss和的扭转性质}
+\hard
+设 $\chi$ 是模 $m$ 的 Dirichlet 特征，定义
+\[
+\tau(\chi)=\sum_{a\bmod m}\chi(a)e^{2\pi i a/m}.
+\]
+证明：若 $(n,m)=1$，则
+\[
+\sum_{a\bmod m}\chi(a)e^{2\pi i an/m}=\overline{\chi}(n)\tau(\chi).
+\]
+\end{problem}
+\begin{solution}
+由于 $(n,m)=1$，$n$ 在模 $m$ 意义下可逆。设 $n^{-1}$ 是它的逆元，令
+\[
+b\equiv an \pmod m.
+\]
+则当 $a$ 跑遍模 $m$ 的剩余类时，$b$ 也恰好跑遍一遍。于是
+\[
+\sum_{a\bmod m}\chi(a)e^{2\pi i an/m}
+=\sum_{b\bmod m}\chi(n^{-1}b)e^{2\pi i b/m}.
+\]
+利用特征的完全乘法性，得
+\[
+\chi(n^{-1}b)=\chi(n^{-1})\chi(b).
+\]
+故上式变成
+\[
+\chi(n^{-1})\sum_{b\bmod m}\chi(b)e^{2\pi i b/m}
+=\chi(n^{-1})\tau(\chi).
+\]
+而对与 $m$ 互素的整数，$|\chi(n)|=1$，故
+\[
+\chi(n^{-1})=\overline{\chi}(n).
 \]
 因此
 \[
-\dim M_k=1+\dim S_k,
+\sum_{a\bmod m}\chi(a)e^{2\pi i an/m}=\overline{\chi}(n)\tau(\chi).
+\]
+\end{solution}
+
+\begin{problem}{Eisenstein与尖点分解}
+\hard
+设 $k\ge 4$ 为偶数，$g\in M_k(\SL_2(\Z))$ 的 $q$-展开为
+\[
+g(\tau)=a_0+\sum_{n\ge1}a_n q^n.
+\]
+证明
+\[
+g=a_0E_k+f,
+\qquad f\in S_k(\SL_2(\Z)).
+\]
+并说明该分解是唯一的。
+\end{problem}
+\begin{solution}
+因为 $E_k$ 的常数项是 $1$，所以
+\[
+f(\tau):=g(\tau)-a_0E_k(\tau)
+\]
+仍然是权 $k$ 模形式。它的常数项为
+\[
+a_0-a_0\cdot 1=0.
+\]
+因此 $f$ 在尖点 $\infty$ 处消失，也就是
+\[
+f\in S_k(\SL_2(\Z)).
+\]
+于是
+\[
+g=a_0E_k+f
+\]
+给出了所求分解。
+
+再证唯一性。若
+\[
+g=cE_k+f_1=c'E_k+f_2,
+\qquad f_1,f_2\in S_k,
+\]
+则
+\[
+(c-c')E_k=f_2-f_1.
+\]
+右边是尖点形式，常数项为 $0$；左边的常数项是 $c-c'$。所以 $c-c'=0$，即 $c=c'$，继而 $f_1=f_2$。
+
+因此分解唯一。
+\end{solution}
+
+\begin{problem}{权十二的一组基}
+\hard
+利用 $M_{12}$ 是二维空间，证明
+\[
+M_{12}(\SL_2(\Z))=\C E_{12}\oplus \C\Delta.
+\]
+\end{problem}
+\begin{solution}
+由上一题，任意 $g\in M_{12}$ 都可唯一写成
+\[
+g=a_0E_{12}+f,
+\qquad f\in S_{12}.
+\]
+因此
+\[
+M_{12}=\C E_{12}\oplus S_{12}.
+\]
+现在利用 $M_{12}$ 是二维空间，而 $E_{12}$ 已经给出一条非零向量，所以 $S_{12}$ 必是一维空间。
+
+另一方面，$\Delta$ 是一个非零的权 $12$ 尖点形式，因此必生成整个 $S_{12}$。于是
+\[
+S_{12}=\C\Delta.
+\]
+代回即可得到
+\[
+M_{12}(\SL_2(\Z))=\C E_{12}\oplus \C\Delta.
+\]
+\end{solution}
+
+\begin{problem}{E4三次方与E6平方的分解}
+\hard
+把 $E_4^3$ 与 $E_6^2$ 分别写成基
+\[
+\{E_{12},\Delta\}
+\]
+下的线性组合。
+\end{problem}
+\begin{solution}
+因为 $E_4^3$ 与 $E_6^2$ 都属于 $M_{12}$，由上一题可写成
+\[
+E_4^3=E_{12}+A\Delta,
 \qquad
-\dim S_k=\dim M_k-1.
+E_6^2=E_{12}+B\Delta,
 \]
-对所有偶权 $k\ge12$ 均成立。
-\end{solution}
+这里常数项前面的系数都是 $1$，因为 $E_4^3,E_6^2,E_{12}$ 的常数项都为 $1$。
 
-\begin{problem}{\hard\ 陈述 Petersson 迹公式并化简 $m=n=1$}
-陈述 Petersson 迹公式，并把它化简到 $m=n=1$。
-\end{problem}
-\begin{solution}
-设 $\mathcal B_k$ 是 $S_k(\mathrm{SL}_2(\mathbf Z))$ 的一组正交归一 Hecke 基，则
+先看 $E_4^3$。它的 $q$ 一次项是 $720$，而 $E_{12}$ 的 $q$ 一次项是 $65520/691$，$\Delta$ 的首项是 $q$，故
 \[
-\sum_{f\in\mathcal B_k}
-\frac{\Gamma(k-1)}{(4\pi\sqrt{mn})^{k-1}}
-a_f(m)\overline{a_f(n)}
-=
-\delta_{m,n}
-+
-2\pi i^{-k}\sum_{c\ge1}\frac{S(m,n;c)}{c}
-J_{k-1}\!\left(\frac{4\pi\sqrt{mn}}{c}\right),
-\]
-其中 $S(m,n;c)$ 是 Kloosterman 和，$J_{k-1}$ 是 Bessel 函数。
-当 $m=n=1$ 时，
-\[
-\sum_{f\in\mathcal B_k}
-\frac{\Gamma(k-1)}{(4\pi)^{k-1}}|a_f(1)|^2
-=
-1+
-2\pi i^{-k}\sum_{c\ge1}\frac{S(1,1;c)}{c}
-J_{k-1}\!\left(\frac{4\pi}{c}\right).
-\]
-若取 Hecke 归一化 $a_f(1)=1$，左边就是一组显式权重下的基元素个数之和。
-\end{solution}
-
-\begin{problem}{\hard\ 用解析类数公式计算 $h(-23)=3$}
-用解析类数公式证明
-\[
-h(-23)=3.
-\]
-\end{problem}
-\begin{solution}
-对虚二次域 $\mathbf Q(\sqrt{-23})$，判别式为 $-23$，单位根个数为 $2$。解析类数公式给出
-\[
-L(1,\chi_{-23})=\frac{2\pi}{2\sqrt{23}}\,h(-23)=\frac{\pi}{\sqrt{23}}h(-23).
-\]
-另一方面，对这个二次特征可用有限和公式计算
-\[
-L(1,\chi_{-23})=\frac{3\pi}{\sqrt{23}}.
-\]
-于是比较两式得到
-\[
-\frac{\pi}{\sqrt{23}}h(-23)=\frac{3\pi}{\sqrt{23}},
+A=720-\frac{65520}{691}=\frac{432000}{691}.
 \]
 所以
 \[
-h(-23)=3.
+E_4^3=E_{12}+\frac{432000}{691}\Delta.
+\]
+
+再看 $E_6^2$。它的 $q$ 一次项是 $-1008$，于是
+\[
+B=-1008-\frac{65520}{691}=-\frac{762048}{691}.
+\]
+故
+\[
+E_6^2=E_{12}-\frac{762048}{691}\Delta.
+\]
+
+两式相减马上恢复
+\[
+E_4^3-E_6^2=1728\Delta.
 \]
 \end{solution}
 
-\begin{problem}{\hard\ 陈述强BSD并说明 $L(1,E)\neq0$ 与秩 $0$ 的关系}
-陈述强 Birch--Swinnerton-Dyer 猜想，并解释为什么 $L(1,E)\neq0$ 预示秩为 $0$；同时说明已知结果。
+\begin{problem}{Petersson正定性}
+\hard
+设 $f\in S_k(\SL_2(\Z))$，证明若 $f\ne 0$，则它的 Petersson 内积满足
+\[
+\langle f,f\rangle>0.
+\]
 \end{problem}
 \begin{solution}
-强 BSD 猜想断言
+Petersson 内积定义为
 \[
-\operatorname{ord}_{s=1}L(E,s)=\operatorname{rank}E(\mathbf Q),
+\langle f,g\rangle=\int_{\Gamma\backslash\HH} f(\tau)\overline{g(\tau)}\,y^k\,\frac{dx\,dy}{y^2}.
 \]
-且若 $r=\operatorname{rank}E(\mathbf Q)$，则
+取 $g=f$，便有
 \[
-\frac{L^{(r)}(E,1)}{r!}
-=
-\frac{\Omega_E\,\operatorname{Reg}_E\,|\Sha(E)|\,\prod_pc_p}
-{|E(\mathbf Q)_{\mathrm{tors}}|^2}.
+\langle f,f\rangle=\int_{\Gamma\backslash\HH}|f(\tau)|^2y^k\,\frac{dx\,dy}{y^2}.
 \]
-因此若
-\[
-L(1,E)\neq0,
-\]
-则解析秩为 $0$；按 BSD 便应推出代数秩也为 $0$。这在猜想层面给出“非零 special value $\Rightarrow$ rank $0$”。
+被积函数处处非负。
 
-对 $\mathbf Q$ 上的模椭圆曲线，Gross--Zagier 与 Kolyvagin 的结果进一步表明：若 $L(1,E)\neq0$，则的确有
+由于 $f$ 是尖点形式，它在尖点处指数衰减，所以该积分收敛。若 $f\ne 0$，则 $|f(\tau)|^2$ 不是处处为零，因此在某个开集上严格为正。乘上正函数 $y^k$ 后仍严格为正，所以积分值严格大于零。
+
+因此对任意非零尖点形式都有
 \[
-\operatorname{rank}E(\mathbf Q)=0,
+\langle f,f\rangle>0.
 \]
-并且 $\Sha(E)$ 有限。
 \end{solution}
 
-\begin{problem}{\hard\ 讨论 $E_{11}$ 的部分乘积与 BSD 证据}
-讨论
+\begin{problem}{带特征的展开}
+\hard
+设 $\chi_4$ 为模 $4$ 的特征。定义系数
 \[
-\prod_{p\le100}\frac{\#E(\mathbf F_p)}{p}
+a_n=\sum_{d\mid n}\chi_4(d)d^2.
 \]
-对导体 $11$ 的椭圆曲线 $E_{11}$ 给出的 BSD 数值证据。
+写出级数
+\[
+F(\tau)=\sum_{n\ge1} a_n q^n
+\]
+的前五项，并说明为什么这里选权 $3$ 是自然的。
 \end{problem}
 \begin{solution}
-对好素数 $p$，
+先逐项计算系数。
+
+当 $n=1$ 时，因子只有 $1$，故
 \[
-\frac{\#E(\mathbf F_p)}{p}
-=
-1-\frac{a_p}{p}+\frac1p
-=
-L_p(E,1)^{-1}.
-\]
-因此这个部分乘积可看作 $L(E,1)^{-1}$ 的一个截断近似。对
-\[
-E_{11}: y^2+y=x^3-x^2-10x-20
-\]
-直接计算到 $p\le100$，得到
-\[
-\prod_{p\le100}\frac{\#E(\mathbf F_p)}{p}\approx 6.4878.
-\]
-于是其倒数约为
-\[
-0.1541.
-\]
-这说明截断 Euler 乘积并没有向 $0$ 衰减，而是表现为趋向某个正的有限值；这与
-\[
-L(E,1)\neq0
-\]
-的预期一致，因此支持解析秩为 $0$，也就支持 BSD 所预言的
-\[
-\operatorname{rank}E_{11}(\mathbf Q)=0.
+a_1=\chi_4(1)\cdot 1^2=1.
 \]
 
-\textbf{注。} 这只是数值证据：收敛很慢，坏素数的局部因子也需单独处理，但定性上它确实支持 rank $0$ 的 BSD 图景。
+当 $n=2$ 时，因子为 $1,2$，而 $\chi_4(2)=0$，故
+\[
+a_2=1.
+\]
+
+当 $n=3$ 时，因子为 $1,3$，于是
+\[
+a_3=\chi_4(1)\cdot 1^2+\chi_4(3)\cdot 3^2=1-9=-8.
+\]
+
+当 $n=4$ 时，只有奇因子 $1$ 有贡献，所以
+\[
+a_4=1.
+\]
+
+当 $n=5$ 时，因子为 $1,5$，且 $\chi_4(5)=\chi_4(1)=1$，故
+\[
+a_5=1+25=26.
+\]
+因此
+\[
+F(\tau)=q+q^2-8q^3+q^4+26q^5+\cdots.
+\]
+
+为什么权 $3$ 自然？因为模 $4$ 的特征满足
+\[
+\chi_4(-1)=-1.
+\]
+而带特征 Eisenstein 级数的奇偶性要求权 $k$ 与特征满足
+\[
+\chi(-1)=(-1)^k.
+\]
+因此这里应选奇数权；最小的正整数选择就是 $k=3$。
+\end{solution}
+
+\begin{problem}{Ramanujan系数的卷积公式}
+\hard
+设
+\[
+\Delta(\tau)=\sum_{n\ge1}\tau(n)q^n,
+\qquad
+A(\tau)=\sum_{n\ge1}\sigma_3(n)q^n,
+\qquad
+B(\tau)=\sum_{n\ge1}\sigma_5(n)q^n.
+\]
+由
+\[
+E_4=1+240A,
+\qquad
+E_6=1-504B,
+\qquad
+E_4^3-E_6^2=1728\Delta
+\]
+导出 $\tau(n)$ 的一个显式卷积公式。
+\end{problem}
+\begin{solution}
+先把两边完全展开。由
+\[
+E_4^3=(1+240A)^3=1+720A+172800A^2+13824000A^3,
+\]
+以及
+\[
+E_6^2=(1-504B)^2=1-1008B+254016B^2,
+\]
+可得
+\[
+1728\Delta
+=720A+1008B+172800A^2+13824000A^3-254016B^2.
+\]
+取 $q^n$ 的系数。记
+\[
+(A^2)_n=\sum_{a+b=n}\sigma_3(a)\sigma_3(b),
+\]
+\[
+(A^3)_n=\sum_{a+b+c=n}\sigma_3(a)\sigma_3(b)\sigma_3(c),
+\]
+\[
+(B^2)_n=\sum_{a+b=n}\sigma_5(a)\sigma_5(b),
+\]
+其中求和都在正整数上进行。于是得到
+\[
+1728\,\tau(n)
+=720\sigma_3(n)+1008\sigma_5(n)+172800(A^2)_n+13824000(A^3)_n-254016(B^2)_n.
+\]
+也就是说
+\[
+\tau(n)=\frac{1}{1728}\Bigl(
+720\sigma_3(n)+1008\sigma_5(n)
++172800\sum_{a+b=n}\sigma_3(a)\sigma_3(b)
+\Bigr.
+\]
+\[
+\Bigl.
++13824000\sum_{a+b+c=n}\sigma_3(a)\sigma_3(b)\sigma_3(c)
+-254016\sum_{a+b=n}\sigma_5(a)\sigma_5(b)
+\Bigr).
+\]
+这就是由 Eisenstein 级数恒等式得到的 Ramanujan 系数卷积公式。
 \end{solution}
