@@ -1,0 +1,911 @@
+\chapter{附录A：代数基础 习题}
+\difficultykey
+
+\section{A.1 线性代数}
+
+\begin{problem}{线性映射可逆性}
+\textbf{难度：}\easy\ 设 $V$ 是有限维 $k$-向量空间，$f:V\to V$ 线性。证明：$f$ 单射、满射、可逆三者等价。
+\end{problem}
+\begin{solution}
+由秩--零化度定理，
+\[
+\dim V=\dim\ker f+\dim\operatorname{im}f.
+\]
+若 $f$ 单射，则 $\ker f=0$，故 $\dim\operatorname{im}f=\dim V$，于是 $\operatorname{im}f=V$，即满射。反之若满射，则 $\dim\operatorname{im}f=\dim V$，故 $\dim\ker f=0$，即单射。
+
+有限维情形下，线性映射单射且满射就存在逆线性映射，因此可逆。反过来，可逆映射显然既单又满。
+\end{solution}
+
+\begin{problem}{特征多项式计算}
+\textbf{难度：}\easy\ 计算
+\[
+A=\begin{pmatrix}2&1\\1&2\end{pmatrix}
+\]
+的特征多项式与特征值。
+\end{problem}
+\begin{solution}
+\[
+\chi_A(t)=\det(tI-A)=\det\begin{pmatrix}t-2&-1\\-1&t-2\end{pmatrix}=(t-2)^2-1=t^2-4t+3.
+\]
+因式分解得
+\[
+\chi_A(t)=(t-1)(t-3).
+\]
+所以特征值为 $1$ 与 $3$。
+\end{solution}
+
+\begin{problem}{二维Cayley--Hamilton}
+\textbf{难度：}\medium\ 对任意 $2\times2$ 矩阵
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix}
+\]
+直接证明 Cayley--Hamilton 定理：$p_A(A)=0$。
+\end{problem}
+\begin{solution}
+$A$ 的特征多项式为
+\[
+p_A(t)=t^2-(a+d)t+(ad-bc).
+\]
+所以
+\[
+p_A(A)=A^2-(a+d)A+(ad-bc)I.
+\]
+先算
+\[
+A^2=\begin{pmatrix}a^2+bc&ab+bd\\ac+cd&bc+d^2\end{pmatrix}.
+\]
+再减去 $(a+d)A$：
+\[
+A^2-(a+d)A=
+\begin{pmatrix}
+-(ad-bc)&0\\0&-(ad-bc)
+\end{pmatrix}.
+\]
+最后加上 $(ad-bc)I$，恰得零矩阵。因此 $p_A(A)=0$。
+\end{solution}
+
+\begin{problem}{Companion矩阵与不变因子}
+\textbf{难度：}\medium\ 设 $V=\Q^4$，$f$ 的矩阵是多项式 $x^4-5x^2+4$ 的 companion matrix。分解其特征多项式，并求不变因子分解。
+\end{problem}
+\begin{solution}
+对 companion matrix，特征多项式与最小多项式都等于给定多项式：
+\[
+\chi_f(x)=m_f(x)=x^4-5x^2+4=(x^2-1)(x^2-4)=(x-1)(x+1)(x-2)(x+2).
+\]
+四个根在 $\Q$ 上互异，因此 $f$ 可对角化。
+
+作为 $\Q[x]$-模，$V$ 同构于
+\[
+\Q[x]/(x^4-5x^2+4).
+\]
+由于最小多项式等于特征多项式，只有一个不变因子，即
+\[
+x^4-5x^2+4.
+\]
+若写成初等因子分解，则是四个一次因子对应的一维特征空间之和。
+\end{solution}
+
+\begin{problem}{张量积为零}
+\textbf{难度：}\medium\ 计算
+\[
+(\Z/2\Z)\otimes_\Z(\Z/3\Z)
+\]
+并完整说明为什么结果是零模。
+\end{problem}
+\begin{solution}
+设 $u=\bar1\otimes\bar1$。因为左边模中 $2\bar1=0$，故
+\[
+2u=(2\bar1)\otimes\bar1=0.
+\]
+同理右边模中 $3\bar1=0$，故
+\[
+3u=\bar1\otimes(3\bar1)=0.
+\]
+但整数 $2,3$ 互素，存在 $m,n\in\Z$ 使 $2m+3n=1$。于是
+\[
+u=(2m+3n)u=2mu+3nu=0.
+\]
+所以生成元 $u$ 为零，整个张量积都为零：
+\[
+(\Z/2\Z)\otimes_\Z(\Z/3\Z)=0.
+\]
+\end{solution}
+
+\begin{problem}{对偶空间与张量}
+\textbf{难度：}\medium\ 设 $V=\R^3$，基为 $e_1,e_2,e_3$。若 $f(x,y,z)=2x-y+3z$，$g(x,y,z)=x+z$，写出 $f$ 在对偶基下的坐标，并计算 $(f\otimes g)\bigl((1,1,1)\otimes(2,0,1)\bigr)$。
+\end{problem}
+\begin{solution}
+设对偶基为 $e_1^*,e_2^*,e_3^*$，则
+\[
+f=2e_1^*-e_2^*+3e_3^*,
+\qquad
+g=e_1^*+e_3^*.
+\]
+因此 $f$ 在对偶基下的坐标是 $(2,-1,3)$。
+
+又
+\[
+(f\otimes g)(v\otimes w)=f(v)g(w).
+\]
+代入 $v=(1,1,1)$，$w=(2,0,1)$，得
+\[
+f(v)=2-1+3=4,
+\qquad
+g(w)=2+1=3.
+\]
+所以
+\[
+(f\otimes g)\bigl((1,1,1)\otimes(2,0,1)\bigr)=4\cdot3=12.
+\]
+\end{solution}
+
+\begin{problem}{行列式线的乘积性}
+\textbf{难度：}\hard\ 设
+\[
+0\to U\to V\to W\to0
+\]
+是有限维向量空间短正合列。证明
+\[
+\det V\cong \det U\otimes \det W.
+\]
+\end{problem}
+\begin{solution}
+设 $\dim U=r$，$\dim W=s$，则 $\dim V=r+s$。取 $U$ 的基 $u_1,\dots,u_r$，再取 $W$ 的基 $\bar w_1,\dots,\bar w_s$，并任选其在 $V$ 中的提升 $w_1,\dots,w_s$。则
+\[
+u_1,\dots,u_r,w_1,\dots,w_s
+\]
+构成 $V$ 的一组基。
+
+定义映射
+\[
+(u_1\wedge\cdots\wedge u_r)\otimes(\bar w_1\wedge\cdots\wedge \bar w_s)
+\longmapsto
+u_1\wedge\cdots\wedge u_r\wedge w_1\wedge\cdots\wedge w_s.
+\]
+要检查与提升的选择无关。若把 $w_i$ 换成 $w_i+u$，则外积中会出现含两个 $U$ 向量的项，因反对称性全都消失，因此定义良好。
+
+该映射显然双线性且非零，源与靶都是一维向量空间，所以必为同构。故
+\[
+\det V\cong \det U\otimes\det W.
+\]
+\end{solution}
+
+\begin{problem}{实对称矩阵的谱定理}
+\textbf{难度：}\hard\ 证明：任意实对称矩阵都可以正交对角化。
+\end{problem}
+\begin{solution}
+对实对称矩阵 $A$，先证特征值都为实数。若 $Av=\lambda v$，则
+\[
+\lambda\langle v,v\rangle=\langle Av,v\rangle=\langle v,Av\rangle=\bar\lambda\langle v,v\rangle,
+\]
+故 $\lambda=\bar\lambda$。
+
+再证不同特征值的特征向量正交。若 $Av=\lambda v$，$Aw=\mu w$，则
+\[
+\lambda\langle v,w\rangle=\langle Av,w\rangle=\langle v,Aw\rangle=\mu\langle v,w\rangle.
+\]
+当 $\lambda\neq\mu$ 时得 $\langle v,w\rangle=0$。
+
+用归纳法。取单位特征向量 $v_1$，其正交补 $v_1^\perp$ 在 $A$ 下稳定，因为对任意 $u\in v_1^\perp$，
+\[
+\langle Au,v_1\rangle=\langle u,Av_1\rangle=\lambda\langle u,v_1\rangle=0.
+\]
+于是 $A|_{v_1^\perp}$ 仍为实对称矩阵。对其应用归纳，得到 $v_1^\perp$ 的一组正交归一特征基。连同 $v_1$ 即得整个空间的一组正交归一特征基。
+
+以这些向量为列组成正交矩阵 $P$，则
+\[
+P^{-1}AP=P^TAP
+\]
+为对角矩阵。这就证明了谱定理。
+\end{solution}
+
+\section{A.2 群论}
+
+\begin{problem}{$p^2$ 阶群必交换}
+\textbf{难度：}\easy\ 证明任意阶为 $p^2$ 的群都是 Abel 群。
+\end{problem}
+\begin{solution}
+$p$-群的中心非平凡，所以 $|Z(G)|$ 只能是 $p$ 或 $p^2$。若 $|Z(G)|=p^2$，则 $Z(G)=G$，群交换。
+
+若 $|Z(G)|=p$，则商群 $G/Z(G)$ 阶为 $p$，必循环。已知若 $G/Z(G)$ 循环，则 $G$ 本身交换：因为任意 $x,y\in G$ 可写成 $x=g^az_1,y=g^bz_2$，其中 $z_1,z_2\in Z(G)$，从而 $xy=yx$。
+
+故无论哪种情形，$G$ 都是 Abel 群。
+\end{solution}
+
+\begin{problem}{$S_3$ 的基本结构}
+\textbf{难度：}\easy\ 证明 $S_3$ 不是 Abel 群，但 $S_3/A_3\cong \Z/2\Z$。
+\end{problem}
+\begin{solution}
+在 $S_3$ 中，
+\[
+(12)(23)=(123),\qquad (23)(12)=(132),
+\]
+两者不同，所以 $S_3$ 不交换。
+
+另一方面，$A_3=\{e,(123),(132)\}$ 是指数 $2$ 子群，因此正规。商群 $S_3/A_3$ 有两个元素，故同构于唯一的 2 阶群：
+\[
+S_3/A_3\cong \Z/2\Z.
+\]
+\end{solution}
+
+\begin{problem}{轨道--稳定子定理}
+\textbf{难度：}\medium\ 设 $S_4$ 作用在 $\{1,2,3,4\}$ 的所有 2 元子集上。计算轨道与稳定子大小，并验证轨道--稳定子公式。
+\end{problem}
+\begin{solution}
+2 元子集共有
+\[
+\binom42=6
+\]
+个。$S_4$ 对它们的作用是传递的，因为任意 2 元子集都可由某个置换送到任意另一个。因此只有一个轨道，大小为 $6$。
+
+固定子集 $\{1,2\}$。其稳定子由两类置换组成：在 $\{1,2\}$ 内任意交换，在 $\{3,4\}$ 内任意交换，所以
+\[
+\operatorname{Stab}(\{1,2\})\cong S_2\times S_2,
+\qquad |\operatorname{Stab}|=4.
+\]
+因此
+\[
+|S_4|=24=6\cdot4=|\operatorname{Orb}|\cdot|\operatorname{Stab}|,
+\]
+与轨道--稳定子公式一致。
+\end{solution}
+
+\begin{problem}{$\operatorname{PSL}_2(\F_5)$ 与 $A_5$}
+\textbf{难度：}\medium\ 证明
+\[
+\operatorname{PSL}_2(\F_5)\cong A_5.
+\]
+\end{problem}
+\begin{solution}
+先算阶：
+\[
+|\operatorname{SL}_2(\F_5)|=5(5^2-1)=120,
+\]
+其中心为 $\{\pm I\}$，故
+\[
+|\operatorname{PSL}_2(\F_5)|=60.
+\]
+
+该群自然作用在射影直线 $\mathbb P^1(\F_5)$ 上，共有 $6$ 个点，得到嵌入到 $S_6$。进一步可证明此作用是 2-重传递的，并且相应置换的符号恒为偶，因此像落在 $A_6$ 中。更经典的做法是利用该群的简单性与含有 5-循环、3-循环的元素，把它识别为一个 60 阶单群。
+
+而 $A_5$ 也是 60 阶单群。60 阶单群唯一到同构，因此
+\[
+\operatorname{PSL}_2(\F_5)\cong A_5.
+\]
+\textbf{注。} 这也是很多 Galois 表示里出现 $A_5$ 射影像的来源。
+\end{solution}
+
+\begin{problem}{第一同构定理的计算}
+\textbf{难度：}\medium\ 设 $\phi:G\to H$ 是群同态，$|G|=24$，$|H|=15$，$|\ker\phi|=8$。求 $|\operatorname{im}\phi|$ 并确定其同构类。
+\end{problem}
+\begin{solution}
+由第一同构定理，
+\[
+|\operatorname{im}\phi|=|G/\ker\phi|=24/8=3.
+\]
+任何 3 阶群都是循环群，所以
+\[
+\operatorname{im}\phi\cong \Z/3\Z.
+\]
+它也确实可嵌入 $H$，因为 $3\mid15$。
+\end{solution}
+
+\begin{problem}{$A_n$ 的单性}
+\textbf{难度：}\hard\ 证明当 $n\ge5$ 时，$A_n$ 是单群。
+\end{problem}
+\begin{solution}
+设 $N\trianglelefteq A_n$ 非平凡，取其中一个非单位元 $\sigma$，并在其共轭类中选支持集最小者。若 $\sigma$ 不是 3-循环，则可通过与合适的 3-循环做交换子，构造出支持集更小的非平凡元素，矛盾。因此 $N$ 中必含一个 3-循环。
+
+接着利用 $A_n$ 对 3-循环的共轭传递性：任意 3-循环都与任意其他 3-循环共轭，而 $N$ 正规，所以一旦含有一个 3-循环，就包含全部 3-循环。
+
+最后，$A_n$ 由 3-循环生成，因此 $N=A_n$。故 $A_n$ 没有非平凡正规子群，是单群。
+\end{solution}
+
+\begin{problem}{Schur--Zassenhaus与15阶群}
+\textbf{难度：}\hard\ 陈述 Schur--Zassenhaus 定理，并用它说明任意 15 阶群都同构于 $\Z/15\Z$。
+\end{problem}
+\begin{solution}
+Schur--Zassenhaus 定理说：若有限群 $G$ 有正规子群 $N\trianglelefteq G$，且
+\[
+\gcd(|N|,[G:N])=1,
+\]
+则存在补群 $H\le G$ 使
+\[
+G\cong N\rtimes H.
+\]
+
+设 $|G|=15=3\cdot5$。由 Sylow 定理，5-Sylow 子群个数 $n_5\equiv1\pmod5$ 且 $n_5\mid3$，故 $n_5=1$，于是 5-Sylow 正规。记为 $N\cong\Z/5\Z$。再取 3-Sylow 子群 $H\cong\Z/3\Z$。
+
+于是
+\[
+G\cong \Z/5\Z\rtimes \Z/3\Z.
+\]
+但半直积由同态 $\Z/3\Z\to \operatorname{Aut}(\Z/5\Z)\cong\Z/4\Z$ 决定，而不存在非平凡同态，因为 $3\nmid4$。所以作用平凡，
+\[
+G\cong \Z/5\Z\times\Z/3\Z\cong \Z/15\Z.
+\]
+\end{solution}
+
+\begin{problem}{Sylow定理与56阶群}
+\textbf{难度：}\hard\ 陈述并证明第一 Sylow 定理，并用 Sylow 理论证明：56 阶群不是单群。
+\end{problem}
+\begin{solution}
+第一 Sylow 定理：若 $p^r\mid |G|$，则 $G$ 含有阶为 $p^r$ 的子群。证明可用群作用：考察 $G$ 作用在含 $p^r$ 个元素子集的集合上，或更标准地用归纳结合 Cauchy 定理不断提升 $p$-子群阶数。
+
+现在设 $|G|=56=2^3\cdot7$。7-Sylow 子群个数 $n_7$ 满足
+\[
+n_7\equiv1\pmod7,\qquad n_7\mid8.
+\]
+故 $n_7=1$ 或 $8$。若 $n_7=1$，则 7-Sylow 正规，群不单。
+
+若 $n_7=8$，则不同 7-Sylow 只交于单位元，共贡献 $8\cdot6=48$ 个 7 阶元素，再加单位元共 $49$ 个元素，只剩 $7$ 个元素给 2-Sylow 子群，这不可能，因为一个 2-Sylow 子群就有 $8$ 个元素。故 $n_7\neq8$，只能是 $1$。因此 56 阶群不是单群。
+\end{solution}
+
+\section{A.3 环论}
+
+\begin{problem}{$\Z[\sqrt{-5}]$ 中的不可约分解}
+\textbf{难度：}\easy\ 判断 $2$ 与 $3$ 在 $\Z[\sqrt{-5}]$ 中是否不可约，并说明该环不是 UFD。
+\end{problem}
+\begin{solution}
+定义范数
+\[
+N(a+b\sqrt{-5})=a^2+5b^2.
+\]
+若 $2=\alpha\beta$ 是非平凡分解，则 $N(\alpha),N(\beta)>1$ 且乘积为 $4$，所以只能都等于 $2$。但方程 $a^2+5b^2=2$ 无整数解，故 $2$ 不可约。同理，若 $3=\alpha\beta$，则范数只能分成 $3\cdot1$，但 $a^2+5b^2=3$ 也无解，故 $3$ 不可约。
+
+另一方面，
+\[
+6=2\cdot3=(1+\sqrt{-5})(1-\sqrt{-5}),
+\]
+且四个因子范数分别为 $2,3,6,6$，彼此都不与单位相差。因此 $6$ 有两种本质不同的不可约分解，故 $\Z[\sqrt{-5}]$ 不是 UFD。
+\end{solution}
+
+\begin{problem}{Gauss整数的欧几里得性}
+\textbf{难度：}\easy\ 证明 $\Z[i]$ 是欧几里得整环。
+\end{problem}
+\begin{solution}
+取欧几里得函数为范数
+\[
+N(a+bi)=a^2+b^2.
+\]
+给定 $\alpha,\beta\in\Z[i]$，$\beta\neq0$，在复数域中写
+\[
+\frac\alpha\beta=x+yi.
+\]
+取最近整数 $m,n\in\Z$，使得
+\[
+|x-m|\le\tfrac12,\qquad |y-n|\le\tfrac12.
+\]
+令 $q=m+ni$，$r=\alpha-\beta q$，则
+\[
+\frac r\beta=(x-m)+(y-n)i
+\]
+满足模长平方至多 $\frac12$。故
+\[
+N(r)\le \frac12 N(\beta)<N(\beta).
+\]
+于是每次都可做带余除法，$\Z[i]$ 是欧几里得整环，从而也是 PID 与 UFD。
+\end{solution}
+
+\begin{problem}{理想 $(2)$ 的分解}
+\textbf{难度：}\medium\ 在 $\Z[i]$ 中证明
+\[
+(2)=(1+i)^2
+\]
+到单位为止，并说明 $(2)$ 是素理想的平方。
+\end{problem}
+\begin{solution}
+先算
+\[
+(1+i)^2=1+2i+i^2=2i.
+\]
+因 $i$ 是单位，所以 $(2)=(2i)=((1+i)^2)$。
+
+又
+\[
+N(1+i)=2.
+\]
+因此商环 $\Z[i]/(1+i)$ 有两个元素，同构于 $\F_2$，故 $(1+i)$ 是极大理想，特别是素理想。
+
+所以 $(2)$ 恰是素理想 $(1+i)$ 的平方。
+\end{solution}
+
+\begin{problem}{商环与 $\Z[\sqrt{-5}]$}
+\textbf{难度：}\medium\ 设
+\[
+R=\Z[x]/(x^2+5).
+\]
+证明 $R\cong\Z[\sqrt{-5}]$，并用此说明 $R$ 不是 PID。
+\end{problem}
+\begin{solution}
+定义同态
+\[
+\phi:\Z[x]\to \Z[\sqrt{-5}],\qquad f(x)\mapsto f(\sqrt{-5}).
+\]
+它显然满射，且核包含 $(x^2+5)$。因为 $\sqrt{-5}$ 在 $\Q$ 上的最小多项式就是 $x^2+5$，故核恰等于 $(x^2+5)$。由第一同构定理，
+\[
+R\cong \Z[\sqrt{-5}].
+\]
+
+上题已知 $\Z[\sqrt{-5}]$ 不是 UFD，而 PID 必为 UFD，所以 $R$ 不可能是 PID。
+\end{solution}
+
+\begin{problem}{局部化 $\Z_{(p)}$}
+\textbf{难度：}\medium\ 证明
+\[
+\Z_{(p)}=\left\{\frac ab\in\Q:p\nmid b\right\}
+\]
+是局部环，其唯一极大理想为 $(p)$，并计算其剩余域。
+\end{problem}
+\begin{solution}
+元素 $a/b\in\Z_{(p)}$ 是单位，当且仅当 $p\nmid a$；因为这时其逆 $b/a$ 仍在 $\Z_{(p)}$ 中。故非单位恰是分子被 $p$ 整除的元素，也就是理想 $(p)$。
+
+因此 $(p)$ 包含所有非单位，所以它是唯一极大理想，$\Z_{(p)}$ 是局部环。
+
+模掉 $(p)$ 后，
+\[
+\Z_{(p)}/p\Z_{(p)}\cong \F_p,
+\]
+因为任意分母 $b$ 模 $p$ 都可逆。
+\end{solution}
+
+\begin{problem}{$k[x,y]$ 不是PID}
+\textbf{难度：}\hard\ 证明双变量多项式环 $k[x,y]$ 不是 PID。
+\end{problem}
+\begin{solution}
+考虑理想
+\[
+I=(x,y).
+\]
+若它是主理想，设 $I=(f)$。则 $f\mid x$ 且 $f\mid y$。因为 $x,y$ 在 UFD $k[x,y]$ 中互素，所以 $f$ 只能是单位。
+
+但若 $f$ 是单位，则 $(f)=k[x,y]$，这与 $I=(x,y)$ 为真子理想矛盾。因此 $(x,y)$ 不是主理想，$k[x,y]$ 不是 PID。
+\end{solution}
+
+\begin{problem}{中国剩余定理}
+\textbf{难度：}\hard\ 证明一般版中国剩余定理，并推出数论中的
+\[
+\Z/mn\Z\cong\Z/m\Z\times\Z/n\Z\quad (\gcd(m,n)=1).
+\]
+\end{problem}
+\begin{solution}
+设 $I_1,\dots,I_n$ 两两互素。定义
+\[
+\phi:R\to \prod_{j=1}^n R/I_j,
+\qquad
+r\mapsto (r\bmod I_j)_j.
+\]
+其核显然是 $\bigcap I_j$。对两两互素理想有
+\[
+\bigcap I_j=I_1\cdots I_n.
+\]
+
+要证满射。对每个 $j$，因 $I_j+\prod_{i\ne j}I_i=R$，存在
+\[
+e_j\in \prod_{i\ne j}I_i
+\]
+使得 $e_j\equiv1\pmod{I_j}$。于是给定任意剩余类 $(\bar r_j)$，取
+\[
+r=\sum_j r_je_j,
+\]
+即可满足 $r\equiv r_j\pmod{I_j}$。故
+\[
+R/(I_1\cdots I_n)\cong \prod_j R/I_j.
+\]
+
+取 $R=\Z$，$I_1=(m),I_2=(n)$ 且 $(m,n)=1$，便得
+\[
+\Z/mn\Z\cong \Z/m\Z\times\Z/n\Z.
+\]
+\end{solution}
+
+\begin{problem}{算术基本定理}
+\textbf{难度：}\hard\ 完整证明整数环 $\Z$ 是 UFD。
+\end{problem}
+\begin{solution}
+\textbf{存在性。} 对 $n>1$ 用有限下降。若 $n$ 不可约则完成；若可约，写成 $n=ab$，其中 $1<a,b<n$。对 $a,b$ 递归分解，最终得到不可约分解，因为正整数严格下降不能无限继续。
+
+\textbf{Euclid 引理。} 若素数 $p\mid ab$ 且 $(p,a)=1$，则存在 $u,v$ 使 $up+va=1$，乘以 $b$ 得 $b=upb+vab$，故 $p\mid b$。因此素数整除乘积必整除某因子。
+
+\textbf{唯一性。} 设
+\[
+n=p_1\cdots p_r=q_1\cdots q_s
+\]
+是两种素数分解。因 $p_1\mid q_1\cdots q_s$，由 Euclid 引理得 $p_1\mid q_j$ 某个 $j$。但 $q_j$ 为素数，故 $p_1=\pm q_j$。消去这一因子并归纳，最终两边素因子完全相同，只差顺序和单位 $\pm1$。
+
+故 $\Z$ 是 UFD。
+\end{solution}
+
+\section{A.4 域论}
+
+\begin{problem}{双平方根扩张}
+\textbf{难度：}\easy\ 证明
+\[
+[\Q(\sqrt2,\sqrt3):\Q]=4,
+\qquad
+\Gal(\Q(\sqrt2,\sqrt3)/\Q)\cong \Z/2\Z\times\Z/2\Z.
+\]
+\end{problem}
+\begin{solution}
+先有 $[\Q(\sqrt2):\Q]=2$。又 $\sqrt3\notin\Q(\sqrt2)$，否则设 $\sqrt3=a+b\sqrt2$，平方比较有理与无理部分即得矛盾。所以
+\[
+[\Q(\sqrt2,\sqrt3):\Q]=2\cdot2=4.
+\]
+
+自同构由独立决定 $\sqrt2,\sqrt3$ 的符号，共四个：
+\[
+\sqrt2\mapsto\pm\sqrt2,
+\qquad
+\sqrt3\mapsto\pm\sqrt3.
+\]
+故 Galois 群有四个元素，且每个非单位元平方为单位，因此同构于 Klein 四元群
+\[
+\Z/2\Z\times\Z/2\Z.
+\]
+\end{solution}
+
+\begin{problem}{$\F_{16}$ 的构造}
+\textbf{难度：}\easy\ 设
+\[
+\F_{16}=\F_2[x]/(x^4+x+1).
+\]
+验证 $x^4+x+1$ 在 $\F_2$ 上不可约，并计算 $|\F_{16}^\times|$。
+\end{problem}
+\begin{solution}
+先验根：
+\[
+f(0)=1,\qquad f(1)=1+1+1=1,
+\]
+所以无一次因子。若可约，只能分解为两个二次因子。$\F_2$ 上唯一不可约二次多项式是 $x^2+x+1$，但
+\[
+(x^2+x+1)^2=x^4+x^2+1\neq x^4+x+1.
+\]
+故 $x^4+x+1$ 不可约。
+
+因此商环确是 $2^4=16$ 个元素的域。其乘法群去掉零元，所以
+\[
+|\F_{16}^\times|=16-1=15.
+\]
+\end{solution}
+
+\begin{problem}{分圆域的中间域}
+\textbf{难度：}\medium\ 设 $L=\Q(\zeta_7)$。写出其所有中间域与对应子群。
+\end{problem}
+\begin{solution}
+有
+\[
+\Gal(L/\Q)\cong (\Z/7\Z)^\times\cong \Z/6\Z.
+\]
+循环群的子群与除数对应，所以只有阶 $1,2,3,6$ 的子群，对应四个中间域。
+
+\begin{itemize}
+  \item 阶 $6$ 的全群对应底域 $\Q$；
+  \item 平凡子群对应全域 $L$；
+  \item 唯一阶 $3$ 子群对应唯一二次中间域，即 $\Q(\sqrt{-7})$；
+  \item 唯一阶 $2$ 子群对应唯一三次中间域，即实子域 $\Q(\zeta_7+\zeta_7^{-1})$；
+  \item 以上即为全部中间域。
+\end{itemize}
+
+因为 Galois 群循环，所以每个次数整除 $6$ 的中间域都唯一。
+\end{solution}
+
+\begin{problem}{塔定理}
+\textbf{难度：}\medium\ 设 $K\subset F\subset L$ 为有限扩张。证明
+\[
+[L:K]=[L:F][F:K].
+\]
+\end{problem}
+\begin{solution}
+取 $F/K$ 的一组基 $u_1,\dots,u_m$，其中 $m=[F:K]$；再取 $L/F$ 的一组基 $v_1,\dots,v_n$，其中 $n=[L:F]$。任意 $x\in L$ 可唯一写成
+\[
+x=\sum_{j=1}^n a_jv_j,
+\qquad a_j\in F.
+\]
+又每个 $a_j$ 唯一写成
+\[
+a_j=\sum_{i=1}^m c_{ij}u_i,
+\qquad c_{ij}\in K.
+\]
+于是
+\[
+x=\sum_{i,j} c_{ij}u_iv_j.
+\]
+故 $\{u_iv_j\}$ 张成 $L$ 作为 $K$-向量空间。
+
+若有线性关系 $\sum_{i,j} c_{ij}u_iv_j=0$，按 $v_j$ 分组，由 $v_j$ 对 $F$ 线性无关得每个 $\sum_i c_{ij}u_i=0$；再由 $u_i$ 对 $K$ 线性无关得所有 $c_{ij}=0$。所以 $\{u_iv_j\}$ 线性无关，是基。
+
+故
+\[
+[L:K]=mn=[L:F][F:K].
+\]
+\end{solution}
+
+\begin{problem}{有限域上的Frobenius}
+\textbf{难度：}\medium\ 证明 $\phi:x\mapsto x^p$ 是 $\F_{p^n}$ 的域自同构，且 $\phi^n=\mathrm{id}$，从而
+\[
+\Gal(\F_{p^n}/\F_p)\cong \Z/n\Z.
+\]
+\end{problem}
+\begin{solution}
+在特征 $p$ 下，
+\[
+(x+y)^p=x^p+y^p,
+\qquad (xy)^p=x^py^p,
+\]
+所以 $\phi$ 保加法与乘法，是环同态。有限域上的单射必满射，因此是域自同构。
+
+对任意 $x\in\F_{p^n}$，有 $x^{p^n}=x$，故 $\phi^n(x)=x$，即 $\phi^n=\mathrm{id}$。另一方面，若 $\phi^m=\mathrm{id}$ 且 $m<n$，则所有元素满足 $x^{p^m}=x$，这将迫使域大小不超过 $p^m$，矛盾。
+
+因此 $\phi$ 的阶恰为 $n$，而整个 Galois 群也是 $n$ 阶，所以
+\[
+\Gal(\F_{p^n}/\F_p)=\langle\phi\rangle\cong\Z/n\Z.
+\]
+\end{solution}
+
+\begin{problem}{Galois基本定理的一部分}
+\textbf{难度：}\hard\ 设 $L/K$ 是有限 Galois 扩张，$G=\Gal(L/K)$。证明对任意子群 $H\le G$，
+\[
+[L^H:K]=[G:H].
+\]
+\end{problem}
+\begin{solution}
+Artin 引理说明：若 $\sigma_1,\dots,\sigma_m$ 是 $L$ 上彼此不同的 $K$-自同构，则它们作为从 $L$ 到自身的 $K$-线性映射线性无关。由此可得
+\[
+[L:L^H]\ge |H|.
+\]
+另一方面，对任意 $x\in L$，多项式
+\[
+P_x(T)=\prod_{\sigma\in H}(T-\sigma x)
+\]
+系数都在 $L^H$ 中，所以 $x$ 在 $L^H$ 上代数次数至多 $|H|$。因此
+\[
+[L:L^H]\le |H|.
+\]
+故
+\[
+[L:L^H]=|H|.
+\]
+
+再用塔定理：
+\[
+[L:K]=[L:L^H][L^H:K]=|H|[L^H:K].
+\]
+但因 $L/K$ Galois，$|G|=[L:K]$，于是
+\[
+[L^H:K]=\frac{|G|}{|H|}=[G:H].
+\]
+\end{solution}
+
+\begin{problem}{$\Q(\sqrt[3]{2})$ 非正规}
+\textbf{难度：}\hard\ 证明 $\Q(\sqrt[3]{2})/\Q$ 不是正规扩张，并求其正规闭包。
+\end{problem}
+\begin{solution}
+$\alpha=\sqrt[3]{2}$ 的最小多项式是
+\[
+x^3-2.
+\]
+其三个根为
+\[
+\alpha,\ \zeta_3\alpha,\ \zeta_3^2\alpha.
+\]
+域 $\Q(\alpha)$ 只含实数，因此不含另外两个复根。故 $x^3-2$ 在 $\Q(\alpha)$ 中不完全分裂，扩张不是正规。
+
+加入 $\zeta_3$ 后，三个根都出现，因此正规闭包是
+\[
+\Q(\sqrt[3]{2},\zeta_3).
+\]
+其次数为
+\[
+[\Q(\sqrt[3]{2},\zeta_3):\Q]=6,
+\]
+Galois 群同构于 $S_3$。
+\end{solution}
+
+\begin{problem}{代数基本定理的Galois证明}
+\textbf{难度：}\hard\ 用 Galois 理论说明 $\C$ 是代数闭域。
+\end{problem}
+\begin{solution}
+设 $L/\R$ 为有限扩张。因 $\C=\R(i)$ 且 $[\C:\R]=2$，若存在奇于 $2$ 的有限扩张，则其正规闭包的 Galois 群会有一个奇素数阶 Sylow 子群，从而得到对应的奇数次实扩张。但实系数奇次多项式必有实根，所以不存在非常数奇数次不可约多项式，这与之矛盾。
+
+因此任何有限扩张的次数都是 $2$ 的幂。若 $L/\R$ 为非平凡有限正规扩张，其 Galois 群是 2-群，必有指数 $2$ 子群，于是存在中间域 $M$ 满足 $[M:\R]=2$。但 $\R$ 的二次扩张唯一是 $\C$，而 $\C$ 无真有限扩张（否则会给出次数大于 $2$ 的实有限扩张）。
+
+所以 $\C$ 没有真代数扩张，即为代数闭域。这就是代数基本定理。
+\end{solution}
+
+\section{A.5--A.6 模论与 p-进数、profinite群}
+
+\begin{problem}{360阶有限Abel群分类}
+\textbf{难度：}\easy\ 列出所有阶为 $360=2^3\cdot3^2\cdot5$ 的有限 Abel 群同构类型。
+\end{problem}
+\begin{solution}
+按初等因子分解，分别分类各 Sylow 部分。
+\begin{itemize}
+  \item $2$-部分：$\Z/8,\ \Z/4\times\Z/2,\ \Z/2\times\Z/2\times\Z/2$；
+  \item $3$-部分：$\Z/9,\ \Z/3\times\Z/3$；
+  \item $5$-部分：只有 $\Z/5$。
+\end{itemize}
+因此总共有 $3\cdot2\cdot1=6$ 种：
+\[
+\Z/8\times\Z/9\times\Z/5,
+\ \Z/8\times\Z/3\times\Z/3\times\Z/5,
+\]
+\[
+\Z/4\times\Z/2\times\Z/9\times\Z/5,
+\ \Z/4\times\Z/2\times\Z/3\times\Z/3\times\Z/5,
+\]
+\[
+(\Z/2)^3\times\Z/9\times\Z/5,
+(\Z/2)^3\times\Z/3\times\Z/3\times\Z/5.
+\]
+\end{solution}
+
+\begin{problem}{椭圆曲线的有限挠子群}
+\textbf{难度：}\medium\ 证明对任意椭圆曲线与任意 $n\ge1$，
+\[
+E[\ell^n]\cong (\Z/\ell^n\Z)^2
+\]
+作为 Abel 群。
+\end{problem}
+\begin{solution}
+乘法映射 $[\ell^n]:E\to E$ 在特征 $0$ 下可分，次数为 $\ell^{2n}$，故核 $E[\ell^n]$ 有 $\ell^{2n}$ 个元素。有限 Abel $\ell$-群分类给出
+\[
+E[\ell^n]\cong \Z/\ell^a\Z\oplus\Z/\ell^b\Z,
+\qquad a\ge b,
+\ a+b=2n.
+\]
+
+另一方面，$E[\ell]\cong (\Z/\ell\Z)^2$，且乘以 $\ell$ 的映射
+\[
+E[\ell^n]\twoheadrightarrow E[\ell^{n-1}]
+\]
+每次都会在两个独立方向上同时降低一阶。因此只能有 $a=b=n$。
+
+故
+\[
+E[\ell^n]\cong (\Z/\ell^n\Z)^2.
+\]
+\end{solution}
+
+\begin{problem}{Hensel引理与 $\Z_5$ 中的 $\sqrt{-1}$}
+\textbf{难度：}\medium\ 用 Hensel 引理证明 $x^2+1=0$ 在 $\Z_5$ 中有解，并用 Newton 提升法写出前三步近似。
+\end{problem}
+\begin{solution}
+取 $f(x)=x^2+1$。模 $5$ 时，$x_0=2$ 满足
+\[
+f(2)=5\equiv0\pmod5,
+\qquad f'(2)=4\not\equiv0\pmod5.
+\]
+由 Hensel 引理，存在唯一 $x\in\Z_5$ 使 $x\equiv2\pmod5$ 且 $f(x)=0$。
+
+Newton 迭代为
+\[
+x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}.
+\]
+先取 $x_0=2$。
+\begin{itemize}
+  \item 模 $25$：设 $x_1=2+5t$，则 $(2+5t)^2+1\equiv5+20t\pmod{25}$，取 $t=1$，得 $x_1=7$；
+  \item 模 $125$：设 $x_2=7+25t$，则 $f(x_2)\equiv50(1+2t)\pmod{125}$，取 $t=2$，得 $x_2=57$；
+  \item 模 $625$：设 $x_3=57+125t$，代入得需解 $125(26+114t)\equiv0\pmod{625}$，即 $1+4t\equiv0\pmod5$，取 $t=1$，得 $x_3=182$。
+\end{itemize}
+因此前三步近似可取
+\[
+2,\ 7,\ 57,\ 182.
+\]
+\end{solution}
+
+\begin{problem}{$p$-进展开}
+\textbf{难度：}\medium\ 证明每个 $x\in\Z_p$ 都唯一表示成
+\[
+x=\sum_{n=0}^\infty a_np^n,
+\qquad a_n\in\{0,1,\dots,p-1\},
+\]
+并写出 $-1\in\Z_3$ 的 3 进展开。
+\end{problem}
+\begin{solution}
+先对每个 $m$ 取 $x\bmod p^m$ 的唯一剩余类，写成
+\[
+a_0+a_1p+\cdots+a_{m-1}p^{m-1}\pmod{p^m},
+\qquad 0\le a_i<p.
+\]
+这些有限展开彼此相容，因而在逆极限 $\Z_p=\varprojlim \Z/p^m\Z$ 中收敛到唯一元素 $x$。唯一性来自模 $p^m$ 的逐位唯一性：若两展开不同，取最低不同位即可在某个模 $p^{m+1}$ 下区分。
+
+对 $-1\in\Z_3$，有
+\[
+-1\equiv2\pmod3,
+\qquad -1\equiv2+2\cdot3\pmod9,
+\qquad -1\equiv2+2\cdot3+2\cdot3^2\pmod{27},
+\]
+依此类推，故
+\[
+-1=2+2\cdot3+2\cdot3^2+\cdots=\sum_{n=0}^\infty 2\cdot3^n.
+\]
+\end{solution}
+
+\begin{problem}{$\hat\Z$ 与各个 $\Z_p$ 的乘积}
+\textbf{难度：}\medium\ 证明
+\[
+\hat\Z=\varprojlim_n \Z/n\Z\cong \prod_p \Z_p.
+\]
+\end{problem}
+\begin{solution}
+对每个 $n$ 写素因子分解
+\[
+n=\prod_p p^{v_p(n)}.
+\]
+由中国剩余定理，
+\[
+\Z/n\Z\cong \prod_{p\mid n}\Z/p^{v_p(n)}\Z.
+\]
+当 $n$ 在可除关系下变动时，这些分量系统按素数彼此独立，因此逆极限分解为各素数分量逆极限的乘积：
+\[
+\varprojlim_n \Z/n\Z\cong \prod_p \varprojlim_r \Z/p^r\Z.
+\]
+而右边每个逆极限正是 $\Z_p$。故
+\[
+\hat\Z\cong \prod_p\Z_p.
+\]
+\textbf{注。} 这说明 profinite 整数就是“所有 $p$-进整数同时打包”的对象。
+\end{solution}
+
+\begin{problem}{$G_\Q$ 是profinite群}
+\textbf{难度：}\hard\ 证明
+\[
+G_\Q\cong \varprojlim_{L/\Q\text{ finite Galois}} \Gal(L/\Q),
+\]
+并说明 Krull 拓扑下的紧性。
+\end{problem}
+\begin{solution}
+对每个有限 Galois 扩张 $L/\Q$，限制映射给出群同态
+\[
+\mathrm{res}_L:G_\Q\to \Gal(L/\Q).
+\]
+这些同态彼此相容，因此诱导到逆极限的映射
+\[
+\Phi:G_\Q\to \varprojlim_L \Gal(L/\Q).
+\]
+若 $\Phi(\sigma)=1$，则 $\sigma$ 在每个有限 Galois 子扩张上都平凡，从而在整个 $\bar\Q$ 上平凡，故 $\Phi$ 单射。
+
+反过来，给定一个相容族 $(\sigma_L)_L$，对任意代数数 $\alpha$，取包含它的有限 Galois 扩张 $L$，定义 $\sigma(\alpha)=\sigma_L(\alpha)$。相容性保证此定义与 $L$ 的选择无关，由此得到一个自同构 $\sigma\in G_\Q$，故 $\Phi$ 满射。
+
+每个 $\Gal(L/\Q)$ 都是有限离散因而紧 Hausdorff；其直积紧，逆极限是闭子集，所以也紧 Hausdorff。这就是 Krull 拓扑下的 profinite 性。
+\end{solution}
+
+\begin{problem}{$x^2-p$ 在 $\Z_p$ 中不可约}
+\textbf{难度：}\hard\ 证明多项式 $x^2-p$ 在 $\Z_p$ 上不可约。
+\end{problem}
+\begin{solution}
+若它可约，则存在 $u\in\Z_p$ 使
+\[
+u^2=p.
+\]
+取 $p$-进赋值 $v_p$，得
+\[
+2v_p(u)=v_p(p)=1,
+\]
+这不可能，因为左边是整数的偶数，右边是奇数。因此 $p$ 不是 $\Z_p$ 中的平方。
+
+故 $x^2-p$ 在 $\Q_p$ 中无根，作为二次多项式便不可约；因其首一且系数在 $\Z_p$ 中，也可说它在 $\Z_p[x]$ 中不可约。
+\end{solution}
+
+\begin{problem}{$G_{\Q_p}$ 的阿贝尔化}
+\textbf{难度：}\hard\ 陈述局部类域论中关于
+\[
+G_{\Q_p}^{\mathrm{ab}}\cong \Q_p^\times
+\]
+的结论，并说明惯性群与分解群在局部情形中的关系。
+\end{problem}
+\begin{solution}
+局部类域论给出连续互反同构
+\[
+\operatorname{rec}_{\Q_p}:\Q_p^\times\xrightarrow{\sim}G_{\Q_p}^{\mathrm{ab}}.
+\]
+它把单位群 $\Z_p^\times$ 对应到惯性子群的阿贝尔化，把素元 $p$ 对应到几何或算术 Frobenius 的逆（按规范不同有微小差异）。
+
+在局部域中，整个 Galois 群本身就是某个固定素数上的分解群，所以“分解群”与 $G_{\Q_p}$ 同义。其内部有正规子群 $I_p$，称为惯性群，商群
+\[
+G_{\Q_p}/I_p\cong \Gal(\bar\F_p/\F_p)\cong \hat\Z
+\]
+由 Frobenius 生成。
+
+因此局部 Galois 群可看成“惯性群扩张上 Frobenius”构成的半直积，而其阿贝尔化完全由 $\Q_p^\times$ 描述。这是第 9 章局部表示论的背景定理。
+\end{solution}
