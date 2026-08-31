@@ -905,6 +905,113 @@ Deployment & 在线服务图、人工审核分级、行为 diff \\ \hline
 
 \bigskip\hrule\bigskip
 
+\section{16. 真实项目拆解：把一个 Agent CLI 讲成工程闭环}
+
+到这里不要再只背"应该有 Provider、RAG、MCP、sandbox"。拿一个能运行的项目，把\textbf{文件边界、一次请求的数据流、已经验证的能力和还没补齐的缺口}讲出来，面试官才会相信你真的写过 Agent。
+
+下面用一个 TypeScript 终端编码 Agent（下文称 \texttt{agent-cli}）作案例。它不是用来炫耀"我造了一个 Copilot"，而是用一个足够小的项目证明：你能把模型 API 封装成一个可演进的 Agent runtime。
+
+\subsection{16.1 先给面试官一张真实架构图}
+
+\begin{codeblock}
+用户输入
+   │
+   ▼
+src/cli.ts
+   │  读取工作区、组装 system message、注册工具、打印用量
+   ▼
+src/config.ts ──校验──> Azure 配置（不输出 API key）
+   │
+   ▼
+src/provider.ts: ModelProvider
+   │  Azure OpenAI 协议、消息序列化、tool_calls 反序列化、usage
+   ▼
+src/agent.ts: runAgent
+   │  最大 10 轮；模型决策 → policy check → 工具执行 → tool 回填
+   ├────────────────────────────────────────────────────┐
+   ▼                                                    ▼
+src/sandbox.ts                                     src/tools/*
+策略边界：只读/命令/域名限制                    文件、搜索、typecheck、diff、网络
+   │                                                    │
+   ├───────────────┬──────────────────────┬─────────────┘
+   ▼               ▼                      ▼
+session        MCP client               AST-RAG
+JSON 历史      JSON-RPC stdio           TypeScript export → embedding → SQLite cache
+\end{codeblock}
+
+这张图最关键的不是模块数量，而是\textbf{依赖方向}：\texttt{agent.ts} 只依赖 \texttt{ModelProvider} 和 \texttt{Tool} 接口，不依赖 Azure HTTP 格式；\texttt{provider.ts} 才负责 API key、URL、消息格式和供应商返回值。以后换模型供应商时，不应把改动扩散进 Agent loop。
+
+\begin{quote}
+\textbf{Pi 类比}：这对应 Pi 把模型能力收在 \texttt{packages/ai} 边界之下，Agent runtime 只面对稳定抽象；CLI/TUI 只负责输入、展示和会话驱动。面试时说"我把 provider protocol 留在适配层，不让 runtime 知道 Azure/OpenAI 的 payload 细节"，比说"我用了某某 SDK"强得多。
+\end{quote}
+
+\subsection{16.2 一次“修 TypeScript 错误”的运行时数据流}
+
+假设用户输入：“运行类型检查，定位错误并说明可能的修复方向。”
+
+\begin{enumerate}[leftmargin=2em]
+\item \texttt{cli.ts} 构造系统消息，其中包含当前工作目录、文件树、符号索引和可用工具。
+\item \texttt{runAgent()} 将历史消息与工具 schema 交给 \texttt{ModelProvider.complete()}；Azure 适配层把它序列化为 Chat Completions 请求。
+\item 模型返回 \texttt{tool\_calls}，例如 \texttt{run\_typecheck}；这仍是\textbf{意图}，并没有在模型侧执行命令。
+\item runtime 先调用 \texttt{validateToolCall()}。若处于只读模式、命令不在白名单、URL 不在允许域名内，就把拒绝原因作为 tool result 回填，而不是执行。
+\item 通过校验的调用交给 \texttt{Tool.execute()}。类型检查工具会把编译输出解析成 \texttt{file / line / column / TS code / severity} 的结构化错误。
+\item 所有同轮 tool call 用 \texttt{Promise.all} 并行执行，但按模型给出的顺序回填 \texttt{role: "tool"} 消息；模型据此继续调用工具或给最终回答。
+\item CLI 汇总 prompt、completion 和 cached token，并显示实际成本及 KV cache 节省。
+\end{enumerate}
+
+这比“Agent 会自动修 bug”准确得多。当前项目已经能\textbf{发现并结构化错误}，但“错误 → 检索相关代码 → 生成补丁 → typecheck → 重试”的完整自修复闭环尚未接入 runtime。主动说明这个边界，反而是加分项。
+
+\subsection{16.3 把源码文件变成你的面试证据}
+
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Provider 抽象与用量统计}：\texttt{src/provider.ts}、\texttt{src/cli.ts}。已实现 Azure Chat Completions 适配；不要夸大为已支持多供应商切换。
+\item \textbf{ReAct 式 tool loop}：\texttt{src/agent.ts}。有默认 10 轮上限；\texttt{tokenBudget}、上下文压缩是 runtime 可选能力，当前 CLI 入口并未默认开启。
+\item \textbf{工具安全边界}：\texttt{src/sandbox.ts}、\texttt{src/tools/*}。学习用 CLI 默认允许写入和命令执行；生产环境必须传入只读、目录、命令和域名白名单。
+\item \textbf{语义代码检索}：\texttt{src/rag.ts}、\texttt{src/tools/semanticSearch.ts}。用 TypeScript AST 按 export 分块、SQLite 缓存、余弦相似度 O(N) 扫描；适合小中型工作区，不是十万 chunk 的 HNSW 服务。
+\item \textbf{MCP 适配}：\texttt{src/mcp.ts}。已实现 stdio JSON-RPC 握手、\texttt{tools/list}、\texttt{tools/call} 到内部 Tool 的包装；当前 CLI 入口尚未把 \texttt{--mcp} 接线。
+\item \textbf{错误恢复基础}：\texttt{src/tools/errorRecovery.ts}。已有 typecheck 解析和错误上下文；还缺自动规划、补丁审批与重试闭环。
+\item \textbf{会话与成本}：\texttt{src/session.ts}、\texttt{src/cli.ts}。当前 session 保存对话历史，尚不是带权限、加密、检索和生命周期治理的生产记忆系统。
+\end{itemize}
+
+这份源码映射让你始终说清楚“\textbf{已实现}”“\textbf{设计为可扩展}”“\textbf{下一步要做}”三个层次。面试最怕把 demo 的能力说成生产 SLA；诚实的边界感本身就是工程能力。
+
+\subsection{16.4 三分钟项目陈述：可直接练习}
+
+\begin{quote}
+我实现了一个 TypeScript 终端编码 Agent，目标不是让模型直接碰文件系统，而是把模型的工具调用意图放进受控 runtime。入口层只负责组装工作区上下文和交互；模型协议收在 \texttt{ModelProvider} 接口后，Azure 的鉴权、消息序列化、tool call 解析和 token usage 都留在 provider adapter。
+
+runtime 用有最大轮数的 Agent loop 承接模型决策。模型返回 tool call 后，我先经过 sandbox policy，再分发给统一的 Tool 接口执行，并把结果以 \texttt{role: tool} 回填给模型。这样模型永远没有直接的 shell 或文件权限。对代码理解，我没有按固定行数截断，而是用 TypeScript AST 按顶层 export 分块，嵌入后缓存进 SQLite；因此语义搜索能返回完整函数或类型声明。
+
+我还把类型检查做成了工具，编译错误会被解析成文件、行列、错误码和摘要，供后续检索与修复使用。当前我会明确它的边界：错误检测已完成，但自动规划和修复重试尚未闭环；默认 CLI 的 sandbox 也不能直接当生产策略。下一步我会先给写入和命令工具加显式审批与最小权限，再把错误恢复做成可回放的 golden task。
+\end{quote}
+
+\subsection{16.5 高频追问：从真实取舍展开}
+
+\textbf{Q：为什么不让 \texttt{agent.ts} 直接调用 Azure SDK？}
+答：runtime 需要稳定地表达“发消息、收文本、收 tool call、收 usage”，不需要知道 endpoint、API version 或供应商 payload。把协议细节放进 provider adapter，测试也可以注入 fake provider，避免 Agent loop 和云供应商强耦合。
+
+\textbf{Q：为什么同一轮工具调用要并行？有什么风险？}
+答：独立的只读调用，例如读两个文件、查两个索引，可以并行降低 wall-clock latency；但写文件、修改同一资源、先读后写这类有依赖或副作用的调用不能盲目 \texttt{Promise.all}。生产版应根据 tool metadata 建 DAG、串行化冲突资源，并为写操作加审批和幂等键。
+
+\textbf{Q：这个 sandbox 已经安全吗？}
+答：它提供了正确的执行前 policy hook：只读模式、命令白名单、搜索根目录和 URL 域名白名单。但当前学习 CLI 默认 \texttt{readOnly: false}，且未设置 \texttt{allowedCommands}，因此它证明了边界的位置，不证明默认配置可安全地服务不可信请求。生产化应默认拒绝、按租户配置 capability，并记录审计事件。
+
+\textbf{Q：你的 RAG 为什么不用向量数据库服务？}
+答：本地 CLI 的约束是启动快、依赖少、工作区规模有限。AST 分块避免了正则切坏 TypeScript 声明，SQLite cache 避免每次重建 embedding，O(N) cosine scan 在小中型代码库足够直接。规模扩大后再替换检索后端为 ANN/HNSW，而不是过早引入分布式系统。
+
+\subsection{16.6 面试前的“真实项目”自检}
+
+\begin{itemize}[leftmargin=2em]
+\item 能从终端演示一次 \texttt{read\_file → tool result → final answer}，并解释每一跳是谁执行的。
+\item 能指出一个\textbf{已完成}能力：AST-RAG、typecheck 错误结构化、KV cache 用量统计。
+\item 能指出一个\textbf{未完成}能力：任务规划、完整 error recovery、严格默认 sandbox、MCP CLI 接线。
+\item 能说出下一步不是“再加更多工具”，而是“把写入/命令能力默认收紧，给修复闭环加审批、回归和重试上限”。
+\end{itemize}
+
+这就是把“我做过 Agent demo”升级为“我理解 Agent 工程边界”的最短路径。
+
+\bigskip\hrule\bigskip
+
 \section{本章要点}
 
 \begin{itemize}[leftmargin=2em]
@@ -918,5 +1025,5 @@ Deployment & 在线服务图、人工审核分级、行为 diff \\ \hline
 \item 评估看五类指标 + golden tasks 回归 + 在线指标 + 轨迹评估；没有 trace 就没有调试。
 \item Prompt injection 本质是"把数据当指令执行"，等于 AI 版 XSS，防御要在 runtime 强制校验、不信模型自觉。
 \item 前端的工程直觉（类型/中间件/状态机/回归/XSS/监控/密钥管理）几乎可以一一迁移到工具链——带着这个自信去面试。
+\item 用真实 Agent CLI 讲项目时，必须区分“已实现”“可扩展”和“尚未闭环”；能讲清 provider 边界、运行时 policy、工具回填、AST-RAG 与明确缺口，比堆框架名更有说服力。
 \end{itemize}
-

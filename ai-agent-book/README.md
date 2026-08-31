@@ -101,7 +101,7 @@
 | 准备协议与多 Agent | [第十一章](./chapter-11-multi-agent.md)、[第十二章](./chapter-12-protocols.md) | MCP、A2A、任务交接、协作边界 |
 | 准备框架与部署 | [第十五章](./chapter-15-frameworks-comparison.md)、[第十六章](./chapter-16-deployment.md) | LangGraph/LlamaIndex/Dify 选型、服务化、监控、成本 |
 | 准备系统设计表达 | [第十八章](./chapter-18-interview-system-design.md)、[第二十一章](./chapter-21-agentic-engineering-practice.md) | 需求澄清、架构图、质量门禁、eval 闭环 |
-| 最后总复盘 | [第二十二章](./chapter-22-tooling-chain-interview-accelerator.md) | 把工具调用、RAG、MCP、eval、observability、安全部署串成一条工程主线 |
+| 最后总复盘 | [第二十二章](./chapter-22-tooling-chain-interview-accelerator.md) | 把工具调用、RAG、MCP、eval、observability、安全部署串成一条工程主线，并用真实 Agent CLI 练习项目陈述与边界说明 |
 
 ---
 

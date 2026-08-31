@@ -1,81 +1,89 @@
 # 第八章：Agent 架构模式
 
-很多工程师第一次做 Agent，实际上只是把一个大语言模型（Large Language Model, LLM）包装成“问一句、答一句”的聊天接口。这样的系统当然有价值，但它离真正的 Agent 还有明显距离。判断一个系统是不是 Agent，关键不在 UI 长得像不像聊天框，而在它是否具备**自主性、工具使用能力、规划能力、状态维持能力以及基于反馈继续迭代的闭环执行能力**。这一章我们把这些能力拆开，讲清楚主流架构模式，并从零实现一个可以运行的 ReAct Agent。
+很多工程师第一次做 Agent，实际上只是把一个大语言模型（Large Language Model, LLM）包装成“问一句、答一句”的聊天接口。这样的系统当然有价值；但一旦要让模型读文件、调用 API、执行命令或修改外部状态，问题就不再是“模型够不够聪明”，而是**谁拥有执行权、谁保存状态、谁在失控前踩刹车**。
+
+因此不要把 Agent 想成“更自主的聊天机器人”。更可操作的定义是：
+
+> **Agent 是一个宿主 runtime：模型只在其中提出下一步意图，runtime 负责验证、执行、记录结果并决定何时停止。**
+
+规划、长期记忆、多 Agent 都是可选能力，不是 Agent 的入场券。一个只有“模型选择工具 → 宿主执行 → 结果回填 → 下一轮”的受限循环，已经是 Agent；一个带 Planner 但没有权限边界和停止条件的系统，仍然不可靠。
 
 ## 8.1 什么样的系统才算 Agent
 
 先看最小对比：
 
-| 类型 | 输入 | 输出 | 是否自主决策 | 是否调用工具 | 是否有循环 |
+| 运行时形态 | 模型能决定什么 | 宿主必须保证什么 | 典型边界 |
 |---|---|---|---|---|---|
-| 单次 LLM 调用 | Prompt | 文本 | 否 | 否 | 否 |
-| 带函数调用的问答 | Prompt + Tools | 文本/工具结果 | 弱 | 是 | 弱 |
-| 工作流式 Agent | Goal | 多步执行结果 | 中 | 是 | 是 |
-| 通用 Agent | Goal + 环境状态 | 多轮计划、执行、反思结果 | 强 | 是 | 是 |
+| 单次 LLM 调用 | 只生成文本 | 输入输出格式、超时、内容安全 | 没有外部副作用 |
+| 一次工具调用 | 选择工具和参数 | schema 校验、权限、工具结果回填 | 不能把 tool call 当已执行 |
+| 受限 Agent loop | 每轮决定“回答或继续调用” | 最大步数、token 预算、sandbox、审计 | 最适合从零落地 |
+| 显式工作流 / graph | 只在允许节点做局部决策 | 状态机、审批、幂等、补偿 | 高风险或流程稳定的任务 |
+| Planner + executor | 先生成计划，再决定局部重规划 | checkpoint、计划版本、执行预算 | 长任务，不是默认配置 |
 
-一个“简单 LLM 调用”通常只有两步：拼 Prompt，拿输出。它可以回答“北京今天天气如何”，但不能自己去查天气 API、不能在失败后自动重试、不能分解“帮我比较未来三天上海和深圳的出行建议”这种任务。
+以本地 `agent-cli` 为例，`src/agent.ts` 的 `runAgent()` 并不让模型直接拥有文件或 shell 权限。它接收 `ModelProvider`、`Tool[]`、消息历史和 sandbox 配置；模型返回文本或 `toolCalls`，runtime 再决定是否执行。默认循环最多 10 轮。这个结构比“自主性强/弱”的说法更重要，因为它直接决定能否测试、审计和收紧权限。
 
-而 Agent 具备以下四个核心特征：
+做一个最小 Agent 前，先回答四个具体问题，而不是先背四个抽象名词：
 
-1. **Autonomy（自主性）**：接到目标后，不需要每一步都由用户显式指挥。
-2. **Tool Use（工具使用）**：会调用搜索、数据库、代码执行、文件系统、浏览器等外部能力。
-3. **Planning（规划）**：面对复杂目标时，会分解任务、排序步骤、决定先做什么再做什么。
-4. **Memory（记忆）**：能保留上下文、追踪中间状态，甚至跨会话保留事实与经验。
+1. **状态是什么？** 当前消息、工具结果、文件摘要和计划分别放在哪里，哪些能进入下一轮。
+2. **模型能提什么意图？** 只允许文本，还是允许有限集合中的结构化 tool call。
+3. **谁做最终校验？** 参数、目录、命令、URL、写操作审批不能交给模型自觉。
+4. **如何停止？** 最大轮数、token 预算、用户取消、工具超时和不可恢复错误必须由 runtime 处理。
 
-如果你把“工具调用”理解成 API 编排，把“规划”理解成任务调度，把“记忆”理解成状态管理，那么 Agent 架构其实就是**传统软件工程 + 概率模型决策层**。这也是为什么后端、平台、基础设施工程师转做 Agent 非常有优势。
+如果你把“模型选择下一步”理解成概率决策，把“工具调用”理解成受策略约束的 API 编排，把“记忆”理解成状态管理，那么 Agent 架构其实就是**传统软件工程 + 概率模型决策层**。这也是为什么后端、平台、基础设施工程师转做 Agent 很有优势。
 
 ## 8.2 Agent Loop：Perceive → Reason → Act → Observe
 
-绝大多数 Agent 架构，本质上都是一个循环（loop）：
+绝大多数 Agent 架构，本质上都是一个循环（loop），但不要把 `Reason` 误解为必须展示或保存完整思维链。工程上可观测、可控制的是：模型给出了文本还是结构化动作意图，runtime 是否批准，以及环境返回了什么。
 
 ```text
-+-----------+      +-----------+      +--------+      +-----------+
-| Perceive  | ---> |  Reason   | ---> |  Act   | ---> |  Observe  |
-| 感知输入   |      | 推理决策    |      | 执行动作 |      | 观察结果    |
-+-----------+      +-----------+      +--------+      +-----------+
-      ^                                                        |
-      |                                                        |
-      +-------------------- State / Memory --------------------+
+messages + workspace context
+            │
+            ▼
+    ModelProvider.complete(messages, tools)
+            │
+            ├── 无 tool call ──> final answer
+            ▼
+      tool call intent
+            │
+            ▼
+ sandbox / policy validation ──拒绝──> tool error 回填
+            │ 批准
+            ▼
+ Tool.execute(arguments)
+            │
+            ▼
+ role: tool result 写回 messages ──> 下一轮
 ```
 
-四个阶段的工程含义如下：
+在 `agent-cli` 中，这条路径分别落在 `cli.ts → provider.ts → agent.ts → sandbox.ts → tools/* → agent.ts`。这比 Perceive / Reason / Act / Observe 的术语更值得背，因为每一跳都能放测试、日志和权限检查。
 
-- **Perceive（感知）**：读取用户目标、历史上下文、工具返回值、外部环境状态。
-- **Reason（推理）**：模型决定当前最合理的下一步，是回答、调用工具、修改计划还是结束。
-- **Act（行动）**：真正执行动作，比如调用 HTTP API、写文件、执行 SQL。
-- **Observe（观察）**：收集动作结果，并写回工作记忆（working memory）。
+| 术语 | 在 runtime 里的可验证对象 | 最常见的失败 |
+|---|---|---|
+| Perceive | 送进模型的 messages、工作区摘要、检索结果 | 上下文缺失、陈旧、越权或超预算 |
+| Reason | 文本输出或 `toolCalls` | 工具选错、参数不完整、无意义循环 |
+| Act | 经过 policy 后的 `Tool.execute()` | 权限越界、超时、非幂等重试 |
+| Observe | 规范化的 tool result 回填 | 原始报错过长、结果丢失、无法继续决策 |
 
-这不是理论图，而是生产系统中的最小执行机。你可以把它想象为：
-
-- Perceive = 请求解析层
-- Reason = LLM 决策层
-- Act = Tool Runtime
-- Observe = State Reducer
-
-很多面试题都会问：“Agent 为什么比 Workflow 更灵活？”答案就在这里：Workflow 的路径大多是预先编码的，而 Agent 的路径是在 **Reason 阶段动态生成** 的。
+关键边界是：**模型负责提出意图，runtime 负责执行权、状态写入和终止权。** Workflow 的路径多为预先编码；Agent 的工具选择可动态生成；Graph 则把两者混合，让模型只能在受控节点做局部选择。
 
 ## 8.3 核心架构模式一：ReAct（Reason + Act）
 
-ReAct 是目前最经典、最容易落地的 Agent 模式。它把“思考”和“行动”交替展开，让模型在每一步先判断需要什么，再调用对应工具。
+ReAct 是最经典、最容易落地的 Agent 模式。它不要求把 Thought 暴露给用户，也不要求模型输出固定的 “Thought / Action” 文本。其工程内核只是：**模型依据上一次观察提出下一步工具意图，宿主执行后把观察结果送回去。**
 
-### 8.3.1 ReAct 的核心格式
+### 8.3.1 用真实 tool protocol 看 ReAct
 
-典型 ReAct trace：
+在 `agent-cli` 里，一次“定位 TypeScript 错误”的 trace 更接近下面这样：
 
 ```text
-Thought: 我需要先确认用户说的“本周票房冠军”具体指哪个市场。
-Action: web_search
-Action Input: {"query": "2026 中国内地 本周票房冠军"}
-Observation: 搜索结果显示《X》位列本周中国内地票房第一。
-Thought: 用户还问了导演是谁，我需要继续查询电影信息。
-Action: movie_db_lookup
-Action Input: {"title": "X"}
-Observation: 导演为 Y。
-Thought: 我已经得到完整答案。
-Final Answer: 本周中国内地票房冠军是《X》，导演是 Y。
+用户：运行类型检查并说明最先要修什么
+模型：tool_call { name: "run_typecheck", arguments: {} }
+runtime：检查 sandbox；执行 npm run typecheck
+工具：返回 { success, errors: [{ file, line, column, code, message }] }
+runtime：把结构化结果作为 role: tool 消息回填
+模型：要么调用 read_file / semantic_search 获取上下文，要么输出修复建议
 ```
 
-这个模式的好处有三个：
+这里没有必要暴露模型内部推理。你要记录的是 tool name、经过校验的参数、耗时、结果摘要、是否重试和最终结论。这样既能调试，也不会把不可靠的自由文本思考当成系统事实。
 
 1. **可解释**：可以回放每步 Thought / Action / Observation。
 2. **易调试**：工具失败时能看到是模型选错工具、参数不对，还是外部系统有问题。
@@ -120,7 +128,7 @@ ReAct 并不万能。典型问题包括：
 - 如果工具很多，模型会“犹豫”或乱选工具；
 - 缺少显式长程规划，做项目级任务时效率偏低。
 
-因此实际系统里 अक्सर会把 ReAct 与规划器组合，形成 Plan-and-Execute 或 LangGraph 式状态图。
+因此实际系统里会把 ReAct 与规划器组合，形成 Plan-and-Execute 或 LangGraph 式状态图；但不要为了“像 Agent”而强行加 Planner。
 
 ## 8.4 核心架构模式二：Function Calling
 
@@ -191,7 +199,7 @@ Function Calling（函数调用）不是完整 Agent 架构，但它是现代 Ag
 
 ## 8.5 核心架构模式三：Plan-and-Execute
 
-Plan-and-Execute（规划后执行）适合中长任务。它把系统拆成两个角色：
+Plan-and-Execute（规划后执行）适合中长任务。它把系统拆成两个角色。需要强调的是：**它不是 ReAct 的必选升级。** 当前 `agent-cli` 的 runtime 有受限 loop、预算和上下文压缩能力，但还没有把 Planner 接入默认 CLI；这是合理的阶段性边界，而不是“少了一个 Agent 能力”。
 
 1. **Planner（规划器）**：先给出步骤列表；
 2. **Executor（执行器）**：逐步执行每一步，必要时再局部调整。
@@ -242,7 +250,7 @@ User Goal
 
 ## 8.6 核心架构模式四：Reflexion
 
-Reflexion（反思）可以理解为“Agent 给自己做复盘”。它不是单独替代 ReAct，而是加在执行之后的一层自评机制。
+Reflexion（反思）可以理解为“把可验证失败转化为下一次输入”。它不是单独替代 ReAct，也不是让模型写一段“我以后会更小心”的空泛自评。当前 `agent-cli` 已有 TypeScript 错误解析和错误摘要，正好是 Reflexion 可以消费的事实基础；自动把错误检索、修复、验证和重试串成闭环仍是待完成工作。
 
 典型流程：
 
