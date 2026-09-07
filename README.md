@@ -1,6 +1,6 @@
 # 中文技术书库
 
-以数学的严谨，讲物理的直觉；以工程师的视角，写 AI 与面试指南。本仓库收录数学、物理、AI Engineering、AI Agent、深度学习、编程、历史与面试等中文教材/技术书。
+以数学的严谨，讲物理的直觉；以工程师的视角，整理 AI、编程、历史与语言学习等中文教材和技术书。
 
 所有 PDF 集中存放在 `pdf/` 目录，数学物理部分共 **1339 页**。
 
@@ -43,36 +43,6 @@ session、context compaction、Provider prompt cache、KV cache 边界、extensi
 
 ---
 
-## 🤖 AI Agent 转行指南
-
-### 从零到一：AI Agent 工程师转行与面试完全指南 — `ai-agent-book/`（22 章）
-
-面向传统软件工程师的 AI Agent 转行路线图。涵盖行业全景与岗位分析、LLM/Embedding/RAG 基础、Agent 架构模式（ReAct/Function Calling/多智能体）、MCP 与 A2A 通信协议、LangChain/OpenAI SDK 实战、框架横评与选型、工程化部署，以及 50+ 面试理论题精讲、6 个系统设计案例、编程实操题、Agentic Engineering 实战和 tooling-chain 面试速成主线。附 30/60/90 天学习路线图。
-
-👉 [阅读全书](./ai-agent-book/README.md)
-
----
-
-## 📝 全栈面试指南
-
-### Android / TypeScript / Node.js 面试完全指南 — `fullstack-interview-book/`（18 章）
-
-面向 Android + TypeScript + Node.js 技术栈的系统性面试手册。涵盖 Kotlin 协程/Jetpack Compose/Android 架构与性能优化、TypeScript 类型系统深度/React 原理/前端系统设计、Node.js Event Loop/框架对比/后端系统设计，以及 LeetCode 50 题（Kotlin+TS 双语解法）、计算机网络与操作系统、DevOps、行为面试与外企英文准备。共 340+ 道面试题、14 个系统设计案例。
-
-👉 [阅读全书](./fullstack-interview-book/README.md)
-
----
-
-## 🔥 PyTorch 面试速通
-
-### PyTorch 面试速通：最快上手 + 高频面试题 — `pytorch-interview-book/`（8 章）
-
-面向有 Python 基础、需在短时间内冲刺 ML/DL/算法工程师面试的读者。**尽量简单、精炼、高频**，快速入门到能应付面试：环境与张量/autograd 速通、一章学会建模与训练、必会网络速查（MLP/CNN/RNN/Transformer）、高频理论面试题、手写编码面试题（attention/层/训练循环），以及 **LLM 时代高频的分布式训练**（DataParallel vs DDP、FSDP/ZeRO、数据/张量/流水线并行、AMP 与显存优化）、速查表与常见坑、面试打法与冲刺路线。与《AI Agent 转行指南》互补：本书讲"模型层"，AI Agent 书讲"应用层"。
-
-👉 [阅读全书](./pytorch-interview-book/README.md)
-
----
-
 ## 🌍 托福 100+ 在职学习
 
 ### 在职 24 周新版托福 100+ 学习全书 — `toefl-100-plus-book/`（主教材 794 页）
@@ -80,22 +50,6 @@ session、context compaction、Provider prompt cache、KV cache 边界、extensi
 面向在职学习者的 2026 新版 TOEFL iBT 中文自学教材。按每周 6–6.5 小时设计：工作日 5 天各 45–75 分钟，周末不排托福任务、只保持墨墨背词（24 周内容在此强度下实际约需 36–40 周）。覆盖入门诊断、24 周路线、词汇语法发音、听说读写、原创练习、阶段测验、8 套原创模考、评分复盘、*Sapiens* 辅助阅读和 ChatGPT 口语陪练。另有 98 页可打印训练附册，完整合并版共 891 页。
 
 👉 [阅读说明](./toefl-100-plus-book/README.md) · [下载 PDF](./pdf/toefl-100-plus-book.pdf)
-
----
-
-## 🦉 多邻国 Android 面试
-
-### 多邻国 Android 面试通关手册 — `duolingo-interview-book/`（11 章，168 页 + 35 页遮蔽版习题册）
-
-按 **Duolingo 官方真实面试轮次**组织的中文备战手册，面向 Android / Kotlin 岗位。与《Airbnb 面试通关手册》共用一套排版，但重心完全不同：Duolingo 有一轮**独立的 Code Review（查错）**，且 Android 岗的 Design 轮是**客户端架构设计**而非后端 System Design——这两轮恰恰是刷题准备迁移性最差、边际收益最高的地方。
-
-- **17 道查错题**：协程 Scope / Dispatcher / 协作式取消 / 结构化并发 / Flow 生命周期 / 竞态（6 题）；Fragment binding 泄漏 / viewLifecycleOwner / ViewModel 持 Context / ViewHolder 协程 / DiffUtil 与 stable ID / 监听器解注册（6 题）；StateFlow 暴露 / LaunchedEffect key / 重组性能 / 空安全 / Java 味 Kotlin（5 题）
-- **9 道 Android 架构设计题**：离线课程同步、连胜客户端、排行榜 XP 预测与三种回滚策略、A/B 实验 SDK、Server-Driven UI 渲染框架、图片音频缓存、推送通知客户端、间隔重复本地存储、DuoState 全局状态重构
-- 另含 Kotlin 算法轮、75 分钟结对编程轮打法、12 条 Operating Principles 与 STAR 故事矩阵、两周冲刺计划
-- 全书区分 **[官方] / [面经报告] / [高置信推断]** 三级来源可靠性标记
-- 附**遮蔽版习题册**（`make drills` → 35 页）：只有题面没有答案。正文里题目与答案同页，顺着读练的是「再认」，而面试考的是「回忆」——这两件事的差距，正是这本册子要暴露的
-
-👉 [阅读全书](./duolingo-interview-book/README.md) ｜ [PDF](./pdf/duolingo-interview-book.pdf) ｜ [习题册 PDF](./pdf/duolingo-interview-drills.pdf)
 
 ---
 
@@ -174,12 +128,6 @@ cd physics-textbook && lualatex main.tex && lualatex main.tex
 
 ```
 ├── ai-engineering-book/       # 《AI Engineering Living Book》(7 部分, Markdown)
-├── ai-agent-book/             # 《AI Agent 转行与面试指南》(22章)
-├── fullstack-interview-book/  # 《全栈面试指南》(18章)
-├── pytorch-interview-book/    # 《PyTorch 面试速通》(8章, LaTeX)
-├── airbnb-interview-book/     # 《Airbnb 面试指南》
-├── duolingo-interview-book/   # 《多邻国 Android 面试通关手册》(11章 168页 + 35页习题册, LaTeX)
-├── cpp-to-java-algo-book/     # 《C++ 到 Java 算法与数据结构》
 ├── claude-code-book/          # 《深入剖析 Claude Code》技术书 (17章)
 ├── pi-learning-book/           # 《系统理解 Pi》源码学习教材
 ├── toefl-100-plus-book/        # 《在职 24 周新版托福 100+ 学习全书》
